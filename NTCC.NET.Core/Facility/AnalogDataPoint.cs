@@ -13,6 +13,8 @@ namespace NTCC.NET.Core.Facility
         public AnalogDataPoint(string name) : base(name)
         {
             Group = "Аналоговые входы";
+
+            ValueFormatter = vf => vf.ToString("N2"); ;
         }
 
         /// <summary>
@@ -118,9 +120,7 @@ namespace NTCC.NET.Core.Facility
                 if (uints == value)
                     return;
 
-                uints = value;
-
-                ValueFormatter = vf => vf + "," + value;
+                uints = value;                
                 OnPropertyChanged();
             }
         }

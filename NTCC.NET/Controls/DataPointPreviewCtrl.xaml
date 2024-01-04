@@ -241,7 +241,8 @@
                         <lvc:Gauge Grid.Row="6" Grid.ColumnSpan="2"                   
                                    From="{Binding MinValue}" 
                                    To="{Binding MaxValue}" 
-                                   Value="{Binding Signal}">                      
+                                   Value="{Binding Signal}"                                  
+                                   LabelFormatter="{Binding ValueFormatter}">                      
                         </lvc:Gauge> 
 
                         <Grid Grid.Row="7" Margin="0, 20, 0, 0">
