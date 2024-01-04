@@ -1,0 +1,66 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
+
+    <ResourceDictionary.MergedDictionaries>
+
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+
+        <!--  Fonts  -->
+        <ResourceDictionary Source="pack://application:,,,/NTCC.NET.UI;component/Fonts/Fonts.xaml" />
+       
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style x:Key="StageEditorTextBoxStyle" 
+           TargetType="TextBox" 
+           BasedOn="{StaticResource MahApps.Styles.TextBox}">
+
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontFamily" Value="{StaticResource RCRegularLight}" />
+
+    </Style>
+
+    <Style x:Key="StageEditorValueTextBoxStyle"
+           BasedOn="{StaticResource StageEditorTextBoxStyle}" 
+           TargetType="{x:Type TextBox}">
+
+        <Setter Property="Width" Value="150" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="15, 5" />
+
+    </Style>
+
+    <Style x:Key="StageEditorValueUpDownStyle" TargetType="mah:NumericUpDown">
+
+        <Setter Property="Interval" Value="5" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="UpDownButtonsWidth" Value="35"/>
+        <Setter Property="FontFamily" Value="{StaticResource RCRegularLight}" />        
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        
+
+    </Style>
+    
+
+    <Style x:Key="TimePickerValueStyle" TargetType="mah:TimePicker">
+
+        <Setter Property="Margin" Value="15, 5" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontFamily" Value="{StaticResource RCRegularLight}" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+
+    </Style>
+
+    <Style x:Key="StageEditorComboBoxStyle" 
+           TargetType="ComboBox" 
+           BasedOn="{StaticResource MahApps.Styles.ComboBox}">
+
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontFamily" Value="{StaticResource RCRegularLight}" />
+
+    </Style>
+
+</ResourceDictionary>

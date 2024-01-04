@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NTCC.NET.Core.Facility.AcquisitionDeviceBase" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAIIygIECAIBAgAEIQAAJCAAQgQAABIICCYIAQAEAE=</HashCode>
+      <FileName>Facility\AcquisitionDeviceBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.AnalogDataPoint" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAQAAAAggAAAAIAAIAAAIAAihAEAAgAAAAAAA=</HashCode>
+      <FileName>Facility\AnalogDataPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.AnalogOutputDataPoint" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAIAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Facility\AnalogOutputDataPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.ArtMonbatRegisterInfo" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\ArtMonbatChannelsMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.ArtMonbatChannelsMapper" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgwABgAAAAACAIQAAAAAIAAQABAABAAQAAAhAAAAKA=</HashCode>
+      <FileName>Facility\ArtMonbatChannelsMapper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.ArtMonbatDevice" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEACAAEIAAIAAAAAAAAIAAKQAQAABAAQCEJAAAAAA=</HashCode>
+      <FileName>Facility\ArtMonbatDevice.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.ArtMonbatFacility" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIAAAIQAAAAAACAAAAAAAAAAAYAAAAAAAAAA=</HashCode>
+      <FileName>Facility\ArtMonbatFacility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DataPoint" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEACAAAACgAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Facility\DataPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DataPointFactory" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\DataPointFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DataPointsSet" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAACAAgAAAAAAAAAAAAQAAAAAAAABA=</HashCode>
+      <FileName>Facility\DataPointsSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DevicesSet" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAABAAAACAAAAAAAQAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Facility\DevicesSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DiscreteDataPoint" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgAAAAIAEAAgAAAAAAAAAAAAgAAAAEAAAABAAAACA=</HashCode>
+      <FileName>Facility\DiscreteDataPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DiscreteOutputDataPoint" Collapsed="true">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\DiscreteOutputDataPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.FacilityElement" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAghEAAIAQAAAAAgAAACAAAAAAAAAAAQgA=</HashCode>
+      <FileName>Facility\FacilityElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.StringEventArgs" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Facility\FacilityHandlers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.DiscreteDataEventArgs" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\FacilityHandlers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.AnalogDataEventArgs" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\FacilityHandlers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NTCC.NET.Core.Facility.HeatingGroup" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\HeatingGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="NTCC.NET.Core.Facility.MessageHandler" Collapsed="true">
+    <Position X="9.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Facility\FacilityHandlers.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

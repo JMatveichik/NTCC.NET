@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="NTCC.NET.Pages.FacilityPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:facility="clr-namespace:NTCC.NET.Core.Facility;assembly=NTCC.NET.Core"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
+             xmlns:local="clr-namespace:NTCC.NET.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" 
+                Grid.Column="0" 
+                Style="{StaticResource BorderBox}">
+
+            <ListBox ItemsSource="{Binding HeatingZones}"
+                     SelectedItem="{Binding SelectedHeatingZone}"
+                     SelectedIndex="0">
+                
+                <ListBox.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
+                        <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                        <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
+                        <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
+                        <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
+                        <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+
+                    </Style>
+
+                    <DataTemplate DataType="{x:Type facility:ReactorHeatingZone}">
+                        <ctrls:HeatingZoneItemPanel DataContext="{Binding}"/>
+                    </DataTemplate>
+
+                </ListBox.Resources>
+            </ListBox>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="0" 
+                Style="{StaticResource BorderBox}"
+                Visibility="{cb:Binding IsHeatingZoneSelected, FalseToVisibility=Hidden}">
+
+            <ctrls:HeatingZonePanel 
+                                DataContext="{Binding SelectedHeatingZone}"/>
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Style="{StaticResource BorderBox}">
+        <Grid>
+
+                <lvc:CartesianChart Margin="5" 
+                                    LegendLocation="Top"
+                                    DisableAnimations="True"
+                                    FontFamily="{StaticResource RCRegularLight}"
+                                    Series="{Binding SelectedSeriesCollection}">
+
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Foreground="{StaticResource MahApps.Brushes.Accent}"
+                                  DisableAnimations="True"
+                              MinValue="0" 
+                              MaxValue="850" 
+                              Title="Температуры, °C"
+                              FontFamily="{StaticResource RCRegularLight}"
+                              FontSize ="16">
+                            
+                        </lvc:Axis>
+
+                        <lvc:Axis Foreground="{StaticResource MahApps.Brushes.Control.Validation}" 
+                                  DisableAnimations="True"
+                                  Title="Мощность, %" 
+                                  MinValue="0" 
+                                  MaxValue="100"
+                                  Position="RightTop"
+                                  FontFamily="{StaticResource RCRegularLight}"
+                                  FontSize ="16">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator StrokeThickness="0" Stroke="Transparent" Step="5"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis DisableAnimations="True"/>
+                    </lvc:CartesianChart.AxisX>
+
+                </lvc:CartesianChart>
+            
+        </Grid>
+        </Border>
+    </Grid>
+
+</UserControl>

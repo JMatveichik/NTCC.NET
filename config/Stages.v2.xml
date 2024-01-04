@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Stages>
+	<Stage ID="STG.PREHEAT"
+			Description="Предварительный нагрев реактора до температуры окисления">
+		
+		<Heating>
+			<Zone ID="HT01" TargetWallTemperature="750" HearterPower="80" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02" TargetWallTemperature="760" HearterPower="81" MaxHeaterTemperature="811"/>
+			<Zone ID="HT03" TargetWallTemperature="770" HearterPower="82" MaxHeaterTemperature="812"/>
+			<Zone ID="HT04" TargetWallTemperature="780" HearterPower="83" MaxHeaterTemperature="813"/>
+			<Zone ID="HT05" TargetWallTemperature="790" HearterPower="84" MaxHeaterTemperature="814"/>
+		</Heating>	
+		
+		<Initialize>
+			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="123" Value="0"/>
+		</Initialize>
+		
+		<Finalize>
+			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="123" Value="0"/>
+		</Finalize>
+		
+	</Stage>
+</Stages>

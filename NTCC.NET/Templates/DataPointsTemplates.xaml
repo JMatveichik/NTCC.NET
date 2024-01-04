@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:facility="clr-namespace:NTCC.NET.Core.Facility;assembly=NTCC.NET.Core"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"        
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    
+
+</ResourceDictionary>

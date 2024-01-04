@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<!-- Определение перечисления -->
+	<xs:simpleType name="DataPointType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DI"/>
+			<xs:enumeration value="DO"/>
+			<xs:enumeration value="AI"/>
+			<xs:enumeration value="AO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:element name="DataPoints">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="DataPoint">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="Type" type="DataPointType" use="required" />
+								<xs:attribute name="ID" type="xs:string" use="required" />
+								<xs:attribute name="Name" type="xs:string" use="required" />
+								<xs:attribute name="DeviceID" type="xs:string" use="required" />
+								<xs:attribute name="ToStr" type="xs:string" use="optional" />
+								<xs:attribute name="Channel" type="xs:unsignedByte" use="required" />
+								<xs:attribute name="Group" type="xs:string" use="optional" />
+								<xs:attribute name="Units" type="xs:string" use="optional" />
+								<xs:attribute name="MinSignal" type="xs:string" use="optional" />
+								<xs:attribute name="MaxSignal" type="xs:string" use="optional" />
+								<xs:attribute name="MinValue" type="xs:string" use="optional" />
+								<xs:attribute name="MaxValue" type="xs:string" use="optional" />
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<HeatingGroups>
+	
+	<HeatingGroup	ID="HT01" 
+					Description="Нагрев внутренней зоны реактора"
+					State ="HT01.ON"
+					Run ="HT01.QF.RUN"
+					Duty ="HT01.DUTY"
+					Period="HT01.PERIOD"
+					ErrorCode ="HT01.ERROR.CODE"
+					EStop ="HT01.E.STOP"
+					PWM ="HT01.PWM"
+					ProtectionOut="HT01.PROTECTION.OUT"
+					DutyWrite="HT01.DUTY.WR"
+					PeriodWrite="HT01.PERIOD.WR">
+		
+		<HeatingZone ID="HT01.EK1" 
+					 Description ="Внутренняя верхняя зона"
+					 WallTemperature="TE18">
+			
+			<HeatingElement ID="EK1.1" 
+							Description ="Внутренний верхний нагреватель (левый)"
+							Temperature ="TE01"
+							Current = "TA01.1"/>
+							
+			<HeatingElement ID="EK1.2" 
+							Description ="Внуттенний верхний нагреватель (правый)"
+							Temperature ="TE01"
+							Current = "TA01.2"/>
+		
+		</HeatingZone>
+
+		<HeatingZone ID="HT01.EK2" 
+					 Description ="Внутренний нижняя зона"
+					 WallTemperature="TE19">
+			
+			<HeatingElement ID="EK2" 
+							Description ="Внутренний нижний нагреватель"
+							Temperature ="TE02"
+							Current = "TA02"/>
+		</HeatingZone>
+		
+	</HeatingGroup>
+
+	<HeatingGroup	ID="HT02"
+					Description="Нагрев наружной верхней и нижней зоны реактора"
+					State ="HT02.ON"
+					Run ="HT02.QF.RUN"
+					Duty ="HT02.DUTY"
+					Period="HT02.PERIOD"
+					ErrorCode ="HT02.ERROR.CODE"
+					EStop ="HT02.E.STOP"
+					PWM ="HT02.PWM"
+					ProtectionOut="HT02.PROTECTION.OUT"
+					DutyWrite="HT02.DUTY.WR"
+					PeriodWrite="HT02.PERIOD.WR">
+
+		<HeatingZone ID="HT02.EK3"
+					 Description ="Наружный верхний нагреватель"
+					 WallTemperature="TE13">
+
+			<HeatingElement ID="EK3.1"
+							Description ="Наружный верхний нагреватель (левый)"
+							Temperature ="TE03"
+							Current = "TA03"/>
+
+			<HeatingElement ID="EK3.2"
+							Description ="Наружный верхний нагреватель (правый)"
+							Temperature ="TE04"
+							Current = "TA04"/>
+
+		</HeatingZone>
+
+		<HeatingZone ID="HT04.EK7"
+					 Description ="Наружный нижний нагреватель"
+					 WallTemperature="TE17">
+
+			<HeatingElement ID="EK7.1"
+							Description ="Наружный нижний нагреватель (левый)"
+							Temperature ="TE11"
+							Current = "TA07"/>
+
+			<HeatingElement ID="EK7.2"
+							Description ="Наружный нижний нагреватель (правый)"
+							Temperature ="TE12"
+							Current = "TA07"/>
+
+		</HeatingZone>
+
+	</HeatingGroup>
+
+	<HeatingGroup	ID="HT03"
+					Description="Нагрев наружной средней зоны реактора"
+					State ="HT03.ON"
+					Run ="HT03.QF.RUN"
+					Duty ="HT03.DUTY"
+					Period="HT03.PERIOD"
+					ErrorCode ="HT03.ERROR.CODE"
+					EStop ="HT03.E.STOP"
+					PWM ="HT03.PWM"
+					ProtectionOut="HT03.PROTECTION.OUT"
+					DutyWrite="HT03.DUTY.WR"
+					PeriodWrite="HT03.PERIOD.WR">
+
+		<HeatingZone ID="HT03.EK4"
+					 Description ="Наружный средний-верхний нагреватель"
+					 WallTemperature="TE14">
+
+			<HeatingElement ID="EK4.1"
+							Description ="Наружный средний-верхний нагреватель (левый)"
+							Temperature ="TE05"
+							Current = "TA04"/>
+
+			<HeatingElement ID="EK4.2"
+							Description ="Наружный средний-верхний нагреватель (правый)"
+							Temperature ="TE06"
+							Current = "TA04"/>
+
+		</HeatingZone>
+
+		<HeatingZone ID="HT03.EK5"
+					 Description ="Наружный средний нагреватель"
+					 WallTemperature="TE15">
+
+			<HeatingElement ID="EK5.1"
+							Description ="Наружный средний нагреватель (левый)"
+							Temperature ="TE07"
+							Current = "TA05"/>
+
+			<HeatingElement ID="EK5.2"
+							Description ="Наружный средний нагреватель (правый)"
+							Temperature ="TE08"
+							Current = "TA05"/>
+
+		</HeatingZone>
+
+		<HeatingZone ID="HT03.EK6"
+					 Description ="Наружный средний-нижний нагреватель"
+					 WallTemperature="TE16">
+
+			<HeatingElement ID="EK6.1"
+							Description ="Наружный средний-нижний нагреватель (левый)"
+							Temperature ="TE09"
+							Current = "TA06"/>
+
+			<HeatingElement ID="EK6.2"
+							Description ="Наружный средний-нижний нагреватель (правый)"
+							Temperature ="TE10"
+							Current = "TA06"/>
+
+		</HeatingZone>
+
+	</HeatingGroup>
+
+	<HeatingGroup	ID="HT04"
+					Description="Подогрев газа"
+					State ="HT04.ON"
+					Run ="HT04.QF.RUN"
+					Duty ="HT04.DUTY"
+					Period="HT04.PERIOD"
+					ErrorCode ="HT04.ERROR.CODE"
+					EStop ="HT04.E.STOP"
+					PWM ="HT04.PWM"
+					ProtectionOut="HT04.PROTECTION.OUT"
+					DutyWrite="HT04.DUTY.WR"
+					PeriodWrite="HT04.PERIOD.WR">
+
+		<HeatingZone ID="HT04.EK8"
+					 Description ="Нагреватель газа"
+					 WallTemperature="TE20">
+
+			<HeatingElement ID="EK8"
+							Description ="Нагреватель газа внутренний"
+							Temperature ="TE21"
+							Current = "TA08"/>
+
+		</HeatingZone>
+
+	</HeatingGroup>
+	
+</HeatingGroups>

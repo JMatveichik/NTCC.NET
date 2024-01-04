@@ -1,0 +1,298 @@
+﻿<UserControl x:Class="NTCC.NET.Controls.HeatingZonePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:NTCC.NET.UI.Converters;assembly=NTCC.NET.UI"
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:facility="clr-namespace:NTCC.NET.Core.Facility;assembly=NTCC.NET.Core"
+             xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <converters:BooleanToColorConverter x:Key="BoolToColor"  
+                                            TrueColor="ForestGreen" 
+                                            FalseColor="OrangeRed"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>            
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            Style="{StaticResource BorderUnderline}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Style="{StaticResource Header2}"
+			               Text="{Binding Path=ID}"/>
+
+                <TextBlock Grid.Column="1"
+                           Style="{StaticResource Header2}"
+			               Text="{Binding Path=Description}"/>
+            </Grid>
+        </Border>
+        -->
+                
+        <Grid Grid.Column="0" Grid.Row="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                    Style="{StaticResource BorderUnderline}">
+                <TextBlock
+                    Text="СОСТОЯНИЕ"
+                    Style="{StaticResource TableHeader}" />
+            </Border>    
+                
+            <TextBlock
+                    Grid.Row="1" Grid.Column="0"
+                    Text="Скважность, %"
+                    Style="{StaticResource ValueSmall}" />
+
+            <TextBlock
+                Grid.Row="1" Grid.Column="1"
+                Text="{Binding Duty.Value}"
+                Style="{StaticResource ValueSmall}" 
+                Margin="10, 1"/>
+
+            <TextBlock
+                Grid.Row="2" Grid.Column="0"
+                Text="Период, мс"
+                TextWrapping="Wrap"
+                Style="{StaticResource ValueSmall}" />
+
+            <TextBlock
+                Grid.Row="2" Grid.Column="1"
+                Text="{Binding Period.Value}"
+                Style="{StaticResource ValueSmall}" 
+                Margin="10, 1"/>
+
+            <TextBlock
+                Grid.Row="3" Grid.Column="0"
+                Text="Код ошибки"
+                TextWrapping="Wrap"
+                Style="{StaticResource ValueSmall}" 
+                />
+
+            <TextBlock
+                Grid.Row="3" Grid.Column="1"
+                Text="{Binding ErrorCode.Value}"
+                Style="{StaticResource ValueSmall}" 
+                Margin="10, 1"/>
+
+            <TextBlock
+                Grid.Row="4" Grid.Column="0"
+                Text="Питание"
+                Style="{StaticResource ValueSmall}" />
+
+            <ctrls:DiscreteDataPointState 
+                Grid.Row="4" Grid.Column="1"
+                DataContext="{Binding State}"/>
+
+            <TextBlock
+                Grid.Row="5" Grid.Column="0"
+                Text="{Binding EStop.Description}"
+                TextWrapping="Wrap"
+                Style="{StaticResource ValueSmall}" />
+
+            <ctrls:DiscreteDataPointState 
+                Grid.Row="5" Grid.Column="1"
+                DataContext="{Binding EStop}"/>
+
+            <TextBlock
+                Grid.Row="6" Grid.Column="0"
+                Text="{Binding PWM.Description}"
+                TextWrapping="Wrap"
+                Style="{StaticResource ValueSmall}" />
+
+            <ctrls:DiscreteDataPointState 
+                Grid.Row="6" Grid.Column="1"
+                DataContext="{Binding PWM}"/>
+
+            
+            <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+                    Style="{StaticResource BorderUnderline}">
+                <TextBlock
+                    Text="НАГРЕВАТЕЛЬНЫЕ ЭЛЕМЕНТЫ"
+                    FontWeight="Bold"
+                    Margin="5"
+                    Style="{StaticResource TableHeader}" />
+            </Border>
+            
+            <ItemsControl Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                          ItemsSource="{Binding HeatingElements}">
+                    
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type facility:ReactorHeatingElement}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                                
+                            <TextBlock Grid.Column="0" Style="{StaticResource ValueSmall}" Text="{Binding ID}"/>
+                            <TextBlock Grid.Column="1" Style="{StaticResource ValueSmall}" Text="{Binding NominalPower, StringFormat={}{0:F1} кВт}"/>
+                            <TextBlock Grid.Column="2" Style="{StaticResource ValueSmall}" Text="{Binding Current.Value, StringFormat={}{0:F1} A}"/>
+                            <TextBlock Grid.Column="3" Style="{StaticResource ValueSmall}" Text="{Binding Temperature.Value, StringFormat={}{0:F0} °C}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+             </ItemsControl>
+
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="5">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+           
+            <Border Grid.Row="0"  Style="{StaticResource BorderUnderline}">
+
+                <TextBlock Text="ЦЕЛЕВАЯ ТЕМПЕРАТУРА, °C" 
+                           FontWeight="Bold"
+                           Margin="5"
+                           Style="{StaticResource TableHeader}" />
+            </Border>
+
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <mah:NumericUpDown  Grid.Column="0"
+                                    Style="{StaticResource StageEditorValueUpDownStyle}"
+                                    Value="{Binding MinTargetWallTemperature}"/>
+
+                <mah:NumericUpDown  Grid.Column="1"
+                                    Style="{StaticResource StageEditorValueUpDownStyle}"
+                                    Value="{Binding MaxTargetWallTemperature}"/>
+                
+            </Grid>
+
+            <Border Grid.Row="3" Style="{StaticResource BorderUnderline}">
+
+                <TextBlock Text="МОЩНОСТЬ, %" 
+                           FontWeight="Bold"
+                           Margin="0, 10, 0, 0"
+                           Style="{StaticResource TableHeader}" />
+            </Border>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock 
+                    Grid.Column="0"
+                    Text="{Binding DutyWrite.Value}"
+                    Style="{StaticResource Value}" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0"/>
+
+                <mah:NumericUpDown  Grid.Column="1"
+                                    Style="{StaticResource StageEditorValueUpDownStyle}"
+                                    Value="{Binding MaxPowerLevel}"/>
+
+            </Grid>
+
+            <Border Grid.Row="5"  Style="{StaticResource BorderUnderline}">
+
+                <TextBlock Text="КОНТРОЛЬ" 
+                           FontWeight="Bold"
+                           Margin="0, 10, 0, 0"
+                           Style="{StaticResource TableHeader}" />
+            </Border>
+
+            <Grid Grid.Row="6" DataContext="{Binding Run}" Margin="0, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock 
+                    Grid.Column="0"
+                    Text="ПИТАНИЕ"
+                    Style="{StaticResource TableHeader}" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Foreground="{Binding State, Converter={StaticResource BoolToColor}}"
+                    Margin="0"/>
+
+                <Button Grid.Column="1" 
+                        Content="{Binding Path=StateString}"
+                        Tag="{Binding}"
+                        Click="SwitchHeaterPower"/>
+
+            </Grid>
+            <Grid Grid.Row="7" DataContext="{Binding}" Margin="0, 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock 
+                    Grid.Column="0"
+                    Text="АВТО КОНТРОЛЬ"
+                    Style="{StaticResource TableHeader}"
+                    Foreground="{Binding IsControlStarted, Converter={StaticResource BoolToColor}}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="0"/>
+
+                <Button Grid.Column="1" 
+                        Content="ON/OFF"
+                        Tag="{Binding}"
+                        Height="30"
+                        Click="SwitchHeatingControl"/>
+
+            </Grid>
+
+        </Grid>
+        
+    </Grid>
+</UserControl>
