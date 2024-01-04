@@ -1,8 +1,11 @@
 ﻿using NTCC.NET.Core.Facility;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace NTCC.NET.Core.Stages
 {
@@ -388,10 +391,12 @@ namespace NTCC.NET.Core.Stages
                 //вызываем обработчики начала подготовки
                 OnStageStep(StageState.Prepearing);
 
+                StageResult result = StageResult.Successful;
+
                 //подготовка к выполнению стадии            
-                StageResult result = Prepare();
-                if (result != StageResult.Successful)
-                    return result;
+                //TODO : StageResult result = Prepare();
+                //if (result != StageResult.Successful)
+                //    return result;
 
                 //вызываем обработчики завершения подготовки стадии к выполнению
                 OnStageStep(StageState.Prepeared);
@@ -447,11 +452,70 @@ namespace NTCC.NET.Core.Stages
 
         #region АБСТРАКТНЫЕ ОПЕРАЦИИ ШАБЛОННОГО МЕТОДА
 
+        double parseDoubleAttribute(XElement xmlElem, string strAttribute)
+        {
+            string strValue = xmlElem.Attribute(strAttribute)?.Value;
+            
+            if (string.IsNullOrEmpty(strValue))
+                throw new IOException($"Не задан  параметр '{strAttribute}' для стадии <{ID}>");
+
+
+            double doubleValue = 0.0;
+            if (!double.TryParse(strValue, out doubleValue))
+                throw new IOException($"Ошибка задания параметра {strAttribute} = '{strValue}' для стадии <{ID}>");
+
+            return doubleValue;
+        }
+
         /// <summary>
         /// Действия при подготовке к стадии
         /// </summary>
         /// <returns></returns>
-        protected abstract StageResult Prepare();
+        public  virtual StageResult Prepare(string configDir)
+        {
+            try
+            {
+                if (!Directory.Exists(configDir))
+                    throw new IOException($"Не найдена директория для конфигурирования установки <{configDir}>");
+
+                string xmlStagesPath = Path.Combine(configDir, "Stages.v2.xml");
+                XDocument xmlDocument = XDocument.Load(xmlStagesPath);
+                XElement xmlRoot = xmlDocument.Root;
+
+                XElement xmlStage = xmlRoot.XPathSelectElement($"descendant::Stage[@ID='{ID}']");
+
+                if (xmlStage == null)
+                {
+                    throw new IOException($"Не найдена конфигурация для стадии <{ID}>");
+                }
+                                
+
+                foreach (var xmlZone in xmlStage.Descendants("Zone"))
+                {
+                    string zoneID = xmlZone.Attribute("ID")?.Value;
+
+                    var zone = ArtMonbatFacility.ReactorHeaters[zoneID];
+
+                    double minWallTemperature   = parseDoubleAttribute(xmlZone, "MinWallTemperature");
+                    double maxWallTemperature   = parseDoubleAttribute(xmlZone, "MaxWallTemperature");
+                    double hearterPower         = parseDoubleAttribute(xmlZone, "HearterPower");
+                    double maxHeaterTemperature = parseDoubleAttribute(xmlZone, "MaxHeaterTemperature");
+
+                    zone.SetupControl(minWallTemperature, 
+                                        maxWallTemperature,
+                                        hearterPower,
+                                        maxHeaterTemperature);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                
+                return StageResult.Failed;
+            }
+
+            return StageResult.Successful;
+        }
 
 
         /// <summary>

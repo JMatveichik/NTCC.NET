@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Stages>
-	<Stage ID="STG.PREHEAT"
+	<Stage  ID="STG.PREHEAT"
 			Description="Предварительный нагрев реактора до температуры окисления">
 		
 		<Heating>
-			<Zone ID="HT01" TargetWallTemperature="750" HearterPower="80" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02" TargetWallTemperature="760" HearterPower="81" MaxHeaterTemperature="811"/>
-			<Zone ID="HT03" TargetWallTemperature="770" HearterPower="82" MaxHeaterTemperature="812"/>
-			<Zone ID="HT04" TargetWallTemperature="780" HearterPower="83" MaxHeaterTemperature="813"/>
-			<Zone ID="HT05" TargetWallTemperature="790" HearterPower="84" MaxHeaterTemperature="814"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
 		</Heating>	
 		
 		<Initialize>
-			<DataPoint ID="123" Value="0"/>
-			<DataPoint ID="123" Value="0"/>
-			<DataPoint ID="123" Value="0"/>
-			<DataPoint ID="123" Value="0"/>
+			<DataPoint ID="YA05.OPN" 			Value="0"/>
+			<DataPoint ID="MD400C.SETPOINT.WR"  Value="0"/>
+			<DataPoint ID="BH.SETPOINT.WR" 	    Value="0"/>
+			<DataPoint ID="YA13.OPN" 		    Value="0"/>
 		</Initialize>
 		
 		<Finalize>

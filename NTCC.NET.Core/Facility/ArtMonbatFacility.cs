@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTCC.NET.Core.Stages;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -68,6 +69,9 @@ namespace NTCC.NET.Core.Facility
 
             try
             {
+
+                
+
                 //инициализация устройств управления/измерения
                 string xmlDevicesPath = Path.Combine(configDir, "Devices.v1.xml");
                 string xsdDevicesPath = Path.Combine(configDir, "Devices.v1.xsd");
@@ -84,6 +88,9 @@ namespace NTCC.NET.Core.Facility
                 string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xml");
                 string xsdHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xsd");
                 initializeHeaters(xmlHeatingPath, xsdHeatingPath);
+
+                HeatingStage stageHeating = new HeatingStage("STG.PREHEAT");
+                stageHeating.Prepare(configDir);
 
                 //инициализация компонентов установки
                 string xmlFacilityComponent = Path.Combine(configDir, "FacilityComponents.v2.xml");

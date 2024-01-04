@@ -247,11 +247,16 @@ namespace NTCC.NET.Core.Facility
         /// <param name="minTargetWallTemperature"> Минимальная зона прогрева стенки реактора, °C</param>
         /// <param name="maxTargetWallTemperature"> Максимальная температура зоны реактора, °C </param>
         /// <param name="maxPower"> Максимальная мощность нагревательного элемента, % </param>
-        public void SetupControl(double minTargetWallTemperature, double maxTargetWallTemperature, double maxPower)
+        /// <param name="maxHeaterTemperature"> Максимальная температура нагревательного элемента, °С </param>
+        public void SetupControl(double minTargetWallTemperature, 
+                                double maxTargetWallTemperature, 
+                                double maxPower,
+                                double maxHeaterTemperature = 810.0)
         {
             MinTargetWallTemperature = minTargetWallTemperature;
             MaxTargetWallTemperature = maxTargetWallTemperature;
-            MaxPowerLevel = maxPower;
+            MaxHeaterTemperature     = maxHeaterTemperature;
+            MaxPowerLevel            = maxPower;
         }
 
         /// <summary>
@@ -263,7 +268,7 @@ namespace NTCC.NET.Core.Facility
             //if (heatingControlThread != null && heatingControlThread.IsAlive)
             //    return;
 
-            PeriodWrite.WriteValue ( 1000 );
+            PeriodWrite.WriteValue ( 1000.0 );
 
             // Создаем делегат для нестатического метода
             ThreadStart threadDelegate = new ThreadStart(this.HeatingZoneControlFunction);

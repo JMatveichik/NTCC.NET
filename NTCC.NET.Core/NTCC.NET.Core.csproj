@@ -69,6 +69,7 @@
     <Compile Include="Facility\ReactorHeatingZone.cs" />
     <Compile Include="Facility\MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stages\HeatingStage.cs" />
     <Compile Include="Stages\StageBase.cs" />
     <Compile Include="Stages\StageResult.cs" />
     <Compile Include="Stages\StageState.cs" />

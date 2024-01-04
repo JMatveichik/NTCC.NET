@@ -15,10 +15,7 @@ namespace NTCC.NET.Core.Stages
 
         }
 
-        protected override StageResult Prepare()
-        {
-            throw new NotImplementedException();
-        }
+       
 
         protected override StageResult Finalization()
         {
@@ -27,9 +24,6 @@ namespace NTCC.NET.Core.Stages
 
         protected override StageResult Main(CancellationToken cancel)
         {
-            //var heate ArtMonbatFacility.ReactorHeaters.Items.Values;
-            
-
             return StageResult.Failed;
         }
 
