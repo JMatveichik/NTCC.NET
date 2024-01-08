@@ -268,7 +268,7 @@ namespace NTCC.NET.Core.Facility
             //if (heatingControlThread != null && heatingControlThread.IsAlive)
             //    return;
 
-            PeriodWrite.WriteValue ( 1000.0 );
+            PeriodWrite.WriteValue ( 500.0 );
 
             // Создаем делегат для нестатического метода
             ThreadStart threadDelegate = new ThreadStart(this.HeatingZoneControlFunction);

@@ -214,7 +214,7 @@ namespace NTCC.NET.Core.Facility
             while (!stopPingThread)
             {
                 Thread.Sleep(3000);
-                pingDataPoint.SetState(false);
+                pingDataPoint.SetState(true);
                 //Debug.WriteLine("Ping ... ");
             }
         }
