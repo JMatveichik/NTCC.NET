@@ -110,6 +110,42 @@ namespace NTCC.NET.Core.Facility
         private double maxValue = 100.0f;
 
         /// <summary>
+        /// Минимальное значение
+        /// </summary>
+        public double MinSignal
+        {
+            get => minSignal;
+            set
+            {
+                if (minSignal == value)
+                    return;
+
+                minSignal = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double minSignal = 0.0f;
+
+        /// <summary>
+        /// Максимальное значение
+        /// </summary>
+        public double MaxSignal
+        {
+            get => maxSignal;
+            set
+            {
+                if (maxSignal == value)
+                    return;
+
+                maxSignal = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private double maxSignal = 100.0f;
+
+        /// <summary>
         /// Единицы измерения
         /// </summary>
         public string Units

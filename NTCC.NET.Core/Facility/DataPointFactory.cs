@@ -11,10 +11,13 @@ namespace NTCC.NET.Core.Facility
 
     public class DataPointFactory
     {
-        public static BaseConverter CreateConverter(XElement dataPointElement, out double minValue, out double maxValue)
+        public static BaseConverter CreateConverter(XElement dataPointElement, out double minValue, out double maxValue, out double minSignal, out double maxSignal)
         {
             minValue = 0.0;
             maxValue = 100.0;
+            minSignal = 0.0;
+            maxSignal = 100.0;
+
             double minV;
             if (!double.TryParse(dataPointElement.Attribute("MinValue")?.Value, out minV))
                 return null;
@@ -33,6 +36,9 @@ namespace NTCC.NET.Core.Facility
 
             minValue = minV;
             maxValue = maxV;
+
+            minSignal = minS;
+            maxSignal = maxS;
 
             LinearConverter converter = new LinearConverter(minS, minV, maxS, maxV, "", "");
             return converter;
@@ -77,13 +83,15 @@ namespace NTCC.NET.Core.Facility
                     break;
                 case "AI":
                     {
-                        double minValue, maxValue;
-                        BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue);
+                        double minValue, maxValue, minSignal, maxSignal;
+                        BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue, out minSignal, out maxSignal);
                         dataPoint = new AnalogDataPoint(id)
                         {
                             Converter = converter,
                             MinValue = minValue,
                             MaxValue = maxValue,
+                            MinSignal = minSignal,
+                            MaxSignal = maxSignal,
                             Units = units 
                         };
                     }
@@ -100,13 +108,15 @@ namespace NTCC.NET.Core.Facility
 
                 case "AO":
                     {
-                        double minValue, maxValue;
-                        BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue);
+                        double minValue, maxValue, minSignal, maxSignal;
+                        BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue, out minSignal, out maxSignal);
                         dataPoint = new AnalogOutputDataPoint(id)
                         {
                             Converter = converter,
                             MinValue = minValue,
                             MaxValue = maxValue,
+                            MinSignal = minSignal,
+                            MaxSignal = maxSignal,
                             Units = units
                         };
                     }

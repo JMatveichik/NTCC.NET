@@ -239,8 +239,8 @@
 
                         <!--standard gauge-->
                         <lvc:Gauge Grid.Row="6" Grid.ColumnSpan="2"                   
-                                   From="{Binding MinValue}" 
-                                   To="{Binding MaxValue}" 
+                                   From="{Binding MinSignal}" 
+                                   To="{Binding MaxSignal}" 
                                    Value="{Binding Signal}"                                  
                                    LabelFormatter="{Binding ValueFormatter}">                      
                         </lvc:Gauge> 
