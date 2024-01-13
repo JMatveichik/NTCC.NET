@@ -1,5 +1,4 @@
-﻿using NTCC.NET.Core.Facility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-    public class HeatingStage : StageBase
+    class StageClean : StageBase
     {
-        public HeatingStage(string id) : base(id)
+        public StageClean(string id) : base(id)
         {
-
         }
-
-       
 
         protected override StageResult Finalization()
         {
@@ -24,9 +20,7 @@ namespace NTCC.NET.Core.Stages
 
         protected override StageResult Main(CancellationToken cancel)
         {
-            return StageResult.Failed;
+            throw new NotImplementedException();
         }
-
-        
     }
 }
