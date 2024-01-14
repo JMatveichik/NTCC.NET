@@ -41,5 +41,10 @@ namespace NTCC.NET.ViewModels
         }
 
         DataPoint selectedDataPoint = null;
+
+        public override void Stop()
+        {
+            
+        }
     }
 }

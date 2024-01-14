@@ -10,8 +10,8 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-                 WindowStyle="SingleBorderWindow" 
-                 WindowState="Maximized">
+        WindowStyle="SingleBorderWindow" 
+        WindowState="Maximized">
 
   
     <Grid>
@@ -46,7 +46,9 @@
                 <DataTemplate DataType="{x:Type models:ChartsViewModel}">
                     <pages:ChartsPage/>
                 </DataTemplate>
-
+                <DataTemplate DataType="{x:Type models:StagesViewModel}">
+                    <pages:StagesPage/>
+                </DataTemplate>
 
             </mah:MetroTabControl.Resources>
 

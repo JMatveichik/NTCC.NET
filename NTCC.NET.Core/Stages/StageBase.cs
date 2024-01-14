@@ -22,19 +22,7 @@ namespace NTCC.NET.Core.Stages
 
         }
 
-        private Dictionary<DataPoint, string> stageInit
-        {
-            get;
-            set;
-        } = new Dictionary<DataPoint, string>();
-
-        private Dictionary<DataPoint, string> stageFinalize
-        {
-            get;
-            set;
-        } = new Dictionary<DataPoint, string>();
-
-
+       
         /// <summary>
         ///Стадия владелец (которая вызвала выполнение)
         /// </summary>
@@ -63,7 +51,47 @@ namespace NTCC.NET.Core.Stages
             protected set;
         }
 
+        public StageParameters StageParameters
+        {
+            get;
+            set;
+        }
 
+        protected void SetDiscreteParameter(string id, bool state)
+        {
+            var dataPoints = ArtMonbatFacility.DataPoints;
+
+            //получение дискретного источника данных 
+            DiscreteOutputDataPoint outputDataPoint = dataPoints[id] as DiscreteOutputDataPoint;
+
+            if (outputDataPoint == null)
+                throw new Exception($"Не найдена дикретная точка данных <{id}>");
+
+            //переключение выходной дискретной точки данных в заданное состояние
+            outputDataPoint.SetState(true);
+            OnTick($"Переключение  {outputDataPoint.Title} в состояние {state}", MessageType.Info);
+
+            //Задержка перед следующей операцией 
+            Thread.Sleep(OperationDelay);
+        }
+
+        protected void SetAnalogParameter(string id, double val)
+        {
+            var dataPoints = ArtMonbatFacility.DataPoints;
+
+            //получение дискретного источника данных 
+            AnalogOutputDataPoint outputDataPoint = dataPoints[id] as AnalogOutputDataPoint;
+
+            if (outputDataPoint == null)
+                throw new Exception($"Не найдена дикретная точка данных <{id}>");
+
+            //переключение выходной дискретной точки данных в заданное состояние
+            outputDataPoint.WriteValue(val);
+            OnTick($"Переключение  {outputDataPoint.Title} в состояние {val}", MessageType.Info);
+
+            //Задержка перед следующей операцией 
+            Thread.Sleep(OperationDelay);
+        }
 
         #region СОБЫТИЯ и ОбРАБОТЧИКИ
         protected void OnStageStep(StageState stageState)
@@ -81,166 +109,7 @@ namespace NTCC.NET.Core.Stages
 
         public event FacilityMessageEventHandler StageStep;
 
-        /*
-        /// <summary>
-        /// Событие возникающее при начале подготовки стадии к выполнению основного алгоритма
-        /// </summary>
-        public event EventHandler Preparing;
-
-        /// <summary>
-        /// Вызов обработчиков при начале подготовки стадии к выполнению основного алгоритма
-        /// </summary>
-        
-
-        /// <summary>
-        /// Событие возникающее при удачном завершении подготовки стадии к выполнению основного алгоритма
-        /// </summary>
-        public event EventHandler Prepared;
-
-        /// <summary>
-        /// Вызов обработчиков при успешном окончании подготовки стадии к выполнению
-        /// </summary>
-        protected void onStagePrepared()
-        {
-            //Выставляем состояние стадии
-            State = StageState.Prepearing;
-
-            Prepared?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Событие возникающее при неудачном завершении подготовки стадии к выполнению основного алгоритма
-        /// </summary>
-        public event EventHandler PrepareFailed;
-
-        /// <summary>
-        /// Вызов обработчиков события неудачного завершении подготовки стадии к выполнению основного алгоритма
-        /// </summary>
-        protected void onStagePrepareFailed()
-        {
-            //Выставляем состояние стадии
-            State = StageState.PrepeareFailed;
-
-            PrepareFailed?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Событие возникающее при запуске стадии основного алгоритма на выполение
-        /// </summary>
-        public event EventHandler Started;
-        
-        /// <summary>
-        /// Вызов  обработчиков события начала выполнения основного алгоритма стадии
-        /// </summary>
-        protected void onStageStarted()
-        {
-            //Выставляем состояние стадии
-            State = StageState.Started;
-
-            Started?.Invoke(this, EventArgs.Empty);
-        }
-               
-        
-        /// <summary>
-        /// Событие возникающее при удачном завершении основного алгоритма стадии
-        /// </summary>
-        public event EventHandler Completed;
-        
-        /// <summary>
-        /// Вызов обработчиков при удачном завершении  основного алгоритма 
-        /// </summary>        
-        protected void onStageCompleted()
-        {
-            //Выставляем состояние стадии
-            State = StageState.Complete;
-
-            Completed?.Invoke(this, EventArgs.Empty);
-        }
-
-
-        /// <summary>
-        ///  Событие возникающее при завершении стадии по ошибке
-        /// </summary>
-        public event EventHandler Failed;
-
-        protected void onStageFailed()
-        {
-            //выставляем состояние стадии
-            State = StageState.Failed;
-
-            //вызываем обработчики при ошибочном завершении стадии
-            Failed?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Событие возникающее перед началом завершения стадии.
-        /// </summary>
-        public event EventHandler Finalizing;
-
-        /// <summary>
-        /// Вызов обработчиков перед завершением стадии
-        /// </summary>
-        protected void onStageFinalizing()
-        {
-            //Выставляем состояние стадии
-            State = StageState.Finalizing;
-
-            Finalizing?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Событие возникающее при заверешии стадии
-        /// </summary>
-        public event EventHandler Finalized;
-
-
-        /// <summary>
-        /// Вызов обработчиков при завершении стадии
-        /// </summary>
-        protected void onStageFinalized()
-        {
-            //Выставляем состояние стадии
-            State = StageState.Finalized;
-
-            //сбрасываем текущую стадию на владельца
-            Current = Owner;
-
-            //сбрасываем владельца
-            Owner = null;
-
-            Finalized?.Invoke(this, EventArgs.Empty);
-        }
-        */
-
-
-        /// <summary>
-        /// Событие возникающее при появлении аварийной ситуации во время выполнения стадии
-        /// </summary>
-        //public event TestHandler Alarm;
-
-        /// <summary>
-        /// Вызов обработчиков при возникновении аварийной ситуации
-        /// </summary>
-        /// <param name="testUnit">Тест не прошедший проверку </param>
-        /*protected void onStageAlarm(TestUnitBase testUnit)
-        {
-            Alarm?.Invoke(this, new TestEventArgs(testUnit));                
-        }*/
-
-        /// <summary>
-        /// Событие позникающее при появлении предаварийной ситуация во время выполнения стадии
-        /// </summary>
-        //public event TestHandler Warning;
-
-        /// <summary>
-        /// Вызов обработчиков появления предаварийной ситуации во  время выполнения стадии
-        /// </summary>
-        /// <param name="testUnit">Тест не прошедший проверку </param>
-        /*protected void onStageWarning(TestUnitBase testUnit)
-        {
-            Warning?.Invoke(this, new TestEventArgs(testUnit));
-        } */
-        
+                
       #endregion
 
 
@@ -298,8 +167,6 @@ namespace NTCC.NET.Core.Stages
             }
         }
         private TimeSpan leftTime;
-
-
 
         /// <summary>
         /// Время начала стадии
@@ -381,7 +248,7 @@ namespace NTCC.NET.Core.Stages
         public StageResult Do(StageBase owner = null)
         {
             //запоминаем владельца стадии
-            //Owner = owner;
+            OwnerStage = owner;
 
             //инициализация токена прерывания стадии по инициативе пользователя
             stop = new CancellationTokenSource();
@@ -394,9 +261,9 @@ namespace NTCC.NET.Core.Stages
                 StageResult result = StageResult.Successful;
 
                 //подготовка к выполнению стадии            
-                //TODO : StageResult result = Prepare();
-                //if (result != StageResult.Successful)
-                //    return result;
+                result = Prepare();
+                if (result != StageResult.Successful)
+                    return result;
 
                 //вызываем обработчики завершения подготовки стадии к выполнению
                 OnStageStep(StageState.Prepeared);
@@ -450,72 +317,15 @@ namespace NTCC.NET.Core.Stages
 
         }
 
+
         #region АБСТРАКТНЫЕ ОПЕРАЦИИ ШАБЛОННОГО МЕТОДА
 
-        double parseDoubleAttribute(XElement xmlElem, string strAttribute)
-        {
-            string strValue = xmlElem.Attribute(strAttribute)?.Value;
-            
-            if (string.IsNullOrEmpty(strValue))
-                throw new IOException($"Не задан  параметр '{strAttribute}' для стадии <{ID}>");
-
-
-            double doubleValue = 0.0;
-            if (!double.TryParse(strValue, out doubleValue))
-                throw new IOException($"Ошибка задания параметра {strAttribute} = '{strValue}' для стадии <{ID}>");
-
-            return doubleValue;
-        }
 
         /// <summary>
         /// Действия при подготовке к стадии
         /// </summary>
         /// <returns></returns>
-        public  virtual StageResult Prepare(string configDir)
-        {
-            try
-            {
-                if (!Directory.Exists(configDir))
-                    throw new IOException($"Не найдена директория для конфигурирования установки <{configDir}>");
-
-                string xmlStagesPath = Path.Combine(configDir, "Stages.v2.xml");
-                XDocument xmlDocument = XDocument.Load(xmlStagesPath);
-                XElement xmlRoot = xmlDocument.Root;
-
-                XElement xmlStage = xmlRoot.XPathSelectElement($"descendant::Stage[@ID='{ID}']");
-
-                if (xmlStage == null)
-                {
-                    throw new IOException($"Не найдена конфигурация для стадии <{ID}>");
-                }
-                                
-
-                foreach (var xmlZone in xmlStage.Descendants("Zone"))
-                {
-                    string zoneID = xmlZone.Attribute("ID")?.Value;
-
-                    var zone = ArtMonbatFacility.ReactorHeaters[zoneID];
-
-                    double minWallTemperature   = parseDoubleAttribute(xmlZone, "MinWallTemperature");
-                    double maxWallTemperature   = parseDoubleAttribute(xmlZone, "MaxWallTemperature");
-                    double hearterPower         = parseDoubleAttribute(xmlZone, "HearterPower");
-                    double maxHeaterTemperature = parseDoubleAttribute(xmlZone, "MaxHeaterTemperature");
-
-                    zone.SetupControl(minWallTemperature, 
-                                        maxWallTemperature,
-                                        hearterPower,
-                                        maxHeaterTemperature);
-                }
-
-            }
-            catch(Exception ex)
-            {
-                
-                return StageResult.Failed;
-            }
-
-            return StageResult.Successful;
-        }
+        public abstract StageResult Prepare();       
 
 
         /// <summary>

@@ -13,7 +13,12 @@ namespace NTCC.NET.Core.Stages
         public StageHeating(string id) : base(id)
         {
 
-        }     
+        }
+
+        public override StageResult Prepare()
+        {
+            throw new NotImplementedException();
+        }
 
         protected override StageResult Finalization()
         {

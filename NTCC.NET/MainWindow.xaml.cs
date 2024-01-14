@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,5 +29,31 @@ namespace NTCC.NET
             InitializeComponent();
             DataContext = new MainWindowViewModel();
         }
+
+
+        protected override void OnClosed(EventArgs e)
+        {
+            MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;
+
+            foreach (PageViewModel model in mainViewModel.Pages)
+            {
+                model.Stop();
+            }
+
+            base.OnClosed(e);
+        }
+        /*
+        protected override void On(CancelEventArgs e)
+        {
+            MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;
+
+            foreach (PageViewModel model in mainViewModel.Pages)
+            {
+                model.Stop();
+            }
+
+            base.OnClosing(e);
+        }*/
+
     }
 }

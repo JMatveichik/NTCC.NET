@@ -1,31 +1,249 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Stages>
 	<Stage  ID="STG.PREHEAT"
-			Description="Предварительный нагрев реактора до температуры окисления">
+			Name="Предварительный нагрев"
+			Type="Heating"
+			Description="Предварительный нагрев реактора">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HearterPower="65" MaxHeaterTemperature="810"/>
-		</Heating>	
-		
-		<Initialize>
-			<DataPoint ID="YA05.OPN" 			Value="0"/>
-			<DataPoint ID="MD400C.SETPOINT.WR"  Value="0"/>
-			<DataPoint ID="BH.SETPOINT.WR" 	    Value="0"/>
-			<DataPoint ID="YA13.OPN" 		    Value="0"/>
-		</Initialize>
-		
-		<Finalize>
-			<DataPoint ID="123" Value="0"/>
-			<DataPoint ID="123" Value="0"/>
-			<DataPoint ID="123" Value="0"/>
-			<DataPoint ID="123" Value="0"/>
-		</Finalize>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
 		
 	</Stage>
+	
+	<Stage  ID="STG.PREHEAT.OXI"
+			Name="Нагрев до температуры окисления"	
+			Type="Heating"
+			Description="Нагрев реактора до температуры окисления">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.OXIDIZE.01"
+			Name="Окисление. Шаг #1"
+			Type="Air"
+			FlowRate="80.0"
+			Duration="80.0"
+			Description="Окисление поверхности реактора #1">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.DOPING.NITRO.PRE"
+			Name="Допинг. Продувка #1"
+			Type="Nitro"
+			FlowRate="10.0"
+			Duration="5.0"
+			Description="Продувка реактора азотом перед допингом">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.DOPING.01"
+			Name="Допинг. Шаг #1"
+			Type="Propane"
+			FlowRate="10.0"
+			Duration="3.0"
+			Description="Допинг. Подача малого расхода пропан-бутана">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.DOPING.02"
+			Name="Допинг. Шаг #2"
+			Type="Propane"
+			FlowRate="30.0"
+			Duration="3.0"
+			Description="Допинг. Подача большого расхода пропан-бутана">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.DOPING.NITRO.POST"
+			Name="Допинг. Продувка #2"
+			Type="Nitro"
+			FlowRate="10.0"
+			Duration="3.0"
+			Description="Допинг. Продувка реактора после допинга">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.OXIDIZE.02"
+			Name="Окисление. Шаг #2"
+			Type="Air"
+			FlowRate="10.0"
+			Duration="3.0"
+			Description="Окисление поверхности реактора #2">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.NITRO.01"
+			Name="Продувка реактора #1"
+			Type="Nitro"
+			FlowRate="20.0"
+			Duration="5.0"
+			Description="Продувка реактора азотом после окисления">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.RESTORE"
+			Name="Восстановление"
+			Type="Propane"
+			FlowRate="20.0"
+			Duration="5.0"
+			Description="Восстановление поверхности реактора перед синтезом">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.SYNTHESIS"
+			Name="Синтез"
+			Type="Propane"
+			FlowRate="20.0"
+			Duration="5.0"
+			Description="Синтез углеродных наноматериалов">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.NITRO.02"
+			Name="Продувка #2"
+			Type="Nitro"
+			FlowRate="20.0"
+			Duration="5.0"
+			Description="Продувка реактора азотом перед удалением депозита">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.CLEAN"
+			Name="Очистка"
+			Type="Clean"
+			PassCount="8" 
+			CoolingTime="30"
+			OneWayTimeout=""
+			Description="Удаление депозита">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+		</Heating>
+		
+		<Details />
+			
+	</Stage>
+	
 </Stages>

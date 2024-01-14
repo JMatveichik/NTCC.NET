@@ -44,6 +44,10 @@ namespace NTCC.NET.ViewModels
             }
         }
 
+        public override void Stop()
+        {            
+        }
+
         public ObservableCollection<FacilityMessage> MessagesList
         {
             get;

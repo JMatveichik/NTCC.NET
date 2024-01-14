@@ -93,6 +93,9 @@ namespace NTCC.NET.ViewModels
             }
 
             SelectedHeatingZone = zones[0];
+
+            // Создаем новый поток и передаем метод, который будет выполняться в потоке            
+            collectionThread = new Thread(() => UpdateSeriesFunction(stop));
             collectionThread.Start();
         }
 
@@ -129,57 +132,71 @@ namespace NTCC.NET.ViewModels
         }
 
         // Флаг для сигнализации о завершении потока
-        private static volatile bool stopCollectionThread = false;
+        //private bool stopCollectionThread = false;
+        
+        // Создаем токен отмены
+        CancellationTokenSource stop = new CancellationTokenSource();
 
         // Создаем новый поток и передаем метод, который будет выполняться в потоке
-        private Thread collectionThread = new Thread(new ThreadStart(UpdateSeriesFunction));
+        private Thread collectionThread = null;
 
         // Метод, который будет выполняться в отдельном потоке
-        static void UpdateSeriesFunction()
+        void UpdateSeriesFunction(CancellationTokenSource stop)
         {
-            ArtMonbatFacility facility = ArtMonbatFacility.Instance;
-            
-            while (!stopCollectionThread)
+            try
             {
-                Thread.Sleep(3000);
-
-                foreach (ReactorHeatingZone zone  in ArtMonbatFacility.ReactorHeaters.Items.Values)
+                while (true)
                 {
-                    
-                    SeriesCollection zoneCollection = series[zone];                    
+                    stop.Token.ThrowIfCancellationRequested();
 
-                    zoneCollection[0].Values.Add(zone.WallTemperature.Value);
+                    if (stop.IsCancellationRequested)
+                        break;
 
-                    double heatingElementsMaxTemperature = zone.HeatingElements.Max(heatingElement => heatingElement.Temperature.Value);
-                    zoneCollection[1].Values.Add(heatingElementsMaxTemperature);
+                    Thread.Sleep(3000);
 
-                    zoneCollection[2].Values.Add(zone.MaxTargetWallTemperature);
-
-                    zoneCollection[3].Values.Add(zone.MinTargetWallTemperature);
-
-                    zoneCollection[4].Values.Add(zone.MaxHeaterTemperature);
-
-                    zoneCollection[5].Values.Add(zone.MaxPowerLevel);
-                    zoneCollection[6].Values.Add(zone.DutyWrite.Value);
-
-
-                    bool clearFirst = zoneCollection[0].Values.Count > 60;
-                    if (clearFirst)
+                    foreach (ReactorHeatingZone zone in ArtMonbatFacility.ReactorHeaters.Items.Values)
                     {
-                        foreach (var serie in zoneCollection)
-                            serie.Values.RemoveAt(0);
+
+                        SeriesCollection zoneCollection = series[zone];
+
+                        zoneCollection[0].Values.Add(zone.WallTemperature.Value);
+
+                        double heatingElementsMaxTemperature = zone.HeatingElements.Max(heatingElement => heatingElement.Temperature.Value);
+                       
+                        zoneCollection[1].Values.Add(heatingElementsMaxTemperature);
+
+                        zoneCollection[2].Values.Add(zone.MaxTargetWallTemperature);
+
+                        zoneCollection[3].Values.Add(zone.MinTargetWallTemperature);
+
+                        zoneCollection[4].Values.Add(zone.MaxHeaterTemperature);
+
+                        zoneCollection[5].Values.Add(zone.MaxPowerLevel);
+
+                        zoneCollection[6].Values.Add(zone.DutyWrite.Value);
+
+
+                        bool clearFirst = zoneCollection[0].Values.Count > 60;
+                        if (clearFirst)
+                        {
+                            foreach (var serie in zoneCollection)
+                                serie.Values.RemoveAt(0);
+                        }
                     }
                 }
-
+            }
+            catch (OperationCanceledException) 
+            {                
             }
         }
 
-        public void Stop()
+        public override void Stop()
         {
-            // Останавливаем поток ping
-            stopCollectionThread = true;
-            collectionThread.Join();
+            // Останавливаем поток обновления графики
+            stop.Cancel();
 
+            // Ожидаем завершение потока
+            collectionThread.Join(0);
         }
     }
 }

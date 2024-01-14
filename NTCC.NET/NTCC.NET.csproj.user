@@ -7,16 +7,25 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\CurrentStagePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\DataPointPreviewCtrl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\DiscreteDataPointState.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\GasPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\HeatingZoneItemPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\HeatingZonePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\StageItemPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\ChartsPage.xaml.cs">
@@ -31,21 +40,33 @@
     <Compile Update="Pages\SettingsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\StagesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\TablesPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\CurrentStagePanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\DataPointPreviewCtrl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\DiscreteDataPointState.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\GasPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\HeatingZoneItemPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\HeatingZonePanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StageItemPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
@@ -61,6 +82,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\StagesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\TablesPage.xaml">

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using NTCC.NET.Core.Facility;
 using NTCC.NET.Properties;
+using NTCC.NET.ViewModels;
 
 namespace NTCC.NET
 {
@@ -32,9 +33,10 @@ namespace NTCC.NET
                 MessageBox.Show(ex.Message, "Ошибка инициализации ...", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        
         protected override void OnExit(ExitEventArgs e)
         {
+
             ArtMonbatFacility facility = ArtMonbatFacility.Instance;
             facility.Stop();
 

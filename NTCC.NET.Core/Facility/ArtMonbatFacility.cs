@@ -42,6 +42,22 @@ namespace NTCC.NET.Core.Facility
         } = new FaciliitySet<ReactorHeatingZone>();
 
         /// <summary>
+        /// Facility stages set
+        /// </summary>
+        public static FaciliitySet<StageBase> Stages
+        {
+            get;
+        } = new FaciliitySet<StageBase>();
+
+        /// <summary>
+        /// Main stage contain logic to process all stages 
+        /// </summary>
+        public static StageMain FullCycle
+        {
+            get;
+        } = new StageMain("STG.MAIN"); 
+
+        /// <summary>
         /// Devices set
         /// </summary>
         public static FaciliitySet<AcquisitionDeviceBase> Devices
@@ -69,9 +85,6 @@ namespace NTCC.NET.Core.Facility
 
             try
             {
-
-                
-
                 //инициализация устройств управления/измерения
                 string xmlDevicesPath = Path.Combine(configDir, "Devices.v1.xml");
                 string xsdDevicesPath = Path.Combine(configDir, "Devices.v1.xsd");
@@ -87,10 +100,7 @@ namespace NTCC.NET.Core.Facility
                 //инициализация нагревателей
                 string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xml");
                 string xsdHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xsd");
-                initializeHeaters(xmlHeatingPath, xsdHeatingPath);
-
-                HeatingStage stageHeating = new HeatingStage("STG.PREHEAT");
-                stageHeating.Prepare(configDir);
+                initializeHeaters(xmlHeatingPath, xsdHeatingPath);                
 
                 //инициализация компонентов установки
                 string xmlFacilityComponent = Path.Combine(configDir, "FacilityComponents.v2.xml");
@@ -180,6 +190,31 @@ namespace NTCC.NET.Core.Facility
         }
 
         /// <summary>
+        /// Инициализация стадий автоматического управления  технологическим процессом 
+        /// </summary>
+        /// <param name="xmlConfigPath">Путь к конфигурационному файлу XML</param>
+        /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
+        private void initializeStages(string xmlConfigPath, string xsdSchemaPath = "")
+        {
+            XDocument xmlDocument = XDocument.Load(xmlConfigPath);
+
+            foreach (var xmlElement in xmlDocument.Descendants("Stage"))
+            {
+                // Теперь у вас есть объект стадии соответствующего типа
+                StageBase stage = StageFactory.CreateStage(xmlElement);
+                
+                if (!Stages.Add(stage))
+                {
+                    StageBase duplicate = Stages[stage.ID];
+                    throw new ArgumentException($"Обнаружен дубликат для стадии : {duplicate.ID}-{duplicate.Title}");
+                }
+                //добавляем стадию к основному циклу
+                FullCycle.Stages.Add(stage);
+            }
+
+        }
+
+        /// <summary>
         /// Инициализация элементов управления
         /// </summary>
         /// <param name="xmlConfigPath">Путь к конфигурационному файлу XML</param>
@@ -189,15 +224,7 @@ namespace NTCC.NET.Core.Facility
             
         }
 
-        /// <summary>
-        /// Инициализация стадий автоматического управления  технологическим процессом 
-        /// </summary>
-        /// <param name="xmlConfigPath">Путь к конфигурационному файлу XML</param>
-        /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
-        private void initializeStages(string xmlConfigPath, string xsdSchemaPath = "")
-        {
-
-        }
+        
 
 
         // Флаг для сигнализации о завершении потока

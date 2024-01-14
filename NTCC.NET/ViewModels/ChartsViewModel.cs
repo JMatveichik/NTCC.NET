@@ -8,5 +8,8 @@ namespace NTCC.NET.ViewModels
 {
     internal class ChartsViewModel : PageViewModel
     {
+        public override void Stop()
+        {            
+        }
     }
 }

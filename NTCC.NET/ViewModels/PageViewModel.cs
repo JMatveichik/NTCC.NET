@@ -7,10 +7,12 @@ using MahApps.Metro.IconPacks;
 
 namespace NTCC.NET.ViewModels
 {
-    internal class PageViewModel : ViewModelBase
+    abstract class PageViewModel : ViewModelBase
     {
         private PackIconBase _icon = null;
 
+        public abstract void Stop();
+        
         public PackIconBase PageIcon
         {
             get => _icon;

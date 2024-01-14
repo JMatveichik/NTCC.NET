@@ -14,6 +14,11 @@ namespace NTCC.NET.Core.Stages
 
         }
 
+        public override StageResult Prepare()
+        {
+            throw new NotImplementedException();
+        }
+
         protected override StageResult Finalization()
         {
             throw new NotImplementedException();

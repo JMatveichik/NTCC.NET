@@ -58,13 +58,13 @@ namespace NTCC.NET.ViewModels
                 }
             },
            
-            new ChartsViewModel()
+            new StagesViewModel()
             {
-                Title = "Charts",   
+                Title = "Stages",   
                 Description = "Description",
                 PageIcon = new PackIconMaterialDesign()
                 {
-                    Kind = PackIconMaterialDesignKind.Chat,
+                    Kind = PackIconMaterialDesignKind.TimeToLeave,
                     Style = iconStyle
 
                 }
