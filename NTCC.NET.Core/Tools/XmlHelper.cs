@@ -28,5 +28,24 @@ namespace NTCC.NET.Core.Tools
 
             return doubleValue;
         }
+
+        public static bool ParseBoolAttribute(XElement xmlElem, string strAttribute, bool? defaultValue = null)
+        {
+            string strValue = xmlElem.Attribute(strAttribute)?.Value;
+
+            if (string.IsNullOrEmpty(strValue))
+            {
+                if (defaultValue == null)
+                    throw new IOException($"Не задан  параметр '{strAttribute}' для элемента <{xmlElem.Name}>");
+                else
+                    return defaultValue.Value;
+            }
+
+            bool boolValue = false;
+            if (!bool.TryParse(strValue, out boolValue))
+                throw new IOException($"Ошибка задания параметра {strAttribute} = '{strValue}' для элемента <{xmlElem.Name}>");
+
+            return boolValue;
+        }
     }
 }

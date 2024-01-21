@@ -5,21 +5,21 @@ namespace NTCC.NET.Commands
     public class FacilityCommands
     {
         /// <summary>
-        /// Команда выполнения начальной подготовки установки
+        /// Команда запуска технологического цикла
         /// </summary>
-        public static RoutedUICommand Init
+        public static RoutedUICommand StartFullCycle
         {
             get;
-        } = new RoutedUICommand("Initialize facility", "Initialize", typeof(FacilityCommands), null);
+        } = new RoutedUICommand("Start process", "StartFullCycle", typeof(FacilityCommands), null);
 
 
         /// <summary>
-        /// Команда выполнения стадии предварительного нагрева
+        /// Команда остановки технологического цикла
         /// </summary>
-        public static RoutedUICommand PreheatStart
+        public static RoutedUICommand StopFullCycle
         {
             get;
-        } = new RoutedUICommand("Preheating reactor walls for oxidize temperature", "PreheatStart", typeof(FacilityCommands), null);
+        } = new RoutedUICommand("Stop process", "StopFullCycle", typeof(FacilityCommands), null);
 
     }
 }

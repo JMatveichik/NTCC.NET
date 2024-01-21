@@ -1,154 +1,230 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Stages>
-	<Stage  ID="STG.PREHEAT"
-			Name="Предварительный нагрев"
+
+	<Stage  ID="STG.PREHEAT.150"
+			Name="Предварительный нагрев #01"
 			Type="Heating"
-			Description="Предварительный нагрев реактора">
+			AverageTemperature="110"
+			Description="Предварительный нагрев реактора до 150 °С">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.PREHEAT.OXI"
-			Name="Нагрев до температуры окисления"	
+	<Stage  ID="STG.PREHEAT.250"
+			Name="Предварительный нагрев #02"
 			Type="Heating"
+			AverageTemperature="210"
+			Description="Предварительный нагрев реактора до 250 °С">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.PREHEAT.350"
+			Name="Предварительный нагрев #03"
+			Type="Heating"
+			AverageTemperature="310"
+			Description="Предварительный нагрев реактора до 350 °С">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.PREHEAT.450"
+			Name="Предварительный нагрев #04"
+			Type="Heating"
+			AverageTemperature="410"
+			Description="Предварительный нагрев реактора до 450 °С">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.PREHEAT.550"
+			Name="Предварительный нагрев #5"
+			Type="Heating"
+			AverageTemperature="510"
+			Description="Предварительный нагрев реактора до 550 °С">
+		
+		<Heating>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+		</Heating>
+		
+	</Stage>
+	
+	<Stage  ID="STG.HEATING.UP"
+			Name="Прогрев"	
+			Type="Heating"
+			FlowRate="250.0"
+			AverageTemperature="720"
 			Description="Нагрев реактора до температуры окисления">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.OXIDIZE.01"
-			Name="Окисление. Шаг #1"
+	<Stage  ID="STG.OXIDATION.01"
+			Name="Окисление #1"
 			Type="Air"
-			FlowRate="80.0"
-			Duration="80.0"
-			Description="Окисление поверхности реактора #1">
+			FlowRate="250.0"
+			Duration="40.0"
+			Description="Окисление поверхности реактора. Шаг #1">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.DOPING.NITRO.PRE"
+	<Stage  ID="STG.PREACTIVATION.PURGE.01"
 			Name="Допинг. Продувка #1"
 			Type="Nitro"
-			FlowRate="10.0"
-			Duration="5.0"
+			FlowRate="70.0"
+			Duration="3.0"
 			Description="Продувка реактора азотом перед допингом">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.DOPING.01"
-			Name="Допинг. Шаг #1"
+	<Stage  ID="STG.PREACTIVATION.LPG.01"
+			Name="Допинг-пропан. Шаг #1"
 			Type="Propane"
-			FlowRate="10.0"
+			FlowRate="5.0"
 			Duration="3.0"
 			Description="Допинг. Подача малого расхода пропан-бутана">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="790" MaxWallTemperature="795" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.DOPING.02"
-			Name="Допинг. Шаг #2"
+	<Stage  ID="STG.PREACTIVATION.LPG.02"
+			Name="Допинг-пропан. Шаг #2"
 			Type="Propane"
-			FlowRate="30.0"
-			Duration="3.0"
+			FlowRate="40.0"
+			Duration="4.0"
 			Description="Допинг. Подача большого расхода пропан-бутана">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.DOPING.NITRO.POST"
+	<Stage  ID="STG.PREACTIVATION.PURGE.02"
 			Name="Допинг. Продувка #2"
 			Type="Nitro"
-			FlowRate="10.0"
-			Duration="3.0"
+			FlowRate="30.0"
+			Duration="5.0"
 			Description="Допинг. Продувка реактора после допинга">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.OXIDIZE.02"
-			Name="Окисление. Шаг #2"
+	<Stage  ID="STG.OXIDATION.02"
+			Name="Окисление #2"
 			Type="Air"
-			FlowRate="10.0"
-			Duration="3.0"
-			Description="Окисление поверхности реактора #2">
+			FlowRate="100.0"
+			Duration="45.0"
+			Description="Окисление поверхности реактора. Шаг #2">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.NITRO.01"
+	<Stage  ID="STG.PURGE.01"
 			Name="Продувка реактора #1"
 			Type="Nitro"
 			FlowRate="20.0"
@@ -156,70 +232,70 @@
 			Description="Продувка реактора азотом после окисления">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="80" MaxHeaterTemperature="805"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="795" MaxWallTemperature="800" HeaterPower="60" MaxHeaterTemperature="805"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.RESTORE"
+	<Stage  ID="STG.ACTIVATION"
 			Name="Восстановление"
 			Type="Propane"
-			FlowRate="20.0"
-			Duration="5.0"
+			FlowRate="5.0"
+			Duration="10.0"
 			Description="Восстановление поверхности реактора перед синтезом">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="60" MaxHeaterTemperature="800"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="60" MaxHeaterTemperature="800"/>
 		</Heating>
 		
 	</Stage>
 	
 	<Stage  ID="STG.SYNTHESIS"
-			Name="Синтез"
+			Name="Синтез УНМ"
 			Type="Propane"
-			FlowRate="20.0"
-			Duration="5.0"
+			FlowRate="40.0"
+			Duration="45.0"
 			Description="Синтез углеродных наноматериалов">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="60" MaxHeaterTemperature="800"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="60" MaxHeaterTemperature="800"/>
 		</Heating>
 		
 	</Stage>
 	
-	<Stage  ID="STG.NITRO.02"
+	<Stage  ID="STG.PURGE.02"
 			Name="Продувка #2"
 			Type="Nitro"
-			FlowRate="20.0"
+			FlowRate="30.0"
 			Duration="5.0"
 			Description="Продувка реактора азотом перед удалением депозита">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="80" MaxHeaterTemperature="720"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="80" MaxHeaterTemperature="720"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="80" MaxHeaterTemperature="720"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="80" MaxHeaterTemperature="720"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="80" MaxHeaterTemperature="720"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="60" MaxHeaterTemperature="720"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="645" MaxWallTemperature="650" HeaterPower="60" MaxHeaterTemperature="720"/>
 		</Heating>
 		
 	</Stage>
@@ -227,19 +303,19 @@
 	<Stage  ID="STG.CLEAN"
 			Name="Очистка"
 			Type="Clean"
-			PassCount="8" 
-			CoolingTime="30"
-			OneWayTimeout=""
+			PassCount="15" 
+			CoolingTime="10"
+			OneWayTimeout="3"
 			Description="Удаление депозита">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="745" MaxWallTemperature="750" HeaterPower="65" MaxHeaterTemperature="810"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="60" MaxHeaterTemperature="800"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="60" MaxHeaterTemperature="800"/>
 		</Heating>
 		
 		<Details />

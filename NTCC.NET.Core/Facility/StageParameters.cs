@@ -21,6 +21,8 @@ namespace NTCC.NET.Core.Facility
 
             parameters.Duration = XmlHelper.ParseDoubleAttribute(xmlStage, "Duration", 0.0);
             parameters.FlowRate = XmlHelper.ParseDoubleAttribute(xmlStage, "FlowRate", 0.0);
+            parameters.PurgePropaneLine = XmlHelper.ParseBoolAttribute(xmlStage, "PurgePropaneLine", false);
+            parameters.AverageTemperature = XmlHelper.ParseDoubleAttribute(xmlStage, "AverageTemperature", 0.0);
 
             foreach (var xmlZone in xmlStage.Descendants("Zone"))
             {
@@ -33,12 +35,13 @@ namespace NTCC.NET.Core.Facility
 
             return parameters;
         }
+        
 
-       public Dictionary<string, HeatingParameters> StageHeatingParameters
-       {
+        public Dictionary<string, HeatingParameters> StageHeatingParameters
+        {
             get;
             private set;
-       }
+        }
 
         public double FlowRate
         {
@@ -52,5 +55,15 @@ namespace NTCC.NET.Core.Facility
             private set;
         }
 
+        public bool PurgePropaneLine
+        {
+            get;
+            private set;
+        }
+        public double AverageTemperature
+        {
+            get;
+            private set;
+        }
     }
 }

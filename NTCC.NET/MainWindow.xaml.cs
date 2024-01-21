@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using NTCC.NET.Commands;
+using NTCC.NET.Core.Facility;
+using NTCC.NET.Core.Stages;
 using NTCC.NET.ViewModels;
 
 
@@ -28,8 +31,30 @@ namespace NTCC.NET
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+
+            this.CommandBindings.Add(new CommandBinding(FacilityCommands.StartFullCycle, StartFullCycleExecuted, StartFullCycleCanExecuted));
+            this.CommandBindings.Add(new CommandBinding(FacilityCommands.StopFullCycle, StopFullCycleExecuted, StopFullCycleCanExecuted));
         }
 
+        private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void StopFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void StartFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void StartFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
+            Task.Factory.StartNew<StageResult>(() => fullCycleStage.Do());
+        }
 
         protected override void OnClosed(EventArgs e)
         {
@@ -42,18 +67,6 @@ namespace NTCC.NET
 
             base.OnClosed(e);
         }
-        /*
-        protected override void On(CancelEventArgs e)
-        {
-            MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;
-
-            foreach (PageViewModel model in mainViewModel.Pages)
-            {
-                model.Stop();
-            }
-
-            base.OnClosing(e);
-        }*/
 
     }
 }

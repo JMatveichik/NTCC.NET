@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\3rdParty\ToastNotifications\Src\ToastNotifications.Messages\ToastNotifications.Messages.csproj" />
+    <ProjectReference Include="..\3rdParty\ToastNotifications\Src\ToastNotifications\ToastNotifications.csproj" />
     <ProjectReference Include="..\NTCC.NET.Core\NTCC.NET.Core.csproj" />
     <ProjectReference Include="..\NTCC.NET.UI\NTCC.NET.UI.csproj" />
   </ItemGroup>

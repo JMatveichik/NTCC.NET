@@ -36,7 +36,7 @@ namespace NTCC.NET.Core.Facility
         /// <summary>
         /// Reactor heating zones set
         /// </summary>
-        public static FaciliitySet<ReactorHeatingZone> ReactorHeaters
+        public static FaciliitySet<ReactorHeatingZone> ReactorZones
         {
             get;
         } = new FaciliitySet<ReactorHeatingZone>();
@@ -74,6 +74,16 @@ namespace NTCC.NET.Core.Facility
         {
             get;
             private set;
+        }
+
+        public static double AverageWallTemperature
+        {
+            get 
+            {
+                List<ReactorHeatingZone> zones = ReactorZones.Items.Values.ToList();
+                double averageTemperature = zones.Average(zone => zone.WallTemperature.Value); 
+                return averageTemperature;
+            }
         }
 
         public void Initialize(string configDir)
@@ -181,9 +191,9 @@ namespace NTCC.NET.Core.Facility
             foreach (var xmlElement in xmlDocument.Descendants("ReactorZone"))
             {
                 ReactorHeatingZone heatingZone = FacilityElementFactory.CreateHeatingZone(xmlElement);
-                if (!ReactorHeaters.Add(heatingZone))
+                if (!ReactorZones.Add(heatingZone))
                 {
-                    ReactorHeatingZone duplicate = ReactorHeaters[heatingZone.ID];
+                    ReactorHeatingZone duplicate = ReactorZones[heatingZone.ID];
                     throw new ArgumentException($"Обнаружен дубликат для зоны нагрева: {duplicate.ID}-{duplicate.Title}");
                 }
             }
@@ -224,9 +234,6 @@ namespace NTCC.NET.Core.Facility
             
         }
 
-        
-
-
         // Флаг для сигнализации о завершении потока
         private static volatile bool stopPingThread = false;
 
@@ -242,7 +249,6 @@ namespace NTCC.NET.Core.Facility
             {
                 Thread.Sleep(3000);
                 pingDataPoint.SetState(true);
-                //Debug.WriteLine("Ping ... ");
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using NTCC.NET.Core.Facility;
+using NTCC.NET.Core.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,18 @@ namespace NTCC.NET.Core.Stages
             var dataPoints = ArtMonbatFacility.DataPoints;
 
             //открыть клапан подачи воздуха в камеру синтеза
-            SetDiscreteParameter("YA05.OPN", true);
+            
+            DataPointHelper.SetDiscreteParameter(this, "YA05.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
             //открыть клапан подачи азот/воздуха в камеру синтеза
-            SetDiscreteParameter("YA14.OPN", true);
+            DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
             //задать расход воздуха в камеру синтеза
-            SetAnalogParameter("MD400C.SETPOINT.WR", StageParameters.FlowRate);
+            DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", StageParameters.FlowRate);
 
+            //ожидаем установление расхода воздуха
+            DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));
+            
             return StageResult.Successful;
         }
 
@@ -36,13 +41,16 @@ namespace NTCC.NET.Core.Stages
             OnTick($"Завершение стадии  {Title} ...", MessageType.Info);
 
             //закрыть клапан подачи воздуха в камеру синтеза
-            SetDiscreteParameter("YA05.OPN", false);
+            DataPointHelper.SetDiscreteParameter(this, "YA05.OPN", false, (int)OperationDelay.TotalMilliseconds);
 
             //закрыть клапан подачи азот/воздуха в камеру синтеза
-            SetDiscreteParameter("YA14.OPN", false);
+            DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", false, (int)OperationDelay.TotalMilliseconds);
 
             //задать расход воздуха в камеру синтеза
-            SetAnalogParameter("MD400C.SETPOINT.WR", 0.0);
+            DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", 0.0, (int)OperationDelay.TotalMilliseconds);
+
+            //ожидаем установление расхода воздуха
+            DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", 0.0, TimeSpan.FromSeconds(5.0));
 
 
             return StageResult.Successful;
@@ -50,8 +58,14 @@ namespace NTCC.NET.Core.Stages
 
         protected override StageResult Main(CancellationToken cancel)
         {
+            OnTick($"Начата стадия {Title} ...", MessageType.Info);
+            
             while (true)
             {
+                if (cancel.IsCancellationRequested)
+                {
+
+                }
 
             }
         }

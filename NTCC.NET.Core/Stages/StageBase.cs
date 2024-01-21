@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -57,40 +58,21 @@ namespace NTCC.NET.Core.Stages
             set;
         }
 
-        protected void SetDiscreteParameter(string id, bool state)
+        protected void SetupHeating()
         {
-            var dataPoints = ArtMonbatFacility.DataPoints;
+            List<ReactorHeatingZone> reactorHeatingZones = ArtMonbatFacility.ReactorZones.Items.Values.ToList();
 
-            //получение дискретного источника данных 
-            DiscreteOutputDataPoint outputDataPoint = dataPoints[id] as DiscreteOutputDataPoint;
+            //задать параметры нагрева для всех зон
+            foreach (var zone in reactorHeatingZones)
+            {
+                HeatingParameters stageHeatingParams = StageParameters.StageHeatingParameters[zone.ID];
+                
+                zone.SetupControl(  stageHeatingParams.MaxWallTemperature,
+                                    stageHeatingParams.MinWallTemperature,
+                                    stageHeatingParams.HeaterPower,
+                                    stageHeatingParams.MaxHeaterTemperature);
 
-            if (outputDataPoint == null)
-                throw new Exception($"Не найдена дикретная точка данных <{id}>");
-
-            //переключение выходной дискретной точки данных в заданное состояние
-            outputDataPoint.SetState(true);
-            OnTick($"Переключение  {outputDataPoint.Title} в состояние {state}", MessageType.Info);
-
-            //Задержка перед следующей операцией 
-            Thread.Sleep(OperationDelay);
-        }
-
-        protected void SetAnalogParameter(string id, double val)
-        {
-            var dataPoints = ArtMonbatFacility.DataPoints;
-
-            //получение дискретного источника данных 
-            AnalogOutputDataPoint outputDataPoint = dataPoints[id] as AnalogOutputDataPoint;
-
-            if (outputDataPoint == null)
-                throw new Exception($"Не найдена дикретная точка данных <{id}>");
-
-            //переключение выходной дискретной точки данных в заданное состояние
-            outputDataPoint.WriteValue(val);
-            OnTick($"Переключение  {outputDataPoint.Title} в состояние {val}", MessageType.Info);
-
-            //Задержка перед следующей операцией 
-            Thread.Sleep(OperationDelay);
+            }
         }
 
         #region СОБЫТИЯ и ОбРАБОТЧИКИ
@@ -312,6 +294,7 @@ namespace NTCC.NET.Core.Stages
             catch (Exception ex)
             {
                 State = StageState.Excepted;
+                OnTick($"Непредвиденное завершение стадии : {ex.Message}", MessageType.Exception);
                 return StageResult.Excepted;
             }
 

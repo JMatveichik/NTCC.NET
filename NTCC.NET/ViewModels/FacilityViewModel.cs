@@ -19,7 +19,7 @@ namespace NTCC.NET.ViewModels
         
         public FacilityViewModel()
         {
-            var zones = ArtMonbatFacility.ReactorHeaters.Items.Values.ToList();
+            var zones = ArtMonbatFacility.ReactorZones.Items.Values.ToList();
 
             foreach (ReactorHeatingZone zone in zones)
             {
@@ -154,7 +154,7 @@ namespace NTCC.NET.ViewModels
 
                     Thread.Sleep(3000);
 
-                    foreach (ReactorHeatingZone zone in ArtMonbatFacility.ReactorHeaters.Items.Values)
+                    foreach (ReactorHeatingZone zone in ArtMonbatFacility.ReactorZones.Items.Values)
                     {
 
                         SeriesCollection zoneCollection = series[zone];

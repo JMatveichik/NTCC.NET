@@ -1,4 +1,5 @@
 ﻿using NTCC.NET.Core.Facility;
+using NTCC.NET.Core.Stages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,9 +17,15 @@ namespace NTCC.NET.ViewModels
         {
             ArtMonbatFacility facility = ArtMonbatFacility.Instance;
 
-            foreach(ReactorHeatingZone zone in ArtMonbatFacility.ReactorHeaters.Items.Values)
+            foreach(ReactorHeatingZone zone in ArtMonbatFacility.ReactorZones.Items.Values)
             {
                 zone.Tick += OnHeatingZoneMessage;
+            }
+
+            ArtMonbatFacility.FullCycle.Tick += OnHeatingZoneMessage;
+            foreach (StageBase stage in  ArtMonbatFacility.FullCycle.Stages)
+            {
+                stage.Tick += OnHeatingZoneMessage;
             }
         }
 

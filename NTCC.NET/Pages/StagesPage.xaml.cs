@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTCC.NET.Core.Facility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

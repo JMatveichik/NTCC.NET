@@ -24,7 +24,7 @@ namespace NTCC.NET.Core.Facility
         /// Вызов обработчиков
         /// </summary>
         /// <param name="message"></param>
-        protected void OnTick(string message, MessageType messageType)
+        public void OnTick(string message, MessageType messageType)
         {
             Tick?.Invoke(this, new FacilityMessageArgs(message, messageType));
         }
