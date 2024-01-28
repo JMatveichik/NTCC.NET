@@ -40,7 +40,7 @@ namespace NTCC.NET.Core.Stages
         public static StageBase CurrentStage 
         { 
             get; 
-            private set; 
+            protected set; 
         }
 
         /// <summary>
@@ -48,8 +48,28 @@ namespace NTCC.NET.Core.Stages
         /// </summary>
         public StageState State
         {
-            get;
-            protected set;
+            get  => state;
+            protected set
+            {
+              if (value == state)
+                return;
+
+              OnPropertyChanged();
+              OnPropertyChanged("IsActive");
+            }
+        }
+
+        private StageState state = StageState.Wait;
+
+        public bool IsActive
+        {
+          get 
+          {
+            if(CurrentStage == this)
+              return true;
+            
+            return false;
+          }
         }
 
         public StageParameters StageParameters
@@ -174,7 +194,7 @@ namespace NTCC.NET.Core.Stages
         {
             get;
             private set;
-        } = TimeSpan.FromMilliseconds(1000);
+        } = TimeSpan.FromMilliseconds(2000);
 
         #endregion
 

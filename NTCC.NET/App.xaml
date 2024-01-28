@@ -5,119 +5,120 @@
              xmlns:converters="clr-namespace:NTCC.NET.UI.Converters;assembly=NTCC.NET.UI"
              xmlns:local="clr-namespace:NTCC.NET"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-        <ResourceDictionary>
+  <Application.Resources>
+    <ResourceDictionary>
 
-            <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary.MergedDictionaries>
 
-                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-       
-                
-                <!-- Theme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/light.cobalt.xaml" />
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 
-                <!-- Common resources-->
-                <ResourceDictionary Source="pack://application:,,,/NTCC.NET.UI;component/NTCC.NET.UI.Resources.xaml" />
 
-                <!-- Project resources
+        <!-- Theme setting -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/light.cobalt.xaml" />
+
+        <!-- Common resources-->
+        <ResourceDictionary Source="pack://application:,,,/NTCC.NET.UI;component/NTCC.NET.UI.Resources.xaml" />
+
+        <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+        <!-- Project resources
                 <ResourceDictionary Source="pack://application:,,,/NTCC.StageEditor;component/Templates/ListBoxStageItemTemplate.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/NTCC.StageEditor;component/Templates/FacilityModuleContentTemplates.xaml" />
                 -->
 
-                <!--Material design colors-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/material.xaml" />-->
-                <!--Metro colors-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/metro.xaml" />-->
-                <!--Blue gradient-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/blue.xaml" />-->
-                <!--white gradient-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/white.xaml" />-->
-                <!--black gradient-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/black.xaml" />-->
+        <!--Material design colors-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/material.xaml" />-->
+        <!--Metro colors-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/metro.xaml" />-->
+        <!--Blue gradient-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/blue.xaml" />-->
+        <!--white gradient-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/white.xaml" />-->
+        <!--black gradient-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Colors/black.xaml" />-->
 
-                <!--Select size, options are small, medium and large-->
+        <!--Select size, options are small, medium and large-->
 
-                <!--small-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Size/s.xaml" />-->
-                <!--medium-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Size/m.xaml" />-->
-                <!--large-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Size/l.xaml" />-->
+        <!--small-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Size/s.xaml" />-->
+        <!--medium-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Size/m.xaml" />-->
+        <!--large-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Size/l.xaml" />-->
 
-                <!--Select weight, options are light, normal and bold-->
-                <!--light-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Weight/light.xaml" />-->
-                <!--normal-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Weight/normal.xaml" />-->
-                <!--bold-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Weight/bold.xaml" />-->
+        <!--Select weight, options are light, normal and bold-->
+        <!--light-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Weight/light.xaml" />-->
+        <!--normal-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Weight/normal.xaml" />-->
+        <!--bold-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/Weight/bold.xaml" />-->
 
-                <!--Also add the base theme, this is required always-->
-                <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/base.xaml" />-->
+        <!--Also add the base theme, this is required always-->
+        <!--<ResourceDictionary Source="pack://application:,,,/LiveCharts.Wpf;component/Themes/base.xaml" />-->
 
-                <!-- material design styles -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />-->
+        <!-- material design styles -->
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/Generic.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
+        <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />-->
 
-                <!-- primary colors -->
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Blue.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource Primary100}" />
-                    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource Primary100Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary500}" />
-                    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary600}" />
-                    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Primary600Foreground}" />
-                </ResourceDictionary>
+        <!-- primary colors -->
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Blue.xaml" />
+          </ResourceDictionary.MergedDictionaries>
+          <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="{StaticResource Primary100}" />
+          <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="{StaticResource Primary100Foreground}" />
+          <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="{StaticResource Primary500}" />
+          <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="{StaticResource Primary500Foreground}" />
+          <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="{StaticResource Primary600}" />
+          <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="{StaticResource Primary600Foreground}" />
+        </ResourceDictionary>
 
-                <!-- accent color -->
-                <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Lime.xaml" />
-                    </ResourceDictionary.MergedDictionaries>
-                    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="{StaticResource Accent400}" />
-                    <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="{StaticResource Accent400Foreground}" />
-                </ResourceDictionary>
+        <!-- accent color -->
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Lime.xaml" />
+          </ResourceDictionary.MergedDictionaries>
+          <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="{StaticResource Accent400}" />
+          <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="{StaticResource Accent400Foreground}" />
+        </ResourceDictionary>
 
-                <!--<ResourceDictionary>
+        <!--<ResourceDictionary>
                     <SolidColorBrush x:Key="MaterialDesignBackground" Color="{Binding Color, Source={StaticResource MaterialDesignPaper}}" />
                 </ResourceDictionary>-->
 
-                <!--
+        <!--
                 <ResourceDictionary>
                     <Style TargetType="ScrollViewer" BasedOn="{StaticResource MaterialDesignScrollViewer}">
                         <Setter Property="md:ScrollViewerAssist.IgnorePadding" Value="False" />
                     </Style>
                 </ResourceDictionary>
                 -->
-                
-            </ResourceDictionary.MergedDictionaries>
 
-            
-            <converters:BooleanToColorConverter x:Key="BoolToColor"  
+      </ResourceDictionary.MergedDictionaries>
+
+
+      <converters:BooleanToColorConverter x:Key="BoolToColor"  
                                                 TrueColor="ForestGreen" 
                                                 FalseColor="OrangeRed"/>
 
-            <converters:BooleanToColorConverter x:Key="BoolToEnabledDisabled"  
+      <converters:BooleanToColorConverter x:Key="BoolToEnabledDisabled"  
                                                 TrueColor="ForestGreen" 
                                                 FalseColor="LightGray"/>
 
-            <converters:BooleanToColorConverter x:Key="InvertedBoolToColor"  
+      <converters:BooleanToColorConverter x:Key="InvertedBoolToColor"  
                                                 FalseColor="ForestGreen" 
                                                 TrueColor="OrangeRed"/>
 
-            <converters:BooleanToColorConverter x:Key="HeatingBoolToColor"  
+      <converters:BooleanToColorConverter x:Key="HeatingBoolToColor"  
                                                 FalseColor="DarkBlue" 
                                                 TrueColor="OrangeRed"/>
 
 
-        </ResourceDictionary>
-    </Application.Resources>
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>

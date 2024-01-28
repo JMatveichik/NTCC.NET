@@ -24,7 +24,7 @@ namespace NTCC.NET.Core.Tools
             outputDataPoint.SetState(state);
 
             //вызов обработчиков при изменении состояния
-            element.OnTick($"Переключение  {outputDataPoint.Title} в состояние {state}", MessageType.Info);
+            element.OnTick($"Переключение  {outputDataPoint.ID} в состояние {outputDataPoint.StateString}", MessageType.Info);
 
             //Задержка перед следующей операцией 
             Thread.Sleep(delayAfter);
@@ -42,7 +42,7 @@ namespace NTCC.NET.Core.Tools
 
             //переключение выходной дискретной точки данных в заданное состояние
             outputDataPoint.WriteValue(val);
-            element.OnTick($"Задание  параметра {outputDataPoint.Title}  ({val})", MessageType.Info);
+            element.OnTick($"Задание  параметра {outputDataPoint.ID}  ({val})", MessageType.Info);
 
             //Задержка перед следующей операцией 
             Thread.Sleep(delayAfter);
@@ -57,15 +57,15 @@ namespace NTCC.NET.Core.Tools
                 throw new Exception($"Не найдена аналоговая точка данных <{id}>");
 
             DateTime startTime = DateTime.Now;
-            element.OnTick($"Ожидание установки параметра {analogDataPoint.Title}  ({val})", MessageType.Info);
+            element.OnTick($"Ожидание установки параметра {analogDataPoint.ID}  ({val})", MessageType.Info);
 
             while (Math.Abs( analogDataPoint.Value - val) < precition)
             {
                 Thread.Sleep(delayBeetwenCheck);
 
-                TimeSpan waitTime = startTime - DateTime.Now;
+                TimeSpan waitTime = DateTime.Now - startTime;
                 if (waitTime > timeout)
-                    throw new Exception($"Превышено время установления  {analogDataPoint.Title} ({timeout.TotalSeconds} s)");
+                    throw new Exception($"Превышено время установления  {analogDataPoint.ID} ({timeout.TotalSeconds} s)");
             }
         }
 
@@ -78,15 +78,15 @@ namespace NTCC.NET.Core.Tools
                 throw new Exception($"Не найдена дискретная точка данных <{id}>");
 
             DateTime startTime = DateTime.Now;
-            element.OnTick($"Ожидание установки параметра {discreteDataPoint.Title}  ({state})", MessageType.Info);
+            element.OnTick($"Ожидание установки параметра {discreteDataPoint.ID}  ({state})", MessageType.Info);
 
             while (discreteDataPoint.State != state)
             {
                 Thread.Sleep(delayBeetwenCheck);
 
-                TimeSpan waitTime = startTime - DateTime.Now;
+                TimeSpan waitTime = DateTime.Now - startTime;
                 if (waitTime > timeout)
-                    throw new Exception($"Превышено время установления  {discreteDataPoint.Title} ({timeout.TotalSeconds} s)");
+                    throw new Exception($"Превышено время установления  {discreteDataPoint.ID} ({timeout.TotalSeconds} s)");
             }
         }
 

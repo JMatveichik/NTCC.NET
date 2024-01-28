@@ -9,57 +9,365 @@
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="1024" d:DesignWidth="1280">
+  <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Start" Margin="5" Command="{x:Static cmds:FacilityCommands.StartFullCycle}"/>
-            <Button Content="Stop" Margin="5"  Command="{x:Static cmds:FacilityCommands.StopFullCycle}"/>
-        </StackPanel>
-        <!--
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="300"/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
 
-        <Expander Grid.Column="0" 
-                  ExpandDirection="Right" 
-                  Background="AliceBlue" 
-                  IsExpanded="True"
-                  Header="СТАДИИ">
-            
-        <ListBox Margin="5" ItemsSource="{Binding Stages}">
-            <ListBox.Resources>
-                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
-                    <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}" />
-                    <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
-                    <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
-                    <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource MahApps.Brushes.Accent4}"/>
-                    <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-                </Style>
+    <StackPanel Grid.Row="0" Orientation="Horizontal">
+      <Button Content="Start" Margin="5" Command="{x:Static cmds:FacilityCommands.StartFullCycle}"/>
+      <Button Content="Stop" Margin="5"  Command="{x:Static cmds:FacilityCommands.StopFullCycle}"/>
+    </StackPanel>
 
-                <DataTemplate DataType="{x:Type stages:StageBase}">
-                    <ctrls:StageItemPanel DataContext="{Binding}"/>
-                </DataTemplate>
 
-            </ListBox.Resources>
-        </ListBox>
-        </Expander>
-        -->
-        
-        <!--
-        <mde:Stepper IsLinear="True"
-                     Layout="Vertical" 
-                     ActiveStep="{Binding CurrentStage}"
-                     Steps="{Binding Path=Stages, Mode=OneTime}"
-                  />
-        -->
-        
+    <ScrollViewer Grid.Row="1" FlowDirection="RightToLeft"
+                  VerticalScrollBarVisibility="Auto">
+      <ItemsControl  ItemsSource="{Binding FullCycle.Stages}" >
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ctrls:StageItemPanel DataContext="{Binding}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <Grid Grid.Row="1" Grid.Column="1">
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width = "Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width = "Auto"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+
+      <Image Grid.Column="1" Grid.Row="1"
+             Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
+             Margin='10'
+             Stretch="Fill"/>
+
+      <Canvas Grid.Column="1"
+              Grid.Row="1" 
+              Margin="10">
+
+        <Canvas.Resources>
+          <Style TargetType="TextBlock" BasedOn="{StaticResource ItemDescription}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="DarkGray"/>
+            <!--<Setter Property="MaxWidth" Value="100"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            -->
+          </Style>
+        </Canvas.Resources>
+
+        <!-- TEXT MARKS -->
+        <TextBlock Canvas.Top="180" Canvas.Left="5"> 
+          <Run Text="Сжатый воздух"/>
+          <LineBreak/>
+          <Run Text="P"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 1.0 МПа"/>
+          <LineBreak/>
+          <Run Text="Q"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 20 н.м"/>
+          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
+          <Run Text="/ч"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="340" Canvas.Left="5">
+          <Run Text="Азот"/>
+          <LineBreak/>
+          <Run Text="P"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 0.6 МПа"/>
+          <LineBreak/>
+          <Run Text="Q"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 10 н.м"/>
+          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
+          <Run Text="/ч"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="500" Canvas.Left="5">
+          <Run Text="Вода"/>
+          <LineBreak/>
+          <Run Text="P"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 0.1 МПа"/>
+          <LineBreak/>
+          <Run Text="Q"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 1 н.м"/>
+          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
+          <Run Text="/ч"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="590" Canvas.Left="5">
+          <Run Text="Пропан-бутан"/>
+          <LineBreak/>
+          <Run Text="P"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 0.4 МПа"/>
+          <LineBreak/>
+          <Run Text="Q"/>
+          <Run BaselineAlignment="Subscript" Text="макс."/>
+          <Run Text="= 5 н.м"/>
+          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
+          <Run Text="/ч"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="170" 
+                   Canvas.Left="95" 
+                   Text="Ресивер">
+          <TextBlock.RenderTransform>
+            <RotateTransform Angle="-90"/>
+          </TextBlock.RenderTransform>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="420" 
+           Canvas.Left="145" 
+           Text="Ресивер">
+          <TextBlock.RenderTransform>
+            <RotateTransform Angle="-90"/>
+          </TextBlock.RenderTransform>
+        </TextBlock>
+
+
+        <TextBlock Canvas.Top="5" Canvas.Left="335" Text="Линейный модуль #1 скребка"/>
+        <TextBlock Canvas.Top="70" Canvas.Left="335" Text="Линейный модуль #2 скребка"/>
+        <TextBlock Canvas.Top="130" Canvas.Left="335" Text="Пневмоцилиндр уплотнения штоков"/>
+        <TextBlock Canvas.Top="190" Canvas.Left="335" Text="Пневмоцилиндр привода заслонки"/>
+
+        <TextBlock Canvas.Top="240" Canvas.Left="330" RenderTransformOrigin="0.64,-0.229">
+          <Run Text="Подача воздуха"/>
+          <LineBreak/>
+          <Run Text="в расходомер"/>
+        </TextBlock>
+        <TextBlock Canvas.Top="300" Canvas.Left="300">
+          <Run Text="Подача азота"/>
+          <LineBreak/>
+          <Run Text="в расходомер"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="310" Canvas.Left="530" Text="Продувка тары"/>
+
+        <TextBlock Canvas.Top="240" Canvas.Left="560" >
+          <Run Text="Подача воздуха"/>
+          <LineBreak/>
+          <Run Text="в реактор"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="385" Canvas.Left="340" Text="Подача азота в скребок"/>
+        <TextBlock Canvas.Top="445" Canvas.Left="340" Text="Аварийная продувка"/>
+        <TextBlock Canvas.Top="495" Canvas.Left="340" >
+          <Run Text="Продувка линии"/>
+          <LineBreak/>
+          <Run Text="пропан-бутана"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="460" Canvas.Left="620" >
+          <Run Text="Увлажнитель"/>
+          <LineBreak/>
+          <Run Text="воздуха"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="680" Canvas.Left="380" >
+          <Run Text="Подогреватель"/>
+          <LineBreak/>
+          <Run Text="газа"/>
+        </TextBlock>
+
+        <TextBlock Canvas.Top="650" Canvas.Left="850" Text="Шнек"/>
+        <TextBlock Canvas.Top="600" Canvas.Left="750" Text="Ворошитель"/>
+
+        <!-- Analog Data Points -->
+        <ctrls:AnalogDataPointInlineCtrl
+          DataContext="{Binding DataPoints[MD400C.SETPOINT.WR]}"
+          Canvas.Top="240" 
+          Canvas.Left="80"/>
+
+        <ctrls:AnalogDataPointInlineCtrl
+          DataContext="{Binding DataPoints[BH.SETPOINT.WR]}"
+          Canvas.Top="660" 
+          Canvas.Left="220"/>
+
+        <!--Valves-->
+        <!-- Линейный модуль #1-->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA01.1]}"
+          Canvas.Top="8" 
+          Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA01.1]}"
+          Canvas.Top="192" 
+          Canvas.Left="890"
+          RenderTransformOrigin="0.5,0.5">
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
+
+        <!-- Линейный модуль #2-->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA01.2]}"
+          Canvas.Top="70" 
+          Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA01.2]}"
+          Canvas.Top="192" 
+          Canvas.Left="797"
+          RenderTransformOrigin="0.5,0.5">
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
+
+
+        <!-- Пневмоцилиндр уплотнения штоков-->
+        <ctrls:ValveInlineCtrl
+           DataContext="{Binding DataPoints[YA02]}"
+           Canvas.Top="135" 
+           Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA02]}"
+          Canvas.Top="300" 
+          Canvas.Left="766"
+          RenderTransformOrigin="0.5,0.5">
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
+
+
+        <!-- Привод заслонки-->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA03]}"
+          Canvas.Top="195" 
+          Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA03]}"
+          Canvas.Top="595" 
+          Canvas.Left="919"
+          RenderTransformOrigin="0.5,0.5">
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="-90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
+          
+        <!-- Привод заслонки-->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA05.OPN]}"
+          Canvas.Top="255" 
+          Canvas.Left="250"/>   
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA05.OPN]}"
+          Canvas.Top="267" 
+          Canvas.Left="355"/>
+
+        <!-- Подача азота в расходомер-->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA06.OPN]}"
+          Canvas.Top="320" 
+          Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA06.OPN]}"
+          Canvas.Top="329" 
+          Canvas.Left="355"/>
+
+        <!-- Подача азота в скребок-->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA08.OPN]}"
+          Canvas.Top="380" 
+          Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA08.OPN]}"
+          Canvas.Top="190" 
+          Canvas.Left="840"
+          RenderTransformOrigin="0.5,0.5">
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
+
+        <!-- Аварийная продувка -->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA09.CLS]}"
+          Canvas.Top="445" 
+          Canvas.Left="250"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA09.CLS]}"
+          Canvas.Top="458" 
+          Canvas.Left="500">
+        </ctrls:ValveStateInlineCtrl>
+
+       <!-- Продувка линии пропан бутана-->
+       <ctrls:ValveInlineCtrl
+         DataContext="{Binding DataPoints[YA10.OPN]}"
+         Canvas.Top="510" 
+         Canvas.Left="250"/>
+
+       <ctrls:ValveStateInlineCtrl
+         DataContext="{Binding DataPoints[YA10.OPN]}"
+         Canvas.Top="590" 
+         Canvas.Left="363"
+          RenderTransformOrigin="0.5,0.5">
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
+
+        <!-- Подача воды в увлажнитель -->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA11.OPN]}"
+          Canvas.Top="545" 
+          Canvas.Left="120"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA11.OPN]}"
+          Canvas.Top="555" 
+          Canvas.Left="642"/>
+
+        <!-- Подача пропан-бутана -->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA13.OPN]}"
+          Canvas.Top="635" 
+          Canvas.Left="120"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA13.OPN]}"
+          Canvas.Top="560" 
+          Canvas.Left="786"/>
+
+      </Canvas>
+
+
+
     </Grid>
+
+  </Grid>
+
+
 </UserControl>

@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="NTCC.NET.Controls.ValveInlineCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:cmds="clr-namespace:NTCC.NET.Commands"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:NTCC.NET.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <Grid>
+
+    <Grid.Resources>
+      
+      <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+      
+        <Style.Triggers>
+
+          <!-- Здесь ваша привязка -->
+          <DataTrigger Binding="{Binding State}" Value="True">
+            <Setter  Property="Background" Value="DarkGreen"/>
+
+            <!-- Если "IsOpen" равно "True", измените содержимое кнопки -->
+            <Setter Property="Content">
+              <Setter.Value>
+
+                <iconPacks:PackIconMaterial Kind="ValveOpen" 
+                                        Foreground="White"
+                                        HorizontalAlignment="Center"
+                                        Style="{StaticResource MetroToolBoxIconStyle16}"
+                                        RenderTransformOrigin="0.5, 0.5">
+
+                  <iconPacks:PackIconMaterial.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                  </iconPacks:PackIconMaterial.RenderTransform>
+                </iconPacks:PackIconMaterial>
+
+              </Setter.Value>
+            </Setter>
+          </DataTrigger>
+
+          <DataTrigger Binding="{Binding State}" Value="False">
+            <Setter  Property="Background" Value="DarkRed"/>
+            
+            <Setter Property="Content">
+              <Setter.Value>
+
+                <iconPacks:PackIconMaterial Kind="ValveClosed" 
+                                        Foreground="White"
+                                        HorizontalAlignment="Center"
+                                        Style="{StaticResource MetroToolBoxIconStyle16}"
+                                        RenderTransformOrigin="0.5, 0.5">
+
+                  <iconPacks:PackIconMaterial.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                  </iconPacks:PackIconMaterial.RenderTransform>
+                </iconPacks:PackIconMaterial>
+
+              </Setter.Value>
+            </Setter>
+          </DataTrigger>
+
+        </Style.Triggers>
+      </Style>
+    </Grid.Resources>
+    
+    <Button 
+        Command="{x:Static cmds:FacilityCommands.SwitchDiscreteOutputValue}"
+        CommandParameter="{Binding}">      
+    </Button>
+
+  </Grid>
+</UserControl>

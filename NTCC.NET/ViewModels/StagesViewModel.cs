@@ -1,119 +1,180 @@
 ﻿using MaterialDesignExtensions.Model;
 using NTCC.NET.Core.Facility;
 using NTCC.NET.Core.Stages;
+using NTCC.NET.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
+using ToastNotifications;
+using ToastNotifications.Core;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
+using ToastNotifications.Messages;
 
 namespace NTCC.NET.ViewModels
 {
-    class StagesViewModel : PageViewModel
+  class StagesViewModel : PageViewModel
+  {
+    #region notifier configuration
+
+    private Notifier notifier;
+
+    public Notifier CreateNotifier(Corner corner, NotificationLifetimeType lifetime)
     {
-        public StagesViewModel()
-        {
-            Stages = new ObservableCollection<IStep>();
+      notifier?.Dispose();
+      notifier = null;
 
-            foreach (StageBase stage in ArtMonbatFacility.Stages.Items.Values)
-            {
-                IStep step = new Step() { Header = new StepTitleHeader() {
-                    SecondLevelTitle = stage.Title,
-                    FirstLevelTitle = stage.Description}};
-
-                Stages.Add(step);
-                stage.Tick += OnStageTick;
-            }
-
-            // Создаем новый поток и передаем метод, который будет выполняться в потоке            
-            collectionThread = new Thread(() => UpdateStageFunction(stop));
-            collectionThread.Start();
-        }
-
-        private void OnStageTick(object sender, FacilityMessageArgs agrs)
-        {
-            //throw new NotImplementedException();
-        }
-
-        // Создаем токен отмены
-        CancellationTokenSource stop = new CancellationTokenSource();
-
-        // Создаем новый поток и передаем метод, который будет выполняться в потоке
-        private Thread collectionThread = null;
-
-
-        public IStep CurrentStage
-        {
-            get => currentStage;
-            set 
-            {
-                if (currentStage == value)
-                    return;
-
-                currentStage = value;
-                OnPropertyChanged();
-            }
-        }
-        private IStep currentStage = null;
-
-        // Метод, который будет выполняться в отдельном потоке
-        void UpdateStageFunction(CancellationTokenSource stop)
-        {
-            try
-            {
-                int indexStage = -1;
-                while (true)
-                {
-                    stop.Token.ThrowIfCancellationRequested();
-
-                    if (stop.IsCancellationRequested)
-                        break;
-
-                    Thread.Sleep(3000);
-
-                    if (indexStage < Stages.Count - 1)                    
-                        indexStage++;
-                    else
-                        indexStage = -1;
-
-                    CurrentStage = indexStage == -1 ? null : Stages[indexStage];
-                }
-            }
-            catch (OperationCanceledException)
-            {
-            }
-        }
-
-        public override void Stop()
-        {
-            // Останавливаем поток обновления графики
-            stop.Cancel();
-
-            // Ожидаем завершение потока
-            collectionThread.Join(0);
-        }
-
-        /// <summary>
-        /// Represents the step view items.
-        /// </summary>
-        private ObservableCollection<IStep> m_stepViewItems;
-
-        /// <summary>
-        /// Gets or sets the step view items.
-        /// </summary>
-        public ObservableCollection<IStep> Stages
-        {
-            get
-            {
-                return m_stepViewItems;
-            }
-            set
-            {
-                m_stepViewItems = value;
-                OnPropertyChanged();
-            }
-        }
+      return new Notifier(cfg =>
+      {
+        cfg.PositionProvider = CreatePositionProvider(corner);
+        cfg.LifetimeSupervisor = CreateLifetimeSupervisor(lifetime);
+        cfg.Dispatcher = Application.Current.Dispatcher;
+        cfg.DisplayOptions.TopMost = TopMost.GetValueOrDefault();
+      });
     }
+
+    public void ChangePosition(Corner corner, NotificationLifetimeType lifetime)
+    {
+      notifier = CreateNotifier(corner,  lifetime);
+    }
+
+    private void MainWindowOnClosing(object sender, CancelEventArgs cancelEventArgs)
+    {
+      notifier.Dispose();
+    }
+
+    private static INotificationsLifetimeSupervisor CreateLifetimeSupervisor(NotificationLifetimeType lifetime)
+    {
+      if (lifetime == NotificationLifetimeType.Basic)
+        return new CountBasedLifetimeSupervisor(MaximumNotificationCount.FromCount(7));
+
+      return new TimeAndCountBasedLifetimeSupervisor(TimeSpan.FromSeconds(5),
+          MaximumNotificationCount.UnlimitedNotifications());
+    }
+
+    private static IPositionProvider CreatePositionProvider(Corner corner)
+    {
+      return new PrimaryScreenPositionProvider(corner, 5, 5);
+    }
+
+    public bool? FreezeOnMouseEnter { get; set; } = true;
+    public bool? ShowCloseButton { get; set; } = false;
+    public bool? TopMost { get; set; } = true;
+
+    #endregion
+
+
+    #region notifier messages
+
+    internal void ShowWarning(string message)
+    {
+      notifier.ShowWarning(message, CreateOptions());
+      RememberMessage(message);
+    }
+
+    internal void ShowSuccess(string message)
+    {
+      notifier.ShowSuccess(message, CreateOptions());
+      RememberMessage(message);
+    }
+
+    public void ShowInformation(string message)
+    {
+      notifier.ShowInformation(message, CreateOptions());
+      RememberMessage(message);
+    }
+
+    public void ShowError(string message)
+    {
+      notifier.ShowError(message, CreateOptions());
+      RememberMessage(message);
+    }
+
+    private string _lastMessage = "";
+    private void RememberMessage(string message)
+    {
+      if (_messageCounter % 3 == 0)
+      {
+        _lastMessage = message;
+      }
+    }
+
+    private int _messageCounter = 0;
+
+    private MessageOptions CreateOptions()
+    {
+      return new MessageOptions
+      {
+        FreezeOnMouseEnter = FreezeOnMouseEnter.GetValueOrDefault(),
+        ShowCloseButton = ShowCloseButton.GetValueOrDefault(),
+        Tag = ++_messageCounter % 2
+      };
+    }
+
+    #endregion
+
+    public StagesViewModel()
+    {
+      notifier = CreateNotifier(Corner.TopRight, NotificationLifetimeType.TimeBased);
+      Application.Current.MainWindow.Closing += MainWindowOnClosing;
+
+      FullCycle.Tick += OnStageTick;
+      foreach (StageBase stage in FullCycle.Stages)
+      {
+        stage.Tick += OnStageTick;
+      }
+    }
+
+    private void OnStageTick(object sender, FacilityMessageArgs args)
+    {
+      string message = args.Message;
+
+      switch (args.MessageType)
+      {
+        case MessageType.Info:
+          ShowInformation(message);
+          break;
+        case MessageType.Debug:
+          ShowInformation(message);
+          break;
+        case MessageType.Warning:
+          ShowWarning(message);
+          break;
+        case MessageType.Error:
+          ShowError(message);
+          break;
+        case MessageType.Exception:
+          ShowError(message);
+          break;
+        default:
+          ShowInformation(message);
+          break;
+      }
+    }
+
+
+    public StageMain FullCycle
+    {
+      get;
+      private set;
+    } = ArtMonbatFacility.FullCycle;
+
+    public FaciliitySet<DataPoint> DataPoints
+    {
+      get;
+      private set;
+    } = ArtMonbatFacility.DataPoints;
+
+    public override void Stop()
+    {
+    }
+
+  }
 }

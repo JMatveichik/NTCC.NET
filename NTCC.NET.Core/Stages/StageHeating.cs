@@ -66,6 +66,7 @@ namespace NTCC.NET.Core.Stages
         protected override StageResult Main(CancellationToken cancel)
         {
             OnTick($"Начато выполнение стадии {Title}.", MessageType.Info);
+            StartTime = DateTime.Now;
 
             //ожидаем пока средняя температура стенок реактора превысит заданную в параметрах стадии прогрева
             while (ArtMonbatFacility.AverageWallTemperature < StageParameters.AverageTemperature)
@@ -75,6 +76,8 @@ namespace NTCC.NET.Core.Stages
                 //проверяем на прерывание стадии пользователем
                 if (stop.IsCancellationRequested)
                     return StageResult.Breaked;
+
+                Duration = DateTime.Now - StartTime;
             }
 
             return StageResult.Successful;

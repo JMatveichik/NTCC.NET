@@ -3,44 +3,84 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
              xmlns:local="clr-namespace:NTCC.NET.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-            
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        
-        <Border Grid.Row="0"
-            Style="{StaticResource BorderUnderline}">
+             d:DesignHeight="100" d:DesignWidth="216">
+  <Grid>
+    
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="60"/>
+      <ColumnDefinition Width="20"/>
+      <ColumnDefinition Width="220"/>
+    </Grid.ColumnDefinitions>
+    
+    
+    <Grid Grid.Column="0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition/>
+      </Grid.RowDefinitions>
+      
+      <TextBlock  Grid.Row="0"     
+          Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                  IsEnabled="False"
+          Style="{StaticResource ItemDescriptionDynamic}"/>
+      
+      <TextBlock Grid.Row="1"
+          Style="{StaticResource ItemTitleDynamic}"
+          VerticalAlignment="Center"
+          HorizontalAlignment="Center"
+          Text="{Binding Path=Duration, StringFormat=mm\\:ss}"/>
 
-            <Grid>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300"/>
-                    <ColumnDefinition Width="80"/>
-                </Grid.ColumnDefinitions>
-
-                <mah:Badged Badge="{Binding Index}"></mah:Badged>
-                <TextBlock Grid.Row="0" Grid.Column="0"
-                           Style="{StaticResource Header2}"
-			               Text="{Binding Path=Title}"/>
-
-
-                <TextBlock Grid.Row="0" Grid.Column="1"
-                           Style="{StaticResource Header2}"
-			               Text="{Binding Path=TotalDuration}"/>
-
-                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                           Style="{StaticResource ItemDescription}"
-			               Text="{Binding Path=Description}"
-                           TextWrapping="Wrap"/>
-
-            </Grid>
-        </Border>
     </Grid>
+
+    <StackPanel Grid.Column="2" Orientation="Vertical">
+      <TextBlock 
+        Style="{StaticResource ItemTitleDynamic}"
+        Text="{Binding Path=Title}"/>
+      
+      <TextBlock Style="{StaticResource ItemDescriptionDynamic}"
+                  Text="{Binding Path=Description}" 
+                 TextWrapping="Wrap"
+                 Margin="10"/>
+    </StackPanel>
+
+    <Grid Grid.Column="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <iconPacks:PackIconUnicons Grid.Row="0" Kind="Circle"
+                                 HorizontalAlignment="Center"
+                                 Margin="0, 3"
+                                 Width="10"
+                                 Height="10"
+                                 Foreground="DarkBlue"/>
+      <ProgressBar Grid.Row="1"                   
+                   Height="3"
+                   Maximum="{cb:Binding 'TotalDuration.TotalSeconds == 0.0 ? 100 : TotalDuration.TotalSeconds', Mode=OneWay}"
+                   Value="{cb:Binding Duration.TotalSeconds, Mode=OneWay}"
+                   IsIndeterminate="{cb:Binding 'TotalDuration.TotalSeconds == 0.0 and IsActive', Mode=OneWay}"
+                   BorderThickness="0.5"
+                   BorderBrush="Black"
+                   Orientation="Vertical">
+        <ProgressBar.RenderTransform>
+          <TransformGroup>
+            <RotateTransform Angle="180" />
+            <TranslateTransform Y="56" X="3" />
+          </TransformGroup>
+        </ProgressBar.RenderTransform>
+        
+
+      </ProgressBar>
+
+
+    </Grid>
+
+  </Grid>
+
 </UserControl>

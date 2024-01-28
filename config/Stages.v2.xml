@@ -4,17 +4,17 @@
 	<Stage  ID="STG.PREHEAT.150"
 			Name="Предварительный нагрев #01"
 			Type="Heating"
-			AverageTemperature="110"
+			AverageTemperature="150"
 			Description="Предварительный нагрев реактора до 150 °С">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="145" MaxWallTemperature="150" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="165" MaxWallTemperature="170" HeaterPower="70" MaxHeaterTemperature="750"/>
 		</Heating>
 		
 	</Stage>
@@ -22,17 +22,17 @@
 	<Stage  ID="STG.PREHEAT.250"
 			Name="Предварительный нагрев #02"
 			Type="Heating"
-			AverageTemperature="210"
+			AverageTemperature="250"
 			Description="Предварительный нагрев реактора до 250 °С">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="245" MaxWallTemperature="250" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="265" MaxWallTemperature="270" HeaterPower="70" MaxHeaterTemperature="750"/>
 		</Heating>
 		
 	</Stage>
@@ -40,17 +40,17 @@
 	<Stage  ID="STG.PREHEAT.350"
 			Name="Предварительный нагрев #03"
 			Type="Heating"
-			AverageTemperature="310"
+			AverageTemperature="350"
 			Description="Предварительный нагрев реактора до 350 °С">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="345" MaxWallTemperature="350" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="365" MaxWallTemperature="370" HeaterPower="70" MaxHeaterTemperature="750"/>
 		</Heating>
 		
 	</Stage>
@@ -58,35 +58,35 @@
 	<Stage  ID="STG.PREHEAT.450"
 			Name="Предварительный нагрев #04"
 			Type="Heating"
-			AverageTemperature="410"
+			AverageTemperature="450"
 			Description="Предварительный нагрев реактора до 450 °С">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="445" MaxWallTemperature="450" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="465" MaxWallTemperature="470" HeaterPower="70" MaxHeaterTemperature="750"/>
 		</Heating>
 		
 	</Stage>
 	
 	<Stage  ID="STG.PREHEAT.550"
-			Name="Предварительный нагрев #5"
+			Name="Предварительный нагрев #05"
 			Type="Heating"
-			AverageTemperature="510"
+			AverageTemperature="550"
 			Description="Предварительный нагрев реактора до 550 °С">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT02.MID.TOP" MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT03.MID" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT04.MID.BOT" MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="545" MaxWallTemperature="550" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT02.MID.TOP" MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT03.MID" 	MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT04.MID.BOT" MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="565" MaxWallTemperature="570" HeaterPower="70" MaxHeaterTemperature="750"/>
 		</Heating>
 		
 	</Stage>

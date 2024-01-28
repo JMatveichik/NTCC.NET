@@ -61,25 +61,6 @@
     </Style>
 
     <Style
-        x:Key="ComboTitle"
-        BasedOn="{StaticResource ApplicationTextBlockStyle}"
-        TargetType="TextBlock">
-        <Setter Property="FontFamily" Value="{StaticResource RCRegular}" />
-        <Setter Property="FontSize" Value="16" />
-    </Style>
-
-    <Style
-        x:Key="ComboDescription"
-        BasedOn="{StaticResource ApplicationTextBlockStyle}"
-        TargetType="TextBlock">
-
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="Margin" Value="5,2" />
-        <Setter Property="TextWrapping" Value="Wrap" />
-        
-    </Style>
-
-    <Style
         x:Key="TableHeader"
         BasedOn="{StaticResource ApplicationTextBlockStyle}"
         TargetType="TextBlock">
@@ -93,12 +74,49 @@
 
     </Style>
 
-    <Style
+  <Style
+    x:Key="ItemTitle"
+    BasedOn="{StaticResource ApplicationTextBlockStyle}"
+    TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource RCRegular}" />
+  </Style>
+  
+  <Style
         x:Key="ItemDescription"
         BasedOn="{StaticResource ApplicationTextBlockStyle}"
         TargetType="TextBlock">
         <Setter Property="Margin" Value="10,0" />
         <Setter Property="FontSize" Value="14" />
-    </Style>
+  </Style>
+
+  <Style
+  x:Key="ItemTitleDynamic"
+  BasedOn="{StaticResource ApplicationTextBlockStyle}"
+  TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="{StaticResource RCRegular}" />
+    <Setter Property="FontSize" Value="16" />
+
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding IsActive}" Value="False">
+        <Setter Property="Foreground" Value="LightGray"/>
+      </DataTrigger>
+    </Style.Triggers>
+
+  </Style>
+
+  <Style
+      x:Key="ItemDescriptionDynamic"
+      BasedOn="{StaticResource ApplicationTextBlockStyle}"
+      TargetType="TextBlock">
+    <Setter Property="Margin" Value="10,0" />
+    <Setter Property="FontSize" Value="14" />
+
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding IsActive}" Value="False">
+        <Setter Property="Foreground" Value="LightGray"/>
+      </DataTrigger>
+    </Style.Triggers>
+
+  </Style>
 
 </ResourceDictionary>
