@@ -9,7 +9,7 @@
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              mc:Ignorable="d" 
-             d:DesignHeight="1024" d:DesignWidth="1280">
+             d:DesignHeight="1080" d:DesignWidth="1920">
   <Grid>
 
 
@@ -196,12 +196,12 @@
         <TextBlock Canvas.Top="750" Canvas.Left="1020" Text="Ворошитель"/>
 
         <!-- Analog Data Points -->
-        <ctrls:AnalogDataPointInlineCtrl
+        <ctrls:AnalogOutputDataPointInlineCtrl
           DataContext="{Binding DataPoints[MD400C.SETPOINT.WR]}"
           Canvas.Top="380" 
           Canvas.Left="520"/>
 
-        <ctrls:AnalogDataPointInlineCtrl
+        <ctrls:AnalogOutputDataPointInlineCtrl
           DataContext="{Binding DataPoints[BH.SETPOINT.WR]}"
           Canvas.Top="870" 
           Canvas.Left="600"/>
@@ -404,6 +404,85 @@
                            TextWrapping="Wrap"
                            Style="{StaticResource Header1}"
                            Background="Bisque" >ТУТ БУДЕТ БЛОК УПРАВЛЕНИЯ НАГРЕВАТЕЛЯМИ</TextBlock>
+
+          
+        <!--Analog input datapoins -->  
+          <!--Давление в магистрали воздуха-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[PT01]}"
+            Canvas.Top="130" 
+            Canvas.Left="195"/>
+                <!--Давление в магистрали азота-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[PT02]}"
+            Canvas.Top="455" 
+            Canvas.Left="235"/>
+
+                <!--Давление в магистрали скребка-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[PT03]}"
+            Canvas.Top="455" 
+            Canvas.Left="550"/>
+
+                <!--Давление в магистрали пропан-бутана-->
+            <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[PT04]}"
+            Canvas.Top="780" 
+            Canvas.Left="270"/>
+
+                <!--Расход азота/воздуха-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[MD400C.MEASSURE]}"
+            Canvas.Top="280" 
+            Canvas.Left="565"/>
+
+                <!--Расход пропан-бутана-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[MD400C.MEASSURE]}"
+            Canvas.Top="770" 
+            Canvas.Left="650"/>
+
+                <!--Температура стенки реактора (верх)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE13]}"
+            Canvas.Top="470" 
+            Canvas.Left="1000"/>
+
+                <!--Температура стенки реактора (срежний верх)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE14]}"
+            Canvas.Top="520" 
+            Canvas.Left="1000"/>
+
+                <!--Температура стенки реактора (средняя)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE15]}"
+            Canvas.Top="570" 
+            Canvas.Left="1000"/>
+
+                <!--Температура стенки реактора (средняя низ)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE16]}"
+            Canvas.Top="620" 
+            Canvas.Left="1000"/>
+
+                <!--Температура стенки реактора (низ)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE17]}"
+            Canvas.Top="670" 
+            Canvas.Left="1000"/>
+
+                <!--Температура стенки реактора (внутренний верх)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE18]}"
+            Canvas.Top="470" 
+            Canvas.Left="1100"/>
+
+                <!--Температура стенки реактора (внутренний низ)-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE19]}"
+            Canvas.Top="670" 
+            Canvas.Left="1100"/>
             </Canvas>
         
         

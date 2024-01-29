@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace NTCC.NET.Controls
 {
-  /// <summary>
-  /// Interaction logic for AnalogDataPointInlineCtrl.xaml
-  /// </summary>
-  public partial class AnalogDataPointInlineCtrl : UserControl
-  {
-    public AnalogDataPointInlineCtrl()
+    /// <summary>
+    /// Interaction logic for AnalogInputDataPointInlineCtrl.xaml
+    /// </summary>
+    public partial class AnalogInputDataPointInlineCtrl : UserControl
     {
-      InitializeComponent();
+        public AnalogInputDataPointInlineCtrl()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

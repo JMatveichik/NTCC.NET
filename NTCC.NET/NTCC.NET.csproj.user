@@ -7,7 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controls\AnalogDataPointInlineCtrl.xaml.cs">
+    <Compile Update="Controls\AnalogInputDataPointInlineCtrl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\AnalogOutputDataPointInlineCtrl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\CurrentStagePanel.xaml.cs">
@@ -54,7 +57,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Controls\AnalogDataPointInlineCtrl.xaml">
+    <Page Update="Controls\AnalogInputDataPointInlineCtrl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\AnalogOutputDataPointInlineCtrl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\CurrentStagePanel.xaml">
