@@ -75,7 +75,7 @@
         </Canvas.Resources>
 
         <!-- TEXT MARKS -->
-        <TextBlock Canvas.Top="180" Canvas.Left="5"> 
+        <TextBlock Canvas.Top="130" Canvas.Left="5"> 
           <Run Text="Сжатый воздух"/>
           <LineBreak/>
           <Run Text="P"/>
@@ -89,7 +89,7 @@
           <Run Text="/ч"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="340" Canvas.Left="5">
+        <TextBlock Canvas.Top="450" Canvas.Left="5">
           <Run Text="Азот"/>
           <LineBreak/>
           <Run Text="P"/>
@@ -103,7 +103,7 @@
           <Run Text="/ч"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="500" Canvas.Left="5">
+        <TextBlock Canvas.Top="670" Canvas.Left="5">
           <Run Text="Вода"/>
           <LineBreak/>
           <Run Text="P"/>
@@ -117,7 +117,7 @@
           <Run Text="/ч"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="590" Canvas.Left="5">
+        <TextBlock Canvas.Top="780" Canvas.Left="5">
           <Run Text="Пропан-бутан"/>
           <LineBreak/>
           <Run Text="P"/>
@@ -131,16 +131,16 @@
           <Run Text="/ч"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="170" 
-                   Canvas.Left="95" 
+        <TextBlock Canvas.Top="215" 
+                   Canvas.Left="130" 
                    Text="Ресивер">
           <TextBlock.RenderTransform>
             <RotateTransform Angle="-90"/>
           </TextBlock.RenderTransform>
         </TextBlock>
 
-        <TextBlock Canvas.Top="420" 
-           Canvas.Left="145" 
+        <TextBlock Canvas.Top="540" 
+           Canvas.Left="200" 
            Text="Ресивер">
           <TextBlock.RenderTransform>
             <RotateTransform Angle="-90"/>
@@ -148,75 +148,75 @@
         </TextBlock>
 
 
-        <TextBlock Canvas.Top="5" Canvas.Left="335" Text="Линейный модуль #1 скребка"/>
-        <TextBlock Canvas.Top="70" Canvas.Left="335" Text="Линейный модуль #2 скребка"/>
-        <TextBlock Canvas.Top="130" Canvas.Left="335" Text="Пневмоцилиндр уплотнения штоков"/>
-        <TextBlock Canvas.Top="190" Canvas.Left="335" Text="Пневмоцилиндр привода заслонки"/>
+        <TextBlock Canvas.Top="10" Canvas.Left="450" Text="Линейный модуль #1 скребка (вверх)"/>
+        <TextBlock Canvas.Top="95" Canvas.Left="450" Text="Линейный модуль #2 скребка (вниз)"/>
+        <TextBlock Canvas.Top="175" Canvas.Left="450" Text="Пневмоцилиндр уплотнения штоков"/>
+        <TextBlock Canvas.Top="255" Canvas.Left="450" Text="Пневмоцилиндр привода заслонки"/>
 
-        <TextBlock Canvas.Top="240" Canvas.Left="330" RenderTransformOrigin="0.64,-0.229">
+        <TextBlock Canvas.Top="310" Canvas.Left="430">
           <Run Text="Подача воздуха"/>
           <LineBreak/>
           <Run Text="в расходомер"/>
         </TextBlock>
-        <TextBlock Canvas.Top="300" Canvas.Left="300">
+        <TextBlock Canvas.Top="390" Canvas.Left="430">
           <Run Text="Подача азота"/>
           <LineBreak/>
           <Run Text="в расходомер"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="310" Canvas.Left="530" Text="Продувка тары"/>
+        <TextBlock Canvas.Top="420" Canvas.Left="740" Text="Продувка тары"/>
 
-        <TextBlock Canvas.Top="240" Canvas.Left="560" >
+        <TextBlock Canvas.Top="320" Canvas.Left="740" >
           <Run Text="Подача воздуха"/>
           <LineBreak/>
           <Run Text="в реактор"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="385" Canvas.Left="340" Text="Подача азота в скребок"/>
-        <TextBlock Canvas.Top="445" Canvas.Left="340" Text="Аварийная продувка"/>
-        <TextBlock Canvas.Top="495" Canvas.Left="340" >
+        <TextBlock Canvas.Top="500" Canvas.Left="450" Text="Подача азота в скребок"/>
+        <TextBlock Canvas.Top="580" Canvas.Left="450" Text="Аварийная продувка"/>
+        <TextBlock Canvas.Top="645" Canvas.Left="450" >
           <Run Text="Продувка линии"/>
           <LineBreak/>
           <Run Text="пропан-бутана"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="460" Canvas.Left="620" >
+        <TextBlock Canvas.Top="600" Canvas.Left="850" >
           <Run Text="Увлажнитель"/>
           <LineBreak/>
           <Run Text="воздуха"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="680" Canvas.Left="380" >
+        <TextBlock Canvas.Top="880" Canvas.Left="500" >
           <Run Text="Подогреватель"/>
           <LineBreak/>
           <Run Text="газа"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="650" Canvas.Left="850" Text="Шнек"/>
-        <TextBlock Canvas.Top="600" Canvas.Left="750" Text="Ворошитель"/>
+        <TextBlock Canvas.Top="810" Canvas.Left="1100" Text="Шнек"/>
+        <TextBlock Canvas.Top="750" Canvas.Left="1020" Text="Ворошитель"/>
 
         <!-- Analog Data Points -->
         <ctrls:AnalogDataPointInlineCtrl
           DataContext="{Binding DataPoints[MD400C.SETPOINT.WR]}"
-          Canvas.Top="240" 
-          Canvas.Left="80"/>
+          Canvas.Top="380" 
+          Canvas.Left="520"/>
 
         <ctrls:AnalogDataPointInlineCtrl
           DataContext="{Binding DataPoints[BH.SETPOINT.WR]}"
-          Canvas.Top="660" 
-          Canvas.Left="220"/>
+          Canvas.Top="870" 
+          Canvas.Left="600"/>
 
         <!--Valves-->
         <!-- Линейный модуль #1-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA01.1]}"
           Canvas.Top="8" 
-          Canvas.Left="250"/>
+          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA01.1]}"
-          Canvas.Top="192" 
-          Canvas.Left="890"
+          Canvas.Top="230" 
+          Canvas.Left="1182"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
             <RotateTransform Angle="90"/>
@@ -226,13 +226,13 @@
         <!-- Линейный модуль #2-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA01.2]}"
-          Canvas.Top="70" 
-          Canvas.Left="250"/>
+          Canvas.Top="90" 
+          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA01.2]}"
-          Canvas.Top="192" 
-          Canvas.Left="797"
+          Canvas.Top="230" 
+          Canvas.Left="1061"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
             <RotateTransform Angle="90"/>
@@ -243,13 +243,13 @@
         <!-- Пневмоцилиндр уплотнения штоков-->
         <ctrls:ValveInlineCtrl
            DataContext="{Binding DataPoints[YA02]}"
-           Canvas.Top="135" 
-           Canvas.Left="250"/>
+           Canvas.Top="170" 
+           Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA02]}"
-          Canvas.Top="300" 
-          Canvas.Left="766"
+          Canvas.Top="370" 
+          Canvas.Left="1021"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
             <RotateTransform Angle="90"/>
@@ -260,51 +260,51 @@
         <!-- Привод заслонки-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
-          Canvas.Top="195" 
-          Canvas.Left="250"/>
+          Canvas.Top="250" 
+          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
-          Canvas.Top="595" 
-          Canvas.Left="919"
+          Canvas.Top="775" 
+          Canvas.Left="1224"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
             <RotateTransform Angle="-90"/>
           </ctrls:ValveStateInlineCtrl.RenderTransform>
         </ctrls:ValveStateInlineCtrl>
           
-        <!-- Привод заслонки-->
+        <!-- Подача воздуха в расходомер -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA05.OPN]}"
-          Canvas.Top="255" 
-          Canvas.Left="250"/>   
+          Canvas.Top="335" 
+          Canvas.Left="340"/>   
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA05.OPN]}"
-          Canvas.Top="267" 
-          Canvas.Left="355"/>
+          Canvas.Top="348" 
+          Canvas.Left="460"/>
 
         <!-- Подача азота в расходомер-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA06.OPN]}"
-          Canvas.Top="320" 
-          Canvas.Left="250"/>
+          Canvas.Top="420" 
+          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA06.OPN]}"
-          Canvas.Top="329" 
-          Canvas.Left="355"/>
+          Canvas.Top="428" 
+          Canvas.Left="460"/>
 
         <!-- Подача азота в скребок-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA08.OPN]}"
-          Canvas.Top="380" 
-          Canvas.Left="250"/>
+          Canvas.Top="500" 
+          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA08.OPN]}"
-          Canvas.Top="190" 
-          Canvas.Left="840"
+          Canvas.Top="230" 
+          Canvas.Left="1119"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
             <RotateTransform Angle="90"/>
@@ -314,25 +314,25 @@
         <!-- Аварийная продувка -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
-          Canvas.Top="445" 
-          Canvas.Left="250"/>
+          Canvas.Top="580" 
+          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
-          Canvas.Top="458" 
-          Canvas.Left="500">
+          Canvas.Top="595" 
+          Canvas.Left="600">
         </ctrls:ValveStateInlineCtrl>
 
        <!-- Продувка линии пропан бутана-->
        <ctrls:ValveInlineCtrl
          DataContext="{Binding DataPoints[YA10.OPN]}"
-         Canvas.Top="510" 
-         Canvas.Left="250"/>
+         Canvas.Top="665" 
+         Canvas.Left="340"/>
 
        <ctrls:ValveStateInlineCtrl
          DataContext="{Binding DataPoints[YA10.OPN]}"
-         Canvas.Top="590" 
-         Canvas.Left="363"
+         Canvas.Top="760" 
+         Canvas.Left="485"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
             <RotateTransform Angle="90"/>
@@ -342,26 +342,71 @@
         <!-- Подача воды в увлажнитель -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA11.OPN]}"
-          Canvas.Top="545" 
-          Canvas.Left="120"/>
+          Canvas.Top="710" 
+          Canvas.Left="150"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA11.OPN]}"
-          Canvas.Top="555" 
-          Canvas.Left="642"/>
+          Canvas.Top="722" 
+          Canvas.Left="855"/>
 
         <!-- Подача пропан-бутана -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA13.OPN]}"
-          Canvas.Top="635" 
-          Canvas.Left="120"/>
+          Canvas.Top="825" 
+          Canvas.Left="150"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA13.OPN]}"
-          Canvas.Top="560" 
-          Canvas.Left="786"/>
+          Canvas.Top="837" 
+          Canvas.Left="400"/>
 
-      </Canvas>
+        <!-- Подача воздуха в реактор -->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA14.OPN]}"
+          Canvas.Top="300" 
+          Canvas.Left="700"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA14.OPN]}"
+          Canvas.Top="663" 
+          Canvas.Left="855"/>
+
+         <!-- Продувка тары -->
+         <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA15.OPN]}"
+          Canvas.Top="385" 
+          Canvas.Left="700"/>
+
+         <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA15.OPN]}"
+          Canvas.Top="861" 
+          Canvas.Left="1190"/>
+
+
+                <!-- Подача азота в ресивер -->
+        <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[YA07.OPN]}"
+          Canvas.Top="465" 
+          Canvas.Left="130"/>
+
+        <ctrls:ValveStateInlineCtrl
+          DataContext="{Binding DataPoints[YA07.OPN]}"
+          Canvas.Top="510" 
+          Canvas.Left="175"/>
+
+                <TextBlock Width="280"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           Height="800" 
+                           Canvas.Top="10" 
+                           Canvas.Left="1250"
+                           TextWrapping="Wrap"
+                           Style="{StaticResource Header1}"
+                           Background="Bisque" >ТУТ БУДЕТ БЛОК УПРАВЛЕНИЯ НАГРЕВАТЕЛЯМИ</TextBlock>
+            </Canvas>
+        
+        
 
 
 
