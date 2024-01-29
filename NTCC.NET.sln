@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33130.400
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTCC.NET", "NTCC.NET\NTCC.NET.csproj", "{C04686AB-EE35-4464-ABA5-BDE3B1801F86}"
 EndProject
@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTCC.NET.UI", "NTCC.NET.UI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTCC.NET.TEST", "NTCC.NET.TEST\NTCC.NET.TEST.csproj", "{E5B0BC2A-62ED-46FE-B302-31F316E15E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastNotifications", "3rdParty\ToastNotifications\Src\ToastNotifications\ToastNotifications.csproj", "{4A8879FC-9A6E-4904-910B-5C13FA5ED5BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastNotifications", "ToastNotifications\Src\ToastNotifications\ToastNotifications.csproj", "{4A8879FC-9A6E-4904-910B-5C13FA5ED5BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastNotifications.Messages", "3rdParty\ToastNotifications\Src\ToastNotifications.Messages\ToastNotifications.Messages.csproj", "{4DE2F314-B19F-423E-92D8-7D3A7D9ACEA2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastNotifications.Messages", "ToastNotifications\Src\ToastNotifications.Messages\ToastNotifications.Messages.csproj", "{4DE2F314-B19F-423E-92D8-7D3A7D9ACEA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
