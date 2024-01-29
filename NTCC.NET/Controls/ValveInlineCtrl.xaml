@@ -13,8 +13,8 @@
 
         <Grid.ToolTip>
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding ID}" FontWeight="Bold" Margin="5"/>
-                <TextBlock Text="{Binding Description}"/>
+                <TextBlock Text="{Binding ID}" Style="{StaticResource Header2}" Margin="5"/>
+                <TextBlock Text="{Binding Description}" Style="{StaticResource ItemDescription}"/>
             </StackPanel>
         </Grid.ToolTip>
     <Grid.Resources>

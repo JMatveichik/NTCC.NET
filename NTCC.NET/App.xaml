@@ -102,6 +102,10 @@
       </ResourceDictionary.MergedDictionaries>
 
 
+            <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
+                <Setter Property="Background" Value="LightGray"/>
+            </Style>
+
       <converters:BooleanToColorConverter x:Key="BoolToColor"  
                                                 TrueColor="ForestGreen" 
                                                 FalseColor="OrangeRed"/>

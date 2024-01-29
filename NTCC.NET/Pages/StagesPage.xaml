@@ -395,6 +395,18 @@
           Canvas.Top="510" 
           Canvas.Left="175"/>
 
+                <!-- Управление приводом ворошителя -->
+                <ctrls:ValveInlineCtrl
+          DataContext="{Binding DataPoints[M01.RUN]}"
+          Canvas.Top="750" 
+          Canvas.Left="1095"/>
+
+                <!-- Управление приводом шнека -->
+            <ctrls:ValveInlineCtrl
+              DataContext="{Binding DataPoints[M02.RUN]}"
+              Canvas.Top="825" 
+              Canvas.Left="1100"/>
+
                 <TextBlock Width="280"
                            TextAlignment="Center"
                            VerticalAlignment="Center"

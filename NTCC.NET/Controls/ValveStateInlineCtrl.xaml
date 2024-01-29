@@ -10,6 +10,7 @@
   <Grid>
         
         <Grid.ToolTip>
+            
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding ID}" FontWeight="Bold" Margin="5"/>
                 <TextBlock Text="{Binding Description}"/>
