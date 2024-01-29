@@ -1,0 +1,50 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "DotNetCoreUsageExample/1.0.0": {
+        "dependencies": {
+          "ToastNotifications": "1.0.0",
+          "ToastNotifications.Messages": "1.0.0"
+        },
+        "runtime": {
+          "DotNetCoreUsageExample.dll": {}
+        }
+      },
+      "ToastNotifications/1.0.0": {
+        "runtime": {
+          "ToastNotifications.dll": {}
+        }
+      },
+      "ToastNotifications.Messages/1.0.0": {
+        "dependencies": {
+          "ToastNotifications": "1.0.0"
+        },
+        "runtime": {
+          "ToastNotifications.Messages.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DotNetCoreUsageExample/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ToastNotifications/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ToastNotifications.Messages/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\DotNetCoreUsageExample.csproj": {}
+  },
+  "projects": {
+    "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\DotNetCoreUsageExample.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\DotNetCoreUsageExample.csproj",
+        "projectName": "DotNetCoreUsageExample",
+        "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\DotNetCoreUsageExample.csproj",
+        "packagesPath": "C:\\Users\\Yauheni_Matveichyk1\\.nuget\\packages\\",
+        "outputPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Yauheni_Matveichyk1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://artifactory.secureserver.net/artifactory/api/nuget/nuget-commerce-platform-local": {},
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "targetAlias": "netcoreapp3.0",
+            "projectReferences": {
+              "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj": {
+                "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj"
+              },
+              "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj": {
+                "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "targetAlias": "netcoreapp3.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj",
+        "projectName": "ToastNotifications.Messages",
+        "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj",
+        "frameworks": {
+          "net40": {
+            "projectReferences": {
+              "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj": {
+                "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
+    "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj",
+        "projectName": "ToastNotifications",
+        "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj",
+        "frameworks": {
+          "net40": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    }
+  }
+}

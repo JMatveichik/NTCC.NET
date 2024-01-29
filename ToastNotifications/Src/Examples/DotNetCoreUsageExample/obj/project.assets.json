@@ -1,0 +1,115 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "ToastNotifications/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/ToastNotifications.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ToastNotifications.dll": {}
+        }
+      },
+      "ToastNotifications.Messages/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "ToastNotifications": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ToastNotifications.Messages.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ToastNotifications.Messages.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ToastNotifications/1.0.0": {
+      "type": "project",
+      "path": "../../ToastNotifications/ToastNotifications.csproj",
+      "msbuildProject": "../../ToastNotifications/ToastNotifications.csproj"
+    },
+    "ToastNotifications.Messages/1.0.0": {
+      "type": "project",
+      "path": "../../ToastNotifications.Messages/ToastNotifications.Messages.csproj",
+      "msbuildProject": "../../ToastNotifications.Messages/ToastNotifications.Messages.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.0": [
+      "ToastNotifications >= 1.0.0",
+      "ToastNotifications.Messages >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Yauheni_Matveichyk1\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\DotNetCoreUsageExample.csproj",
+      "projectName": "DotNetCoreUsageExample",
+      "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\DotNetCoreUsageExample.csproj",
+      "packagesPath": "C:\\Users\\Yauheni_Matveichyk1\\.nuget\\packages\\",
+      "outputPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\Examples\\DotNetCoreUsageExample\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Yauheni_Matveichyk1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://artifactory.secureserver.net/artifactory/api/nuget/nuget-commerce-platform-local": {},
+        "https://www.nuget.org/api/v2/": {}
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "targetAlias": "netcoreapp3.0",
+          "projectReferences": {
+            "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj": {
+              "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications.Messages\\ToastNotifications.Messages.csproj"
+            },
+            "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj": {
+              "projectPath": "C:\\Tranings\\NTCC.NET\\3rdParty\\ToastNotifications\\Src\\ToastNotifications\\ToastNotifications.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "targetAlias": "netcoreapp3.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
