@@ -41,7 +41,7 @@
                                          To="1" Duration="0:0:0.5" />
                   <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)"
                                          To="1" Duration="0:0:0.5" />
-                  <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="DarkGreen" Duration="0:0:1.5" />
+                  <ColorAnimation Storyboard.TargetProperty="Foreground.Color" To="DarkRed" Duration="0:0:1.5" />
                 </Storyboard>
               </BeginStoryboard>
             </DataTrigger.ExitActions>
