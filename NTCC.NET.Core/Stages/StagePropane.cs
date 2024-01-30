@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NTCC.NET.Core.Facility;
+using NTCC.NET.Core.Tools;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,26 +9,65 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-    class StagePropane : StageBase
+  class StagePropane : StageBase
+  {
+    public StagePropane(string id) : base(id)
     {
-        public StagePropane(string id) : base(id)
-        {
 
-        }
-
-        public override StageResult Prepare()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override StageResult Finalization()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override StageResult Main(CancellationToken cancel)
-        {
-            throw new NotImplementedException();
-        }
     }
+
+    public override StageResult Prepare()
+    {
+      OnTick($"Подготовка стадии  {Title} ...", MessageType.Warning);
+
+      //задание параметров прогрева
+      SetupHeating();
+
+      var dataPoints = ArtMonbatFacility.DataPoints;
+
+      //открыть клапан подачи пропан-бутана на расходомер
+      DataPointHelper.SetDiscreteParameter(this, "YA13.OPN", true, (int)OperationDelay.TotalMilliseconds);
+
+      //задать расход пропан-бутана в камеру синтеза
+      DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", StageParameters.FlowRate);
+
+      return StageResult.Successful;
+    }
+
+    protected override StageResult Finalization()
+    {
+      OnTick($"Завершение стадии  {Title} ...", MessageType.Warning);
+
+      //закрыть клапан подачи пропан-бутана на расходомер
+      DataPointHelper.SetDiscreteParameter(this, "YA13.OPN", false, (int)OperationDelay.TotalMilliseconds);
+
+      //сбросить расход пропан-бутана в камеру синтеза
+      DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", ZERRO);
+
+      return StageResult.Successful;
+    }
+
+    protected override StageResult Main(CancellationToken cancel)
+    {
+      OnTick($"Начата стадия {Title} ...", MessageType.Warning);
+
+      StartTime = DateTime.Now;
+      Duration = DateTime.Now - StartTime;
+
+      TotalDuration = TimeSpan.FromMinutes(StageParameters.Duration);
+
+      //ожидаем истечения заданного времени 
+      while (Duration < TotalDuration)
+      {
+        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
+
+        //проверяем на прерывание стадии пользователем
+        if (stop.IsCancellationRequested)
+          return StageResult.Breaked;
+
+        Duration = DateTime.Now - StartTime;
+      }
+      return StageResult.Successful;
+    }
+  }
 }

@@ -191,6 +191,7 @@
 			Type="Nitro"
 			FlowRate="30.0"
 			Duration="5.0"
+			PurgePropaneLine="true"
 			Description="Допинг. Продувка реактора после допинга">
 		
 		<Heating>
@@ -286,6 +287,7 @@
 			Type="Nitro"
 			FlowRate="30.0"
 			Duration="5.0"
+			PurgePropaneLine="true"
 			Description="Продувка реактора азотом перед удалением депозита">
 		
 		<Heating>

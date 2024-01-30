@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ConfigDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\NTCC.NET\config</Value>
+      <Value Profile="(Default)">C:\Tranings\NTCC.NET\config</Value>
     </Setting>
   </Settings>
 </SettingsFile>
