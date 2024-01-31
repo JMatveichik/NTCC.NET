@@ -63,8 +63,7 @@
         <Image Grid.Column="1" Grid.Row="1"
              Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
              Margin='10'
-             Stretch="Uniform"
-             />
+             Stretch="Fill"/>
 
         <Canvas Grid.Column="1"
               Grid.Row="1" 
@@ -456,7 +455,7 @@
 
           <!--Расход пропан-бутана-->
           <ctrls:AnalogInputDataPointInlineCtrl 
-            DataContext="{Binding DataPoints[MD400C.MEASSURE]}"
+            DataContext="{Binding DataPoints[BH.MEASSURE]}"
             Canvas.Top="770" 
             Canvas.Left="650"/>
 
@@ -501,7 +500,20 @@
             DataContext="{Binding DataPoints[TE19]}"
             Canvas.Top="670" 
             Canvas.Left="1100"/>
-        </Canvas>
+
+                <!--Температура газа-->
+         <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE20]}"
+            Canvas.Top="800" 
+            Canvas.Left="580"/>
+
+                <!--Температура газа-->
+                <ctrls:AnalogInputDataPointInlineCtrl 
+            DataContext="{Binding DataPoints[TE21]}"
+            Canvas.Top="760 " 
+            Canvas.Left="540"/>
+
+            </Canvas>
 
 
     </Grid>
