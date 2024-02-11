@@ -24,7 +24,6 @@ namespace NTCC.NET.ViewModels
                     Kind = PackIconMaterialDesignKind.List,
                     Style = iconStyle
                 }
-
             },
 
             new FacilityViewModel()

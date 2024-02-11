@@ -37,6 +37,21 @@ namespace NTCC.NET.Commands
       get;
     } = new RoutedUICommand("Switch discrete output value", "SwitchDiscreteOutputValue", typeof(FacilityCommands), null);
 
+    /// <summary>
+    /// Команда задания параметоров зоны реактора
+    /// </summary>
+    public static RoutedUICommand HeatingZoneParameters
+    {
+      get;
+    } = new RoutedUICommand("Setup heating zone parameter", "HeatingZoneParameters", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда включения выключения питания зоны
+    /// </summary>
+    public static RoutedUICommand SwitchHeatingZonePower
+    {
+      get;
+    } = new RoutedUICommand("Switch heating zone power", "SwitchHeatingZonePower", typeof(FacilityCommands), null);
 
   }
 }

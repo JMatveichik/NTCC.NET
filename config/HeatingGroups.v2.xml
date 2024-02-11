@@ -3,7 +3,7 @@
 		
 	<ReactorZone ID="HT06.IN.TOP"		            
 		            Description="Внутренняя верхняя зона"
-					State="HT01.ON"
+					PowerState="HT01.ON"
 					Run="HT01.QF.RUN"
 					Duty="HT06.DUTY"
 					Period="HT06.PERIOD"
@@ -26,7 +26,7 @@
 		
 	<ReactorZone ID="HT07.IN.BOT"		            
 		            Description="Внутренняя нижняя зона"
-					State="HT01.ON"
+					PowerState="HT01.ON"
 					Run="HT01.QF.RUN"
 					Duty="HT07.DUTY"
 					Period="HT07.PERIOD"
@@ -44,7 +44,7 @@
 		
 	<ReactorZone ID="HT01.TOP"
 		            Description="Наружная верхняя зона"
-					State="HT02.ON"
+					PowerState="HT02.ON"
 					Run="HT02.QF.RUN"
 					Duty="HT01.DUTY"
 					Period="HT01.PERIOD"
@@ -67,7 +67,7 @@
 		
 	<ReactorZone ID="HT02.MID.TOP"
 		            Description="Наружная средняя-верхняя зона"
-					State="HT03.ON"
+					PowerState="HT03.ON"
 					Run="HT03.QF.RUN"
 					Duty="HT02.DUTY"
 					Period="HT02.PERIOD"
@@ -90,7 +90,7 @@
 		
 	<ReactorZone ID="HT03.MID"
 		            Description="Наружная средняя зона"
-					State="HT03.ON"
+					PowerState="HT03.ON"
 					Run="HT03.QF.RUN"
 					Duty="HT03.DUTY"
 					Period="HT03.PERIOD"
@@ -112,7 +112,7 @@
 		
 	<ReactorZone ID="HT04.MID.BOT"
 		            Description="Наружная средне-нижняя зона"
-					State="HT03.ON"
+					PowerState="HT03.ON"
 					Run="HT03.QF.RUN"
 					Duty="HT04.DUTY"
 					Period="HT04.PERIOD"
@@ -135,7 +135,7 @@
 		
 	<ReactorZone ID="HT05.BOT"
 		            Description="Наружная нижняя зона"
-					State="HT02.ON"
+					PowerState="HT02.ON"
 					Run="HT02.QF.RUN"
 					Duty="HT05.DUTY"
 					Period="HT05.PERIOD"

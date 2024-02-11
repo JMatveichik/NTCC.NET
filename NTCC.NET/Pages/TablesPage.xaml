@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
 
-        <converters:BooleanToColorConverter x:Key="BoolToColor"  TrueColor="ForestGreen" FalseColor="OrangeRed"/>
+        <converters:BooleanToBrushConverter x:Key="BoolToColor"  TrueBrush="ForestGreen" FalseBrush="OrangeRed"/>
         <converters:BooleanToStringConverter x:Key="BoolToString"  TrueString="ON" FalseString="OFF"/>
 
         <CollectionViewSource x:Key="SensorsCollection" Source="{Binding Sensors}">

@@ -24,7 +24,7 @@ namespace NTCC.NET.Core.Tools
       outputDataPoint.SetState(state);
 
       //вызов обработчиков при изменении состояния
-      element.OnTick($"Переключение  {outputDataPoint.ID} в состояние {outputDataPoint.StateString}", MessageType.Info);
+      element.OnTick($"Переключение  {outputDataPoint.ID} в состояние {outputDataPoint.GetStateString(state)}", MessageType.Info);
 
       //Задержка перед следующей операцией 
       Thread.Sleep(delayAfter);

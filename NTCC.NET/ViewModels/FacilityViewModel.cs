@@ -89,12 +89,12 @@ namespace NTCC.NET.ViewModels
                     },
                 };
 
-                series.Add(zone, zoneCollection);                
+                series.Add(zone, zoneCollection);
             }
 
             SelectedHeatingZone = zones[0];
 
-            // Создаем новый поток и передаем метод, который будет выполняться в потоке            
+            // Создаем новый поток и передаем метод, который будет выполняться в потоке
             collectionThread = new Thread(() => UpdateSeriesFunction(stop));
             collectionThread.Start();
         }

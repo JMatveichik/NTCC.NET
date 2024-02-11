@@ -172,6 +172,12 @@ namespace NTCC.NET.ViewModels
       private set;
     } = ArtMonbatFacility.DataPoints;
 
+    public FaciliitySet<ReactorHeatingZone> ReactorZones
+    {
+      get;
+      private set;
+    } = ArtMonbatFacility.ReactorZones;
+   
     public override void Stop()
     {
     }

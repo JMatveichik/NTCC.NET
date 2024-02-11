@@ -5,124 +5,133 @@ using System.Diagnostics;
 
 namespace NTCC.NET.Core.Facility
 {
-    public class DiscreteDataPoint : DataPoint
+  public class DiscreteDataPoint : DataPoint
+  {
+    /// <summary>
+    /// Класс дискретного датчика
+    /// </summary>
+    /// <param name="name"></param>
+    public DiscreteDataPoint(string name) : base(name)
     {
-        /// <summary>
-        /// Класс дискретного датчика
-        /// </summary>
-        /// <param name="name"></param>
-        public DiscreteDataPoint(string name) : base(name)
+      Group = "Дискретные входы";
+      StateStringsMap = stateDefaultStringsMap;
+      StateString = stateStringsMap[false];
+    }
+
+    /// <summary>
+    /// Устройство к которому подключен дискретный датчик
+    /// </summary>
+    public override AcquisitionDeviceBase Device
+    {
+      get => device;
+      set
+      {
+        if (device == value)
+          return;
+
+        device = value;
+
+        if (Device != null)
+          Device.DiscreteInputsUpdate += DiscreteInputsUpdate;
+
+        OnPropertyChanged();
+      }
+    }
+
+    /// <summary>
+    /// Обработчик события обновления состояния дискретных входов устройства
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void DiscreteInputsUpdate(object sender, DiscreteDataEventArgs e)
+    {
+      try
+      {
+        if (sender == Device)
         {
-            Group = "Дискретные входы";
-            StateStringsMap = stateDefaultStringsMap;
-            StateString = stateStringsMap[false];
+          State = e.Data[ListenedChannel];
         }
+      }
+      catch (Exception ex)
+      {
+        Debug.WriteLine($" DiscreteInputsUpdate : {ex.Message} for {ID} at channel {ListenedChannel} data size {e.Data.Count}");
+      }
+    }
 
-        /// <summary>
-        /// Устройство к которому подключен дискретный датчик
-        /// </summary>
-        public override AcquisitionDeviceBase Device
-        {
-            get => device;
-            set
-            {
-                if (device == value)
-                    return;
+    /// <summary>
+    /// Текущее состояние датчика
+    /// </summary>
+    public bool State
+    {
+      get => state;
+      protected set
+      {
+        if (state == value)
+          return;
 
-                device = value;
+        state = value;
+        OnPropertyChanged();
 
-                if (Device != null)
-                    Device.DiscreteInputsUpdate += DiscreteInputsUpdate;
+        StateString = stateStringsMap[state];
+      }
+    }
 
-                OnPropertyChanged();
-            }
-        }
+    private bool state = false;
 
-        /// <summary>
-        /// Обработчик события обновления состояния дискретных входов устройства
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DiscreteInputsUpdate(object sender, DiscreteDataEventArgs e)
-        {
-            try
-            {
-                if (sender == Device)
-                {
-                    State = e.Data[ListenedChannel];
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($" DiscreteInputsUpdate : { ex.Message } for {ID} at channel {ListenedChannel} data size {e.Data.Count}" );
-            }
-        }
+    /// <summary>
+    /// Текущее состояние датчика
+    /// </summary>
+    public string StateString
+    {
+      get => stringState;
+      private set
+      {
+        if (stringState == value)
+          return;
 
-        /// <summary>
-        /// Текущее состояние датчика
-        /// </summary>
-        public bool State
-        {
-            get => state;
-            protected set
-            {
-                if (state == value)
-                    return;
+        stringState = value;
+        OnPropertyChanged();
+      }
+    }
 
-                state = value;
-                OnPropertyChanged();
+    private string stringState = "";
 
-                StateString = stateStringsMap[state];
-            }
-        }
+    /// <summary>
+    /// Строковое представление состояния
+    /// </summary>
+    public Dictionary<bool, string> StateStringsMap
+    {
+      get => stateStringsMap;
+      set
+      {
+        if (stateStringsMap == value)
+          return;
 
-        private bool state = false;        
+        stateStringsMap = value;
 
-        /// <summary>
-        /// Текущее состояние датчика
-        /// </summary>
-        public string StateString
-        {
-            get => stringState;
-            private set
-            {
-                if (stringState == value)
-                    return;
+        if (value == null)
+          stateStringsMap = stateDefaultStringsMap;
 
-                stringState = value;
-                OnPropertyChanged();
-            }
-        }
+        OnPropertyChanged();
+      }
+    }
 
-        private string stringState = "";
+    private Dictionary<bool, string> stateStringsMap = new Dictionary<bool, string>();
 
-        /// <summary>
-        /// Текущее состояние датчика
-        /// </summary>
-        public Dictionary<bool, string> StateStringsMap
-        {
-            get => stateStringsMap;
-            set
-            {
-                if (stateStringsMap == value)
-                    return;
+    private static Dictionary<bool, string> stateDefaultStringsMap = new Dictionary<bool, string>()
+    {
+        { false, "OFF"},
+        { true , "ON" }
+    };
 
-                stateStringsMap = value;
-
-                if (value == null)
-                    stateStringsMap = stateDefaultStringsMap;
-
-                OnPropertyChanged();
-            }
-        }
-
-        private Dictionary<bool, string> stateStringsMap = new Dictionary<bool, string>();
-
-        private static Dictionary<bool, string> stateDefaultStringsMap = new Dictionary<bool, string>() 
-        {
-            { false, "OFF"},
-            { true , "ON" }
-        };
-
-}
+    /// <summary>
+    /// Получить строковое значение состояния
+    /// </summary>
+    /// <param name="state">Состояние дискретной точки данных</param>
+    /// <returns>Строковое представление состояния</returns>
+    public string GetStateString(bool state)
+    {
+      return StateStringsMap[state];
+    }
+  }
 }

@@ -16,16 +16,22 @@ namespace NTCC.NET.Core.Stages
   {
     public StageMain(string id) : base(id)
     {
-      Title = "Технолощгический цикл";
+      Title = "Технологический цикл";
       Description = "Последовательное циклическое выполнение всех стадий";
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public List<StageBase> Stages
     {
       get;
       private set;
     } = new List<StageBase>();
 
+    /// <summary>
+    /// Номер текущего цикла
+    /// </summary>
     public int CurrentCycle
     {
       get { return currentCycle; }
@@ -213,14 +219,25 @@ namespace NTCC.NET.Core.Stages
     protected override StageResult Main(CancellationToken cancel)
     {
       StageResult result = StageResult.Successful;
+      
+      State  = StageState.Started;
 
-      foreach (var stage in Stages)
+      while(true)
       {
-        result = stage.Do(this);
+        CurrentCycle++;
+
+        foreach (var stage in Stages)
+        {
+          result = stage.Do(this);
+
+          if (result != StageResult.Successful)
+            break;
+        }
 
         if (result != StageResult.Successful)
           break;
       }
+      
 
       return result;
     }

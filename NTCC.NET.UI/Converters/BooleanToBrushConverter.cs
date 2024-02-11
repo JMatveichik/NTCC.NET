@@ -9,26 +9,26 @@ using System.Windows.Media;
 
 namespace NTCC.NET.UI.Converters
 {
-    public class BooleanToColorConverter : IValueConverter
+    public class BooleanToBrushConverter : IValueConverter
     {
 
-        public SolidColorBrush TrueColor
+        public Brush TrueBrush
         {
             get;
             set;
-        } = Brushes.DarkGreen;
+        }
 
-        public SolidColorBrush FalseColor
+        public Brush FalseBrush
         {
-            get;
-            set;
-        } = Brushes.DarkRed;
+          get;
+          set;
+        }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool boolValue)
             {
-                return boolValue ? TrueColor : FalseColor;
+                return boolValue ? TrueBrush : FalseBrush;
             }
 
             return Brushes.Transparent; // или другой цвет по умолчанию

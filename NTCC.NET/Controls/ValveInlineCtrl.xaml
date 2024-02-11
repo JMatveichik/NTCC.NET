@@ -72,10 +72,10 @@
         </Style.Triggers>
       </Style>
     </Grid.Resources>
-    
+
     <Button 
         Command="{x:Static cmds:FacilityCommands.SwitchDiscreteOutputValue}"
-        CommandParameter="{Binding}">      
+        CommandParameter="{Binding}">
     </Button>
 
   </Grid>

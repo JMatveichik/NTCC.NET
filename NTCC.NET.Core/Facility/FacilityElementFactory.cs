@@ -21,7 +21,7 @@ namespace NTCC.NET.Core.Facility
             {
                 string dataPointID = heatingGroupElement.Attribute(attr)?.Value;
                 if (string.IsNullOrEmpty(dataPointID))
-                    throw new ArgumentException($"Invalid attibute [{attr}] for heating group [{id}].");
+                    throw new ArgumentException($"Invalid attribute [{attr}] for heating group [{id}].");
 
                 DataPoint dp = ArtMonbatFacility.DataPoints[dataPointID];
                 if (dp == null)

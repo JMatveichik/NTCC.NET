@@ -239,7 +239,8 @@ namespace NTCC.NET.Core.Stages
 
     #region ПОЛЯ
 
-    protected static CancellationTokenSource stop = null;
+    //Запрос на прерывание стадии
+    protected CancellationTokenSource stop = null;
 
     #endregion
 
@@ -349,7 +350,7 @@ namespace NTCC.NET.Core.Stages
     /// <summary>
     ///Остановить выполнение стадии
     /// </summary>
-    public static void Break()
+    public void Stop()
     {
       if (stop != null)
         stop.Cancel();
