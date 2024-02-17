@@ -92,20 +92,20 @@
 	</Stage>
 	
 	<Stage  ID="STG.HEATING.UP"
-			Name="Прогрев"	
+			Name="Прогрев"
 			Type="Heating"
 			FlowRate="250.0"
-			AverageTemperature="720"
+			AverageTemperature="750"
 			Description="Нагрев реактора до температуры окисления">
 		
 		<Heating>
-			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805" UseInAverageCalc="false"/>
 			<Zone ID="HT02.MID.TOP" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
 			<Zone ID="HT03.MID" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
 			<Zone ID="HT04.MID.BOT" MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
-			<Zone ID="HT05.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT05.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805" UseInAverageCalc="false"/>
 			<Zone ID="HT06.IN.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
-			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805"/>
+			<Zone ID="HT07.IN.BOT" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="70" MaxHeaterTemperature="805" UseInAverageCalc="false"/>
 		</Heating>
 		
 	</Stage>

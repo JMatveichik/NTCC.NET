@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-  class StagePropane : StageBase
+  class StagePropane : StageTimeBased
   {
+   
     public StagePropane(string id) : base(id)
     {
 
@@ -22,8 +23,6 @@ namespace NTCC.NET.Core.Stages
 
       //задание параметров прогрева
       SetupHeating();
-
-      var dataPoints = ArtMonbatFacility.DataPoints;
 
       //открыть клапан подачи пропан-бутана на расходомер
       DataPointHelper.SetDiscreteParameter(this, "YA13.OPN", true, (int)OperationDelay.TotalMilliseconds);
@@ -47,27 +46,6 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
-    protected override StageResult Main(CancellationToken cancel)
-    {
-      OnTick($"Начата стадия {Title} ...", MessageType.Warning);
-
-      StartTime = DateTime.Now;
-      Duration = DateTime.Now - StartTime;
-
-      TotalDuration = TimeSpan.FromMinutes(StageParameters.Duration);
-
-      //ожидаем истечения заданного времени 
-      while (Duration < TotalDuration)
-      {
-        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
-
-        //проверяем на прерывание стадии пользователем
-        if (stop.IsCancellationRequested)
-          return StageResult.Breaked;
-
-        Duration = DateTime.Now - StartTime;
-      }
-      return StageResult.Successful;
-    }
+    
   }
 }

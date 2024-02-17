@@ -158,7 +158,7 @@ namespace NTCC.NET
         return;
       }
 
-      if (fullCycleStage.State == StageState.Wait || fullCycleStage.State == StageState.Complete)
+      if (fullCycleStage.State == StageState.Wait || fullCycleStage.State == StageState.Completed)
       {
         e.CanExecute = true;
         return;

@@ -14,7 +14,65 @@ namespace NTCC.NET.Core.Stages
     public StageClean(string id) : base(id)
     {
     }
-        
+
+    /// <summary>
+    /// Текущий проход скребка
+    /// </summary>
+    public int CurrentPass
+    {
+      get => currentPass;
+      private set
+      {
+        if (value == currentPass)
+          return;
+        currentPass = value;
+        OnPropertyChanged();
+      }
+    }
+    private int currentPass = 0;
+
+    /// <summary>
+    /// Максимальное число проходов скребка
+    /// </summary>
+    public int MaxPassCount
+    {
+      get => maxPassCount;
+      private set
+      {
+        if (value == maxPassCount)
+          return;
+        maxPassCount = value;
+        OnPropertyChanged();
+      }
+    }
+    private int maxPassCount = 15;
+
+
+    /// <summary>
+    /// Время ожидания охлождения штоков скребка
+    /// </summary>
+    private TimeSpan CollingTime
+    {
+      get => collingTime;
+      set
+      {
+        if (value == collingTime)
+          return;
+
+        collingTime = value;
+        OnPropertyChanged();
+      }
+    }
+    private TimeSpan collingTime = TimeSpan.FromSeconds(15);
+
+    //TODO:
+
+    /// <summary>
+    /// Oжидания прохода скребка в одном напровлении
+    /// </summary>
+    /// <param name="positionDataPoint">Датчик положения скребка, который будет проверяться </param>
+    /// <param name="moveTimeOut">Максимальное время перемещения скребка к выбранной позиции</param>
+    /// <returns>True - если скребок достиг заданной точки , false - если скребок застрял</returns>
     private bool WaitScraperPosition(DiscreteDataPoint positionDataPoint, TimeSpan moveTimeOut)
     {
       DateTime moveStart = DateTime.Now;
@@ -23,6 +81,8 @@ namespace NTCC.NET.Core.Stages
       //ожидаем положения скребка или таймаута
       while (true)
       {
+        Thread.Sleep(100);
+
         //обновляем время движения скребка
         moveTime = moveStart - DateTime.Now;
 
@@ -32,9 +92,16 @@ namespace NTCC.NET.Core.Stages
 
         if (positionDataPoint.State)
           return true;
+        
       }
     }
 
+    /// <summary>
+    /// Перемещение скребка в заданное положение
+    /// </summary>
+    /// <param name="moveDown"> Направление перемещения (true - вниз, false - вверх)</param>
+    /// <param name="moveTimeOut">Максимальное время перемещения скребка к выбранной позиции</param>
+    /// <returns>True - если скребок достиг заданной точки , false - если скребок застрял</returns>
     private bool MoveScraperTo(bool moveDown, TimeSpan moveTimeOut)
     {
       var dataPoints = ArtMonbatFacility.DataPoints;
@@ -96,7 +163,7 @@ namespace NTCC.NET.Core.Stages
 
     public override StageResult Prepare()
     {
-      OnTick($"Подготовка стадии  {Title} ...", MessageType.Info);
+      OnTick($"Подготовка стадии  {Title}.", MessageType.Info);
 
       //задание параметров прогрева
       SetupHeating();
@@ -135,11 +202,10 @@ namespace NTCC.NET.Core.Stages
       //зажимаем уплотнения
       DataPointHelper.SetDiscreteParameter(this, "YA02", true, (int)OperationDelay.TotalMilliseconds);
 
-
       return StageResult.Successful;
     }
 
-    protected override StageResult Main(CancellationToken cancel)
+    protected override StageResult Main(CancellationToken stop, CancellationToken skip)
     {
       OnTick($"Начато выполнение стадии {Title}.", MessageType.Warning);
       StartTime = DateTime.Now;
@@ -147,34 +213,40 @@ namespace NTCC.NET.Core.Stages
       const bool DOWN = false;
       const bool UP   = true;
 
-      int currentPass = 1;
+      CurrentPass  = 0;
+      MaxPassCount = StageParameters.PassCount;
+      CollingTime  = TimeSpan.FromSeconds(StageParameters.CoolingTime);
 
-      while (currentPass <= StageParameters.PassCount)
+      while (CurrentPass <= MaxPassCount)
       {
         //проверяем на прерывание стадии пользователем
         if (stop.IsCancellationRequested)
-          return StageResult.Breaked;
+          return StageResult.Stopped;
+
+        //проверяем на пропуск стадии пользователем
+        if (skip.IsCancellationRequested)
+          return StageResult.Skipped;
 
 
         if ( !MoveScraperTo(DOWN, TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
         {
           //TODO:если застрял при движении вниз
-          OnTick($"Скребок не достиг нижнего положения {Title}. Ожидаем ручного ДОЛБЛЕНИЯ в течении 5 мин!!!", MessageType.Warning);
-          DataPointHelper.WaitDiscreteParameterSet(this, "CS02", true, TimeSpan.FromMinutes(5.0));
+          OnTick($"Скребок не достиг нижнего положения {Title}. Ожидаем ручного ДОЛБЛЕНИЯ в течении 2 мин!!!", MessageType.Warning);
+          DataPointHelper.WaitDiscreteParameterSet(this, "CS02", true, TimeSpan.FromMinutes(2.0));
         }
 
         if (!MoveScraperTo(UP, TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
         {
           //TODO:если застрял при движении вверх
-          OnTick($"Скребок не достиг верхнего положения {Title}. Ожидаем ручного ДОЛБЛЕНИЯ  в течении 5 мин!!!", MessageType.Warning);
-          DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromMinutes(5.0));
+          OnTick($"Скребок не достиг верхнего положения {Title}. Ожидаем ручного ДОЛБЛЕНИЯ  в течении 2 мин!!!", MessageType.Warning);
+          DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromMinutes(2.0));
         }
 
-        OnTick($"Завершен проход [{currentPass}] скребка.", MessageType.Info);
-        currentPass++;
+        OnTick($"Завершен проход [{CurrentPass}] скребка.", MessageType.Info);
+        CurrentPass++;
 
         //ожидаем охлождение штоков
-        Thread.Sleep(TimeSpan.FromSeconds(StageParameters.CoolingTime));        
+        Thread.Sleep(TimeSpan.FromSeconds(StageParameters.CoolingTime));
       }
 
       return StageResult.Successful;

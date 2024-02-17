@@ -81,6 +81,7 @@
     <Compile Include="Stages\StageBase.cs" />
     <Compile Include="Stages\StageResult.cs" />
     <Compile Include="Stages\StageState.cs" />
+    <Compile Include="Stages\StageTimeBased.cs" />
     <Compile Include="Tools\DataPointHelper.cs" />
     <Compile Include="Tools\XmlHelper.cs" />
   </ItemGroup>

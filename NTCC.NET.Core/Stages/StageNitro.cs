@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-  class StageNitro : StageBase
+  class StageNitro : StageTimeBased
   {
     public StageNitro(string id) : base(id)
     {
@@ -77,27 +77,5 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
-    protected override StageResult Main(CancellationToken cancel)
-    {
-      OnTick($"Начата стадия {Title} ...", MessageType.Warning);
-
-      StartTime = DateTime.Now;
-      Duration = DateTime.Now - StartTime;
-
-      TotalDuration = TimeSpan.FromMinutes(StageParameters.Duration);
-
-      //ожидаем истечения заданного времени 
-      while (Duration < TotalDuration)
-      {
-        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
-
-        //проверяем на прерывание стадии пользователем
-        if (stop.IsCancellationRequested)
-          return StageResult.Breaked;
-
-        Duration = DateTime.Now - StartTime;
-      }
-      return StageResult.Successful;
-    }
   }
 }

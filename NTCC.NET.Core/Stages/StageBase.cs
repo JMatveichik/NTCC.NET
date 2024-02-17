@@ -1,6 +1,7 @@
 ﻿using NTCC.NET.Core.Facility;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -93,12 +94,11 @@ namespace NTCC.NET.Core.Stages
                             stageHeatingParams.MinWallTemperature,
                             stageHeatingParams.HeaterPower,
                             stageHeatingParams.MaxHeaterTemperature);
-
       }
     }
 
     #region СОБЫТИЯ и ОбРАБОТЧИКИ
-    protected void OnStageStep(StageState stageState)
+    protected void OnStageStep(StageState stageState, bool delayAfter = true)
     {
       //текущая стадия
       CurrentStage = this;
@@ -109,6 +109,11 @@ namespace NTCC.NET.Core.Stages
       //Выставляем состояние стадии
       State = stageState;
       StageStep?.Invoke(this, new FacilityMessageArgs("Изменение состояния стадии : ", MessageType.Info));
+
+      //сделать задержку после выполнения операции
+      if (delayAfter)
+        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
+
     }
 
     public event FacilityMessageEventHandler StageStep;
@@ -119,23 +124,6 @@ namespace NTCC.NET.Core.Stages
 
     #region ВРЕМЕННЫЕ ХАРАКТЕРИСТИКИ СТАДИИ
 
-
-    /// <summary>
-    /// Заданная (общая) продолжительность стадии
-    /// </summary>
-    public TimeSpan TotalDuration
-    {
-      get => totalDuration;
-      set
-      {
-        if (totalDuration == value)
-          return;
-
-        totalDuration = value;
-        OnPropertyChanged();
-      }
-    }
-    private TimeSpan totalDuration = TimeSpan.FromSeconds(0);
 
     /// <summary>
     ///Продолжительность стадии (от времени начала)
@@ -154,23 +142,6 @@ namespace NTCC.NET.Core.Stages
     }
     private TimeSpan duration = TimeSpan.FromSeconds(0);
 
-
-    /// <summary>
-    ///Оставшееся время стадии
-    /// </summary>
-    public TimeSpan LeftTime
-    {
-      get => leftTime;
-      set
-      {
-        if (leftTime == value)
-          return;
-
-        leftTime = value;
-        OnPropertyChanged();
-      }
-    }
-    private TimeSpan leftTime;
 
     /// <summary>
     /// Время начала стадии
@@ -239,8 +210,11 @@ namespace NTCC.NET.Core.Stages
 
     #region ПОЛЯ
 
-    //Запрос на прерывание стадии
+    //Запрос на отсановку  стадии
     protected CancellationTokenSource stop = null;
+
+    //запрос на пропуск стадии
+    protected CancellationTokenSource skip = null;
 
     #endregion
 
@@ -255,26 +229,34 @@ namespace NTCC.NET.Core.Stages
       //запоминаем владельца стадии
       OwnerStage = owner;
 
-      //инициализация токена прерывания стадии по инициативе пользователя
+      //текущая стадия
+      CurrentStage = this;
+
+      //инициализация токена остановки стадии по инициативе пользователя
       stop = new CancellationTokenSource();
+
+      //инициализация токена пропуска стадии по инициативе пользователя
+      skip = new CancellationTokenSource();
+
 
       try
       {
-        //вызываем обработчики начала подготовки
-        OnStageStep(StageState.Prepearing);
 
-        StageResult result = StageResult.Successful;
+        StageResult result = StageResult.Failed;
 
-        //подготовка к выполнению стадии            
+        //подготовка к выполнению стадии
         result = Prepare();
         if (result != StageResult.Successful)
+        {
+          Finalization();
           return result;
+        }
 
         //вызываем обработчики завершения подготовки стадии к выполнению
         OnStageStep(StageState.Prepeared);
 
         //запускаем основной алгоритм стадии
-        Task<StageResult> main = Task.Factory.StartNew<StageResult>(() => Main(stop.Token));
+        Task<StageResult> main = Task.Factory.StartNew<StageResult>(() => Main(stop.Token, skip.Token));
 
         //вызываем обрабатчики события начала выполнения основного алгоритма стадии
         OnStageStep(StageState.Started);
@@ -287,26 +269,31 @@ namespace NTCC.NET.Core.Stages
           case StageResult.Failed:
             {
               //вызов обработчиков некорректного завершения стадии
+              //завершение технологического цикла
               OnStageStep(StageState.Failed);
               return main.Result;
             }
-          case StageResult.Breaked:
+          case StageResult.Stopped:
             {
-              //вызов обработчиков прерывания стадии по инициативе опрератора
-              OnStageStep(StageState.Breaked);
+              //вызов обработчиков остановки стадии по инициативе опрератора
+              //завершение технологического цикла
+              OnStageStep(StageState.Stopped);
               return main.Result;
             }
-
+          case StageResult.Skipped:
+            {
+              //вызов обработчиков пропуска стадии по инициативе опрератора
+              //продолжение технологического цикла
+              OnStageStep(StageState.Skipped);
+              return main.Result;
+            }
         }
 
         //вызываем обработчики события окончания выполнения основного алгоритма стадии
-        OnStageStep(StageState.Complete);
-
-        //обработчик перед выполнением завершения стадии
-        OnStageStep(StageState.Finalizing);
+        OnStageStep(StageState.Completed);
 
         //выполнение завершение стадии
-        result = Finalization();
+        Finalization();
 
         //обработчик после выполнением завершения стадии
         OnStageStep(StageState.Finalized);
@@ -344,17 +331,27 @@ namespace NTCC.NET.Core.Stages
     /// 
     /// </summary>
     /// <returns></returns>
-    protected abstract StageResult Main(CancellationToken cancel);
+    protected abstract StageResult Main(CancellationToken stop, CancellationToken skip);
 
 
     /// <summary>
-    ///Остановить выполнение стадии
+    ///Остановить выполнение стадии (и технологического цикла)
     /// </summary>
     public void Stop()
     {
       if (stop != null)
         stop.Cancel();
     }
+
+    /// <summary>
+    ///Пропустить выполнение стадии (продолжить технологическоий цикла)
+    /// </summary>
+    public void Skip()
+    {
+      if (skip != null)
+        skip.Cancel();
+    }
+
 
     /*
     private bool checkAlarmGroup(TestGroup group)

@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace NTCC.NET.Core.Stages
 {
-  public class StageAir : StageBase
+  public class StageAir : StageTimeBased
   {
     public StageAir(string id) : base(id)
     {
@@ -52,29 +52,6 @@ namespace NTCC.NET.Core.Stages
       //ожидаем установление расхода воздуха
       DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", ZERRO, TimeSpan.FromSeconds(5.0));
 
-      return StageResult.Successful;
-    }
-
-    protected override StageResult Main(CancellationToken cancel)
-    {
-      OnTick($"Начата стадия {Title} ...", MessageType.Info);
-
-      StartTime = DateTime.Now;
-      Duration = DateTime.Now - StartTime;
-
-      TotalDuration = TimeSpan.FromMinutes(StageParameters.Duration);
-
-      //ожидаем истечения заданного времени 
-      while (Duration < TotalDuration)
-      {
-        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
-
-        //проверяем на прерывание стадии пользователем
-        if (stop.IsCancellationRequested)
-          return StageResult.Breaked;
-
-        Duration = DateTime.Now - StartTime;
-      }
       return StageResult.Successful;
     }
   }

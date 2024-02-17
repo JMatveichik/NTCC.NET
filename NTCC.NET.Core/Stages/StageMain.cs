@@ -158,7 +158,7 @@ namespace NTCC.NET.Core.Stages
 
       #endregion
 
-      #region Подготовка нагревателей            
+      #region Подготовка нагревателей
 
       List<ReactorHeatingZone> reactorHeatingZones = ArtMonbatFacility.ReactorZones.Items.Values.ToList();
 
@@ -188,7 +188,7 @@ namespace NTCC.NET.Core.Stages
 
     protected override StageResult Finalization()
     {
-      #region Подготовка нагревателей            
+      #region Подготовка нагревателей
 
       List<ReactorHeatingZone> reactorHeatingZones = ArtMonbatFacility.ReactorZones.Items.Values.ToList();
 
@@ -212,11 +212,12 @@ namespace NTCC.NET.Core.Stages
       DataPointHelper.SetDiscreteParameter(this, "HT04.QF.RUN", false, (int)OperationDelay.TotalMilliseconds);
 
       #endregion
+
       CurrentStage = null;
       return StageResult.Successful;
     }
 
-    protected override StageResult Main(CancellationToken cancel)
+    protected override StageResult Main(CancellationToken cancel, CancellationToken skip)
     {
       StageResult result = StageResult.Successful;
       
@@ -226,18 +227,28 @@ namespace NTCC.NET.Core.Stages
       {
         CurrentCycle++;
 
+        //послеловательное выполнение всех стадий
         foreach (var stage in Stages)
         {
+          //текущая стадия
+          CurrentStage = stage;
+
+          //запускаем стадию
           result = stage.Do(this);
 
+          //если пользователь пропустил стадию
+          if (result == StageResult.Skipped)
+            continue;
+          
+          //если стадия завершилось с результатом отличном от успешного
           if (result != StageResult.Successful)
             break;
         }
 
+        //если стадия завершилась с результатом отличным от успешного
         if (result != StageResult.Successful)
           break;
       }
-      
 
       return result;
     }
