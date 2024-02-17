@@ -109,7 +109,7 @@
   </UserControl.Resources>
   <materialDesign:Card Margin="2"
                        Padding="5"
-                       Width="300"
+                       Width="250"
                        Height="80"
                        MouseEnter="OnCardMouseEnter"
                        MouseLeave="OnCardMouseLeave">

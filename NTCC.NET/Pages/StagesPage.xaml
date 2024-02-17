@@ -7,6 +7,7 @@
              xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
@@ -517,53 +518,95 @@
         <!--Внутренняя верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="20"
-            Canvas.Left="800"
+            Canvas.Left="1250"
             DataContext="{Binding ReactorZones[HT06.IN.TOP]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <!--Наружная верхняя зона-->
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="530"
+                                     Canvas.Left="1110"/>
+
+                <!--Наружная верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="105"
-            Canvas.Left="800"
+            Canvas.Left="1250"
             DataContext="{Binding ReactorZones[HT01.TOP]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <!--Наружная средняя-верхняя зона-->
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="530"
+                                     Canvas.Left="1200"/>
+
+                <!--Наружная средняя-верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="190"
-            Canvas.Left="800"
+            Canvas.Left="1250"
             DataContext="{Binding ReactorZones[HT02.MID.TOP]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <!--Наружная средняя зона-->
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="580"
+                                     Canvas.Left="1210"/>
+
+                <!--Наружная средняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
            Canvas.Top="275"
-           Canvas.Left="800"
+           Canvas.Left="1250"
            DataContext="{Binding ReactorZones[HT03.MID]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <!--Наружная средне-нижняя зона-->
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="630"
+                                     Canvas.Left="1210"/>
+
+                <!--Наружная средне-нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
            Canvas.Top="360"
-           Canvas.Left="800"
+           Canvas.Left="1250"
            DataContext="{Binding ReactorZones[HT04.MID.BOT]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <!--Наружная нижняя зона-->
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="680"
+                                     Canvas.Left="1210"/>
+
+                <!--Наружная нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
           Canvas.Top="445"
-          Canvas.Left="800"
+          Canvas.Left="1250"
           DataContext="{Binding ReactorZones[HT05.BOT]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <!--Внутренняя нижняя зона-->
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="730"
+                                     Canvas.Left="1210"/>
+
+                <!--Внутренняя нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
           Canvas.Top="530"
-          Canvas.Left="800"
+          Canvas.Left="1250"
           DataContext="{Binding ReactorZones[HT07.IN.BOT]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-      </Canvas>
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
+                                     Height="48" 
+                                     Width="48"
+                                     Canvas.Top="700"
+                                     Canvas.Left="1110"/>
+
+            </Canvas>
 
 
     </Grid>
