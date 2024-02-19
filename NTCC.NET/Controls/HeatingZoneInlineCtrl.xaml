@@ -184,7 +184,7 @@
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <!--Temperastures progress bar-->
+        <!--Temperatures progress bar-->
         <StackPanel Grid.Row="0"
                     Grid.Column="0"
                     Orientation="Vertical"

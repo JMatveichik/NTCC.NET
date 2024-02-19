@@ -24,9 +24,44 @@
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
 
-    <StackPanel Grid.Row="0" Orientation="Horizontal">
-      <Button Content="Start" Margin="5" Command="{x:Static cmds:FacilityCommands.StartFullCycle}"/>
-      <Button Content="Stop" Margin="5"  Command="{x:Static cmds:FacilityCommands.StopFullCycle}"/>
+    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+      <StackPanel.Resources >
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+          <Setter Property="Margin" Value="5"/>
+          <Setter Property="Height" Value="40"/>
+          <Setter Property="Width" Value="40"/>
+        </Style>
+      </StackPanel.Resources>
+      
+      <Button ToolTip="Запустить технологический цикл"
+              Command="{x:Static cmds:FacilityCommands.StartFullCycle}"> 
+
+        <iconPacks:PackIconIonicons Kind="PlayiOS"
+                              Style="{StaticResource MetroToolBoxIconStyle16}"
+                              Foreground="White">
+        </iconPacks:PackIconIonicons>
+        
+      </Button>
+
+      <Button ToolTip="Остановить технологический цикл"
+              Command="{x:Static cmds:FacilityCommands.StopFullCycle}">
+
+        <iconPacks:PackIconIonicons Kind="SquareiOS"
+                              Style="{StaticResource MetroToolBoxIconStyle16}"
+                              Foreground="White">
+        </iconPacks:PackIconIonicons>
+      </Button>
+
+      <Button ToolTip="Пропустить текущую стадию"
+              Command="{x:Static cmds:FacilityCommands.SkipCurrentStage}">
+
+        <iconPacks:PackIconIonicons Kind="SkipForwardMD"
+                              Style="{StaticResource MetroToolBoxIconStyle16}"
+                              Foreground="White">
+        </iconPacks:PackIconIonicons>
+      </Button>
+        
     </StackPanel>
 
 

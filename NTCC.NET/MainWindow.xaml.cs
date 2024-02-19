@@ -36,6 +36,8 @@ namespace NTCC.NET
 
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.StartFullCycle, StartFullCycleExecuted, StartFullCycleCanExecuted));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.StopFullCycle, StopFullCycleExecuted, StopFullCycleCanExecuted));
+      this.CommandBindings.Add(new CommandBinding(FacilityCommands.SkipCurrentStage, SkipCurrentStageExecuted, SkipCurrentStageCanExecuted));
+      
 
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SetAnalogOutputValue, SetAnalogOutputValueExecuted, SetAnalogOutputValueCanExecuted));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchDiscreteOutputValue, SwitchDiscreteOutputExecuted, SwitchDiscreteOutputCanExecuted));
@@ -43,6 +45,63 @@ namespace NTCC.NET
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.HeatingZoneParameters, ExecuteHeatingZoneParameters, HeatingZoneParametersCanExecute));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchHeatingZonePower, ExecuteSwitchHeatingZonePower, SwitchHeatingZonePowerCanExecute));
       
+    }
+
+    private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+    {
+      if (StageBase.CurrentStage == null ||
+          StageBase.CurrentStage == ArtMonbatFacility.FullCycle)
+      {
+        e.CanExecute = false;
+        return;
+      }
+      e.CanExecute = true;
+    }
+
+    private void StopFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
+      StageBase.CurrentStage.Stop();
+    }
+
+    private void StartFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+    {
+      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
+      if (fullCycleStage == null)
+      {
+        e.CanExecute = false;
+        return;
+      }
+
+      if (fullCycleStage.State == StageState.Wait || fullCycleStage.State == StageState.Completed)
+      {
+        e.CanExecute = true;
+        return;
+      }
+
+      e.CanExecute = true;
+    }
+
+    private void StartFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
+      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
+      Task.Factory.StartNew<StageResult>(() => fullCycleStage.Do());
+    }
+
+
+    private void SkipCurrentStageCanExecuted(object sender, CanExecuteRoutedEventArgs e)
+    {
+      if (StageBase.CurrentStage == null || 
+          StageBase.CurrentStage == ArtMonbatFacility.FullCycle)
+      {
+         e.CanExecute = false;
+        return;
+      }
+      e.CanExecute = true;
+    }
+
+    private void SkipCurrentStageExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
+      StageBase.CurrentStage.Skip();
     }
 
     private void SwitchHeatingZonePowerCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -137,42 +196,7 @@ namespace NTCC.NET
       }
     }
 
-    private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-    {
-      //TODO : проверить возможность остановки процесса
-      e.CanExecute = true;
-    }
-
-    private void StopFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
-    {
-      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
-      fullCycleStage.Stop();
-    }
-
-    private void StartFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-    {
-      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
-      if (fullCycleStage == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      if (fullCycleStage.State == StageState.Wait || fullCycleStage.State == StageState.Completed)
-      {
-        e.CanExecute = true;
-        return;
-      }
-
-      e.CanExecute = true;
-    }
-
-    private void StartFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
-    {
-      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
-      Task.Factory.StartNew<StageResult>(() => fullCycleStage.Do());
-    }
-
+    
     protected override void OnClosed(EventArgs e)
     {
       MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;

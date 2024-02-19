@@ -133,7 +133,7 @@
                 <ProgressBar Height="3"
                             Tag="{Binding PWM.State}"
                             Value="{Binding WallTemperature.Value, Mode=OneWay}"
-                            Foreground="{Binding PWM.State, Converter={StaticResource HeatingBoolToColor}}"/>
+                            Foreground="{Binding PWM.State, Converter={StaticResource BoolToColor}}"/>
 
             </StackPanel>
             

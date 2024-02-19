@@ -103,12 +103,12 @@ namespace NTCC.NET.Core.Stages
       //текущая стадия
       CurrentStage = this;
 
-      StageState newState = stageState;
-      StageState previousState = State;
-
       //Выставляем состояние стадии
       State = stageState;
-      StageStep?.Invoke(this, new FacilityMessageArgs("Изменение состояния стадии : ", MessageType.Info));
+      MessageType messageType;
+      string message = StageStepMessage(stageState, this, out messageType);
+
+      StageStep?.Invoke(this, new FacilityMessageArgs(message, messageType));
 
       //сделать задержку после выполнения операции
       if (delayAfter)
@@ -118,7 +118,71 @@ namespace NTCC.NET.Core.Stages
 
     public event FacilityMessageEventHandler StageStep;
 
+    public static string StageStepMessage(StageState state, StageBase stage, out MessageType messageType)
+    {
+      switch (state)
+      {
+        case StageState.Wait:
+          {
+            messageType = MessageType.Info;
+            return $"Ожидание выполнения стадии {stage.Title}.";
+          }
+        case StageState.Prepeared:
+          {
+            messageType = MessageType.Info; 
+            return $"Стадия {stage.Title} подготовлена к выполнению.";
+          }
+          
+        case StageState.Started:
+          {
+            messageType = MessageType.Success;
+            return $"Начато выполнения основного алгоритма стадии {stage.Title}.";
+          }
+          
+        case StageState.Completed:
+          {
+            messageType = MessageType.Success;
+            return $"Выполнения основного алготиритма стадии {stage.Title} завершено.";
+          }
+          
+        case StageState.Failed:
+          {
+            messageType = MessageType.Error;
+            return $"Техническая ошибка во время выполнения стадии {stage.Title}.";
+          }
+          
+        case StageState.Stopped:
+          {  
+            messageType = MessageType.Warning;
+            return $"Стадия {stage.Title} остановлена пользователем.";
+          }
+          
+        case StageState.Skipped:
+          { 
+            messageType = MessageType.Warning;
+            return $"Стадия {stage.Title} пропущена пользователем.";
+            
+          }
+          
+        case StageState.Finalized:
+          {
+            messageType = MessageType.Success;
+            return $"Cтадия {stage.Title} завершена";
+          }
+          
+        case StageState.Excepted:
+          {
+            messageType = MessageType.Exception;
+            return $"Программная ошибка при выполнении стадии {stage.Title}";
+          }
 
+        default:
+          {              
+            messageType = MessageType.Error;
+            return $"Неизвестное состояние стадии {stage.Title}";
+          }
+      }
+    }
     #endregion
 
 
@@ -168,6 +232,15 @@ namespace NTCC.NET.Core.Stages
       get;
       private set;
     } = TimeSpan.FromMilliseconds(2000);
+
+    /// <summary>
+    /// Задержка при работе в основном потоке
+    /// </summary>
+    protected static TimeSpan ThreadDelay
+    {
+      get;
+      private set;
+    } = TimeSpan.FromMilliseconds(500);
 
     #endregion
 
@@ -246,6 +319,7 @@ namespace NTCC.NET.Core.Stages
 
         //подготовка к выполнению стадии
         result = Prepare();
+
         if (result != StageResult.Successful)
         {
           Finalization();
@@ -264,6 +338,11 @@ namespace NTCC.NET.Core.Stages
         //ожидаем завершения основного алгоритма стадии
         main.Wait();
 
+        //вызываем обработчики события окончания выполнения основного алгоритма стадии
+        OnStageStep(StageState.Completed);
+
+        result = main.Result;
+
         switch (main.Result)
         {
           case StageResult.Failed:
@@ -271,27 +350,24 @@ namespace NTCC.NET.Core.Stages
               //вызов обработчиков некорректного завершения стадии
               //завершение технологического цикла
               OnStageStep(StageState.Failed);
-              return main.Result;
+              break;
             }
           case StageResult.Stopped:
             {
               //вызов обработчиков остановки стадии по инициативе опрератора
               //завершение технологического цикла
               OnStageStep(StageState.Stopped);
-              return main.Result;
+              break;
             }
           case StageResult.Skipped:
             {
               //вызов обработчиков пропуска стадии по инициативе опрератора
               //продолжение технологического цикла
               OnStageStep(StageState.Skipped);
-              return main.Result;
+              break;
             }
         }
-
-        //вызываем обработчики события окончания выполнения основного алгоритма стадии
-        OnStageStep(StageState.Completed);
-
+        
         //выполнение завершение стадии
         Finalization();
 

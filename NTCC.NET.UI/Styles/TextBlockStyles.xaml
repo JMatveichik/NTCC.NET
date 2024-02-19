@@ -94,7 +94,7 @@
   BasedOn="{StaticResource ApplicationTextBlockStyle}"
   TargetType="TextBlock">
     <Setter Property="FontFamily" Value="{StaticResource RCRegular}" />
-    <Setter Property="FontSize" Value="16" />
+    <Setter Property="FontSize" Value="12" />
 
     <Style.Triggers>
       <DataTrigger Binding="{Binding IsActive}" Value="False">
@@ -109,7 +109,7 @@
       BasedOn="{StaticResource ApplicationTextBlockStyle}"
       TargetType="TextBlock">
     <Setter Property="Margin" Value="10,0" />
-    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontSize" Value="10" />
 
     <Style.Triggers>
       <DataTrigger Binding="{Binding IsActive}" Value="False">

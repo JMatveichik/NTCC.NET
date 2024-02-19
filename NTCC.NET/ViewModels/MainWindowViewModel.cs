@@ -15,6 +15,19 @@ namespace NTCC.NET.ViewModels
 
         private List<ViewModelBase> _pages = new List<ViewModelBase>()
         {
+
+            new StagesViewModel()
+            {
+                Title = "Stages",
+                Description = "Description",
+                PageIcon = new PackIconMaterialDesign()
+                {
+                    Kind = PackIconMaterialDesignKind.TimeToLeave,
+                    Style = iconStyle
+
+                }
+            },
+
              new TablesViewModel()
             {
                 Title = "Tables",
@@ -46,7 +59,7 @@ namespace NTCC.NET.ViewModels
                     Style = iconStyle
                 }
             },
-            new SettingViewModel()
+            /*new SettingViewModel()
             {
                 Title = "Settings",  
                 Description = "Description",
@@ -55,19 +68,8 @@ namespace NTCC.NET.ViewModels
                     Kind = PackIconMaterialDesignKind.Settings,
                     Style = iconStyle
                 }
-            },
+            },*/
            
-            new StagesViewModel()
-            {
-                Title = "Stages",   
-                Description = "Description",
-                PageIcon = new PackIconMaterialDesign()
-                {
-                    Kind = PackIconMaterialDesignKind.TimeToLeave,
-                    Style = iconStyle
-
-                }
-            },
         };
 
         public List<ViewModelBase> Pages

@@ -13,6 +13,10 @@ namespace NTCC.NET.Core.Facility
         /// </summary>
         Info        = 0,
         /// <summary>
+        ////Сообщения об удачном дейтсвии
+        /// </summary>
+        Success     = 1,
+        /// <summary>
         /// Отладочные  сообщения
         /// </summary>
         Debug       = 1,

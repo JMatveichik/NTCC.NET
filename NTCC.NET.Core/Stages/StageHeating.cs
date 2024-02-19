@@ -2,6 +2,7 @@
 using NTCC.NET.Core.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,15 +15,15 @@ namespace NTCC.NET.Core.Stages
 
     public StageHeating(string id) : base(id)
     {
-      //получаем среднюю температуру стенок реактора
-      AverageTemperature = getAverageTemperature();
+      
     }
-
-   
 
     public override StageResult Prepare()
     {
       OnTick($"Подготовка стадии  {Title}.", MessageType.Warning);
+
+      //получаем среднюю температуру стенок реактора
+      AverageTemperature = getAverageTemperature();
 
       //задание параметров прогрева
       SetupHeating();
@@ -94,14 +95,51 @@ namespace NTCC.NET.Core.Stages
     /// <returns> Средняя температура по заданным зонам</returns>
     private double getAverageTemperature()
     {
-      //выбираем зоны по которым вычисляется средняя температура
-      var activeZones = StageParameters.StageHeatingParameters.Where(z => z.Value.UseWhenAverageTemperatureCalc = true)
-                                                              .Select(z => z.Key).ToList();
 
+      //выбираем зоны по которым вычисляется средняя температура
+      var activeZonesIDs = StageParameters.StageHeatingParameters.Where(z => z.Value.UseWhenAverageTemperatureCalc == true).Select(z => z.Key).ToList();
+      
       //вычисляем среднюю температуру по заданным зонам
-      return ArtMonbatFacility.GetAverageTemperature(activeZones);
+      return ArtMonbatFacility.GetAverageTemperature(activeZonesIDs);
     }
 
+#if DEBUG
+    public void traceHeatingParameters()
+    {
+      StringBuilder sb1 = new StringBuilder();
+      sb1.AppendLine(new string('-', 30));
+
+      foreach (var zone in StageParameters.StageHeatingParameters)
+      {
+        sb1.AppendLine($"Зона: {zone.Key}  Use in calc : {zone.Value.UseWhenAverageTemperatureCalc}");
+      }
+      Debug.WriteLine(sb1);
+      return;
+
+      StringBuilder sb = new StringBuilder();
+      sb.AppendLine($"Параметры стадии {Title}:");
+      sb.AppendLine(new string('-', 20));
+      sb.AppendLine($"Продолжительность: {StageParameters.Duration}");
+      sb.AppendLine($"Расход воздуха: {StageParameters.FlowRate}");
+      sb.AppendLine($"Промывка линии пропана: {StageParameters.PurgePropaneLine}");
+      sb.AppendLine($"Средняя температура: {StageParameters.AverageTemperature}");
+      
+      foreach (var zone in StageParameters.StageHeatingParameters)
+      {
+        sb.AppendLine($"Зона: {zone.Key:20}  Use in calc : {zone.Value.UseWhenAverageTemperatureCalc}");
+        sb.AppendLine(new string('-', 20));
+        sb.AppendLine($"Минимальная температура стенок: {zone.Value.MinWallTemperature}");
+        sb.AppendLine($"Максимальная температура стенок: {zone.Value.MaxWallTemperature}");
+        sb.AppendLine($"Мощность нагревателя: {zone.Value.HeaterPower}");
+        sb.AppendLine($"Максимальная температура нагревателя: {zone.Value.MaxHeaterTemperature}");
+        sb.AppendLine($"Использовать при вычислении средней температуры: {zone.Value.UseWhenAverageTemperatureCalc}");
+      }
+
+      Debug.Write(sb);
+
+    } 
+#endif
+    
 
     /// <summary>
     /// Выполнение стадии прогрева
@@ -118,7 +156,7 @@ namespace NTCC.NET.Core.Stages
       //превысит заданную в параметрах стадии прогрева
       while (AverageTemperature < StageParameters.AverageTemperature)
       {
-        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
+        Thread.Sleep((int)ThreadDelay.TotalMilliseconds);
 
         //проверяем на остановку стадии пользователем
         if (stop.IsCancellationRequested)

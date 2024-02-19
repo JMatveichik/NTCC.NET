@@ -22,6 +22,15 @@ namespace NTCC.NET.Commands
     } = new RoutedUICommand("Stop process", "StopFullCycle", typeof(FacilityCommands), null);
 
     /// <summary>
+    /// Пропустить текущую стадию
+    /// </summary>
+    public static RoutedUICommand SkipCurrentStage
+    {
+      get;
+    } = new RoutedUICommand("Skip current stage", "SkipCurrentStage", typeof(FacilityCommands), null);
+
+
+    /// <summary>
     /// Команда задания установления аналоговой величины
     /// </summary>
     public static RoutedUICommand SetAnalogOutputValue

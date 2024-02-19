@@ -268,7 +268,7 @@
 			Type="Propane"
 			FlowRate="40.0"
 			Duration="45.0"
-			Description="Синтез углеродных наноматериалов">
+			Description="Синтез углеродных наноматериалов (Основная стадия процесса)">
 		
 		<Heating>
 			<Zone ID="HT01.TOP" 	MinWallTemperature="775" MaxWallTemperature="780" HeaterPower="80" MaxHeaterTemperature="800"/>

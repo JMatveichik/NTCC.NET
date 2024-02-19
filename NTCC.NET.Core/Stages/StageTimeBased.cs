@@ -62,7 +62,7 @@ namespace NTCC.NET.Core.Stages
       //ожидаем истечения заданного времени 
       while (Duration < TotalDuration)
       {
-        Thread.Sleep((int)OperationDelay.TotalMilliseconds);
+        Thread.Sleep((int)ThreadDelay.TotalMilliseconds);
 
         //проверяем на остановку  стадии пользователем
         if (stop.IsCancellationRequested)
