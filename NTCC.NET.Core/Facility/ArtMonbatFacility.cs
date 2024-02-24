@@ -263,11 +263,12 @@ namespace NTCC.NET.Core.Facility
     /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
     private void initializeElements(string xmlConfigPath, string xsdSchemaPath = "")
     {
+      //TODO: Move setup elements to XML
       Damper = new PeriodicalSwitcher("ELEM.DAMPER");
       Damper.SetupControl("YA03", 1000, 1000);
 
       GasHeater = new GasHeater("ELEM.GASHEATER");
-      GasHeater.SetupControl("TE20", );
+      GasHeater.SetupControl("TE20", "TE21", "EK08.RUN");
     }
 
     // Флаг для сигнализации о завершении потока
@@ -300,7 +301,5 @@ namespace NTCC.NET.Core.Facility
       pingThread.Join(0);
 
     }
-
-
   }
 }
