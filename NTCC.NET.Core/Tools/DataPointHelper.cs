@@ -18,7 +18,7 @@ namespace NTCC.NET.Core.Tools
       DiscreteOutputDataPoint outputDataPoint = dataPoints[id] as DiscreteOutputDataPoint;
 
       if (outputDataPoint == null)
-        throw new Exception($"Не найдена дикретная точка данных <{id}>");
+        throw new Exception($"Не найдена дискретная точка данных <{id}>");
 
       //переключение выходной дискретной точки данных в заданное состояние
       outputDataPoint.SetState(state);
