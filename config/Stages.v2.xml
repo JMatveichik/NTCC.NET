@@ -286,7 +286,7 @@
 			Name="Продувка #2"
 			Type="Nitro"
 			FlowRate="30.0"
-			Duration="5.0"
+			Duration="15.0"
 			PurgePropaneLine="true"
 			Description="Продувка реактора азотом перед удалением депозита">
 		

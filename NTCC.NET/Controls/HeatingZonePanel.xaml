@@ -16,216 +16,244 @@
         <converters:BooleanToBrushConverter x:Key="BoolToColor"  
                                             TrueBrush="ForestGreen" 
                                             FalseBrush="OrangeRed"/>
-    
-    <Style TargetType="{x:Type materialDesign:Card}">
-      <Setter Property="Margin" Value="5"/>
-    </Style>
-        
-  </UserControl.Resources>
 
-  <Grid>
+        <Style TargetType="{x:Type materialDesign:Card}">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
+        <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MahApps.Styles.GroupBox}">
+            <Setter Property="FontFamily" Value="{StaticResource RCRegularLight}"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
 
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
 
-    <!--Текущее состояние зоны нагрева-->
-    <materialDesign:Card Grid.Row="0" Grid.Column="0">
-      
-      <GroupBox Header="Текушее состояние">
-        <Grid Margin="5">
-          <Grid.RowDefinitions>
+    </UserControl.Resources>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-          </Grid.RowDefinitions>
-          
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-          </Grid.ColumnDefinitions>
-          
-          <TextBlock
+        </Grid.RowDefinitions>
+
+        <!--Текущее состояние зоны нагрева-->
+        <materialDesign:Card Grid.Row="0" Grid.Column="0">
+
+            <GroupBox Header="Текушее состояние">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
               Grid.Row="1" Grid.Column="0"
               Text="Скважность, %"
               Style="{StaticResource ValueSmall}" />
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="1" Grid.Column="1"
           Text="{Binding Duty.Value}"
           Style="{StaticResource ValueSmall}" 
           Margin="10, 1"/>
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="2" Grid.Column="0"
           Text="Период, мс"
           TextWrapping="Wrap"
           Style="{StaticResource ValueSmall}" />
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="2" Grid.Column="1"
           Text="{Binding Period.Value}"
           Style="{StaticResource ValueSmall}" 
           Margin="10, 1"/>
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="3" Grid.Column="0"
           Text="Код ошибки"
           TextWrapping="Wrap"
           Style="{StaticResource ValueSmall}" 
           />
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="3" Grid.Column="1"
           Text="{Binding ErrorCode.Value}"
           Style="{StaticResource ValueSmall}" 
           Margin="10, 1"/>
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="4" Grid.Column="0"
           Text="Питание"
           Style="{StaticResource ValueSmall}" />
 
-          <ctrls:DiscreteDataPointState 
+                    <ctrls:DiscreteDataPointState 
           Grid.Row="4" Grid.Column="1"
           DataContext="{Binding PowerState}"/>
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="5" Grid.Column="0"
           Text="{Binding EStop.Description}"
           TextWrapping="Wrap"
           Style="{StaticResource ValueSmall}" />
 
-          <ctrls:DiscreteDataPointState 
+                    <ctrls:DiscreteDataPointState 
           Grid.Row="5" Grid.Column="1"
           DataContext="{Binding EStop}"/>
 
-          <TextBlock
+                    <TextBlock
           Grid.Row="6" Grid.Column="0"
           Text="{Binding PWM.Description}"
           TextWrapping="Wrap"
           Style="{StaticResource ValueSmall}" />
 
-          <ctrls:DiscreteDataPointState 
+                    <ctrls:DiscreteDataPointState 
           Grid.Row="6" Grid.Column="1"
           DataContext="{Binding PWM}"/>
 
-        </Grid>
-      </GroupBox>
-      
+                </Grid>
+            </GroupBox>
 
-    </materialDesign:Card>
-   
-    <!--Информация о наргревательных элементах-->
-    <materialDesign:Card Grid.Row="1" Grid.Column="0">
-      <GroupBox Header="Нагревательные элементы">
-        <ItemsControl 
-          ItemsSource="{Binding HeatingElements}">
+        </materialDesign:Card>
 
-          <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type facility:ReactorHeatingElement}">
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <!--Информация о наргревательных элементах-->
+        <materialDesign:Card Grid.Row="1" Grid.Column="0">
 
-                <TextBlock Grid.Column="0" Style="{StaticResource ValueSmall}" Text="{Binding ID}"/>
-                <TextBlock Grid.Column="1" Style="{StaticResource ValueSmall}" Text="{Binding NominalPower, StringFormat={}{0:F1} кВт}"/>
-                <TextBlock Grid.Column="2" Style="{StaticResource ValueSmall}" Text="{Binding Current.Value, StringFormat={}{0:F1} A}"/>
-                <TextBlock Grid.Column="3" Style="{StaticResource ValueSmall}" Text="{Binding Temperature.Value, StringFormat={}{0:F0} °C}"/>
-              </Grid>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </GroupBox>
-    </materialDesign:Card>
-    
-    <!--Задание параметров работы зоны нагрева-->
-    <materialDesign:Card Grid.Row="0" Grid.Column="1">
-      <GroupBox Header="Параметры работы">
-        <Grid>
-            
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <GroupBox Header="Нагревательные элементы">
 
-            <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="Auto"/>
-              <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-          <TextBlock Grid.Column="0" 
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Style="{StaticResource ValueSmall}" Text="ID"/>
+                        <TextBlock Grid.Column="1" Style="{StaticResource ValueSmall}" Text="Мощность"/>
+                        <TextBlock Grid.Column="2" Style="{StaticResource ValueSmall}" Text="Ток"/>
+                        <TextBlock Grid.Column="3" Style="{StaticResource ValueSmall}" Text="Температура"/>
+                    </Grid>
+
+                    <ItemsControl Grid.Row="1"
+                                        ItemsSource="{Binding HeatingElements}">
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type facility:ReactorHeatingElement}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Style="{StaticResource ValueSmall}" Text="{Binding ID}"/>
+                                    <TextBlock Grid.Column="1" Style="{StaticResource ValueSmall}" Text="{Binding NominalPower, StringFormat={}{0:F1} кВт}"/>
+                                    <TextBlock Grid.Column="2" Style="{StaticResource ValueSmall}" Text="{Binding Current.Value, StringFormat={}{0:F1} A}"/>
+                                    <TextBlock Grid.Column="3" Style="{StaticResource ValueSmall}" Text="{Binding Temperature.Value, StringFormat={}{0:F0} °C}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </GroupBox>
+        </materialDesign:Card>
+
+        <!--Задание параметров работы зоны нагрева-->
+        <materialDesign:Card Grid.Row="0" Grid.Column="1">
+            <GroupBox Header="Параметры работы">
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" 
                      Grid.Row="0"
                      Style="{StaticResource ValueSmall}"
                      TextWrapping="Wrap"
                      VerticalAlignment="Center"
                      Text="Минимальная температура поддержания, °C"/>
-          
-          <mah:NumericUpDown  Grid.Column="1" Grid.Row="0"
+
+                    <mah:NumericUpDown  Grid.Column="1" Grid.Row="0"
                                 Style="{StaticResource StageEditorValueUpDownStyle}"
                                 Value="{Binding MinTargetWallTemperature}"
                                 Width="120"
                               Margin="5"/>
 
 
-          <TextBlock Grid.Column="0" 
+                    <TextBlock Grid.Column="0" 
                      Grid.Row="1"
                      Style="{StaticResource ValueSmall}"
                      TextWrapping="Wrap"
                      VerticalAlignment="Center"
                      Text="Максимальная температура поддержания, °C "/>
 
-          <mah:NumericUpDown  Grid.Column="1" Grid.Row="1"
+                    <mah:NumericUpDown  Grid.Column="1" Grid.Row="1"
                                 Style="{StaticResource StageEditorValueUpDownStyle}"
                                 Value="{Binding MaxTargetWallTemperature}"
                                 Width="120"
                               Margin="5"/>
 
-          <TextBlock Grid.Column="0" 
+                    <TextBlock Grid.Column="0" 
                      Grid.Row="2"
                      Style="{StaticResource ValueSmall}"
                      TextWrapping="Wrap"
                      VerticalAlignment="Center"
                      Text="Мощность нагревательного элемента, %"/>
 
-          <mah:NumericUpDown  Grid.Column="1" Grid.Row="2"
+                    <mah:NumericUpDown  Grid.Column="1" Grid.Row="2"
                       Style="{StaticResource StageEditorValueUpDownStyle}"
                       Value="{Binding MaxPowerLevel}"
                       Width="120"
                       Margin="5"/>
 
-        </Grid>
-        
-      </GroupBox>
-    </materialDesign:Card>
-    
-    <!--Контроль питания и автоматического контроля зоны реактора-->
-    <materialDesign:Card Grid.Row="1" Grid.Column="1">
-      <GroupBox Header="Контроль">
-      </GroupBox>
-    </materialDesign:Card>
+                </Grid>
+            </GroupBox>
 
-   
-    
-  </Grid>
-  
+        </materialDesign:Card>
+
+        <!--Контроль питания и автоматического контроля зоны реактора-->
+        <materialDesign:Card Grid.Row="1" Grid.Column="1">
+            <GroupBox Header="Контроль">
+            </GroupBox>
+        </materialDesign:Card>
+
+
+
+    </Grid>
+
 </UserControl>

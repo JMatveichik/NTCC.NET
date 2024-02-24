@@ -12,18 +12,18 @@ namespace NTCC.NET.Core.Facility
   {
 
     public static List<string> PropertiesList = new List<string>()
-        {
-            "PowerState",
-            "Run",
-            "Duty",
-            "Period",
-            "ErrorCode",
-            "EStop",
-            "PWM",
-            "DutyWrite",
-            "PeriodWrite",
-            "WallTemperature"
-        };
+    {
+        "PowerState",
+        "Run",
+        "Duty",
+        "Period",
+        "ErrorCode",
+        "EStop",
+        "PWM",
+        "DutyWrite",
+        "PeriodWrite",
+        "WallTemperature"
+    };
 
     public ReactorHeatingZone(string id) : base(id)
     {
@@ -292,7 +292,9 @@ namespace NTCC.NET.Core.Facility
         heatingControlThread.Start();
 
         string message = $"Запущена процедура автоматического контроля нагрева зоны реактора";
-        OnTick(message, MessageType.Warning);
+        OnTick(message, MessageType.Info);
+
+        IsControlStarted = true;
       }
     }
 
@@ -307,31 +309,31 @@ namespace NTCC.NET.Core.Facility
       //ждем завершения потока контроля нагрева зоны
       heatingControlThread.Join(0);
 
-      //обновляем состояние потока контроля нагрева зоны
-      OnPropertyChanged("IsControlStarted");
-
       //сбросить мощность нагревателя в 0.0%
       DutyWrite.WriteValue(0.0);
 
       //сообщаем об остановке потока контроля нагрева зоны
       string message = $"Процедура автоматического контроля нагрева зоны реактора остановлена";
-      OnTick(message, MessageType.Warning);
+      OnTick(message, MessageType.Info);
+      
+      IsControlStarted = false;
     }
 
     //проверка состояния потока контроля нагрева зоны
     public bool IsControlStarted
     {
-      get
+      get => isControlStarted;
+      private set
       {
-        if (heatingControlThread == null)
-          return false;
+        if (value == isControlStarted)
+          return;
 
-        if (heatingControlThread.IsAlive)
-          return true;
-
-        return false;
+        isControlStarted = value;
+        OnPropertyChanged();
       }
     }
+
+    private bool isControlStarted = false;
 
     /// <summary>
     /// Процедура контроля нагрева зоны  реактора
@@ -343,7 +345,10 @@ namespace NTCC.NET.Core.Facility
         Thread.Sleep(1000);
 
         if (cts.IsCancellationRequested)
+        {
+          DutyWrite.WriteValue(0.0);
           break;
+        } 
 
         //TODO: контроль тока нагревательных элементов
         foreach (var element in HeatingElements)

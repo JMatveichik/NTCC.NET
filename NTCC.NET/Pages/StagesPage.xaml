@@ -37,7 +37,8 @@
       <Button ToolTip="Запустить технологический цикл"
               Command="{x:Static cmds:FacilityCommands.StartFullCycle}"> 
 
-        <iconPacks:PackIconIonicons Kind="PlayiOS"
+
+     <iconPacks:PackIconIonicons Kind="PlayiOS"
                               Style="{StaticResource MetroToolBoxIconStyle16}"
                               Foreground="White">
         </iconPacks:PackIconIonicons>
@@ -98,7 +99,9 @@
       <Image Grid.Column="1" Grid.Row="1"
              Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
              Margin='10'
-             Stretch="Fill"/>
+             Stretch="Fill"
+             Width="1552"
+             Height="1000"/>
 
       <Canvas Grid.Column="1"
               Grid.Row="1" 
@@ -572,8 +575,25 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="530"
-                                     Canvas.Left="1200"/>
+                                     Canvas.Top="510"
+                                     Canvas.Left="1195"/>
+         <!--       
+        <Ellipse Canvas.Top="510"
+                 Canvas.Left="1220" 
+                 Stroke="OrangeRed" 
+                 Height="7" Width="7"/>
+
+        <Polyline Canvas.Top="513"
+                  Canvas.Left="1225"
+                  Stroke="OrangeRed" 
+                  StrokeThickness="1"
+                  Points="0, 0, 20, 0, 20, -390, 30, -390"/>
+        
+        <Ellipse Canvas.Top="120"
+             Canvas.Left="1254" 
+             Stroke="OrangeRed" 
+             Height="7" Width="7"/>   
+          -->
 
                 <!--Наружная средняя-верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -585,8 +605,8 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="580"
-                                     Canvas.Left="1210"/>
+                                     Canvas.Top="565"
+                                     Canvas.Left="1195"/>
 
                 <!--Наружная средняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -598,8 +618,8 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="630"
-                                     Canvas.Left="1210"/>
+                                     Canvas.Top="620"
+                                     Canvas.Left="1195"/>
 
                 <!--Наружная средне-нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -611,8 +631,8 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="680"
-                                     Canvas.Left="1210"/>
+                                     Canvas.Top="675"
+                                     Canvas.Left="1195"/>
 
                 <!--Наружная нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -625,7 +645,7 @@
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="730"
-                                     Canvas.Left="1210"/>
+                                     Canvas.Left="1195"/>
 
                 <!--Внутренняя нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -639,8 +659,8 @@
                                      Width="48"
                                      Canvas.Top="700"
                                      Canvas.Left="1110"/>
-
-            </Canvas>
+        
+      </Canvas>
 
 
     </Grid>

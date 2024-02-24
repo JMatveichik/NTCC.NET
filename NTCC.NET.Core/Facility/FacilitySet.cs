@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace NTCC.NET.Core.Facility
 {
-    public class FaciliitySet<T> where  T : FacilityElement
+    public class FacilitySet<T> where  T : FacilityElement
     {   
 
         public bool Add(T element)

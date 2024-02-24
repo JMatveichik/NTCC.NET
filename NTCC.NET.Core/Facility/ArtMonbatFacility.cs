@@ -28,26 +28,26 @@ namespace NTCC.NET.Core.Facility
     /// <summary>
     /// DataPoints set for facility
     /// </summary>
-    public static FaciliitySet<DataPoint> DataPoints
+    public static FacilitySet<DataPoint> DataPoints
     {
       get;
-    } = new FaciliitySet<DataPoint>();
+    } = new FacilitySet<DataPoint>();
 
     /// <summary>
     /// Reactor heating zones set
     /// </summary>
-    public static FaciliitySet<ReactorHeatingZone> ReactorZones
+    public static FacilitySet<ReactorHeatingZone> ReactorZones
     {
       get;
-    } = new FaciliitySet<ReactorHeatingZone>();
+    } = new FacilitySet<ReactorHeatingZone>();
 
     /// <summary>
     /// Facility stages set
     /// </summary>
-    public static FaciliitySet<StageBase> Stages
+    public static FacilitySet<StageBase> Stages
     {
       get;
-    } = new FaciliitySet<StageBase>();
+    } = new FacilitySet<StageBase>();
 
     /// <summary>
     /// Main stage contain logic to process all stages 
@@ -60,10 +60,28 @@ namespace NTCC.NET.Core.Facility
     /// <summary>
     /// Devices set
     /// </summary>
-    public static FaciliitySet<AcquisitionDeviceBase> Devices
+    public static FacilitySet<AcquisitionDeviceBase> Devices
     {
       get;
-    } = new FaciliitySet<AcquisitionDeviceBase>();
+    } = new FacilitySet<AcquisitionDeviceBase>();
+
+    /// <summary>
+    /// Управление заслонкой
+    /// </summary>
+    public static PeriodicalSwitcher Damper
+    {
+      get;
+      private set;
+    } = null;
+
+    /// <summary>
+    /// Управление подогревателем газа
+    /// </summary>
+    public static GasHeater GasHeater
+    {
+      get; 
+      private set;
+    } = null;
 
     #endregion
 
@@ -116,12 +134,10 @@ namespace NTCC.NET.Core.Facility
         string xsdDevicesPath = Path.Combine(configDir, "Devices.v1.xsd");
         initializeDevices(xmlDevicesPath, xsdDevicesPath);
 
-
         //инициализация точек данных
         string xmlDataPointPath = Path.Combine(configDir, "DataPoints.v5.xml");
         string xsdDataPointPath = Path.Combine(configDir, "DataPoints.v5.xsd");
         initializeDataPoints(xmlDataPointPath, xsdDataPointPath);
-
 
         //инициализация нагревателей
         string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xml");
@@ -247,7 +263,11 @@ namespace NTCC.NET.Core.Facility
     /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
     private void initializeElements(string xmlConfigPath, string xsdSchemaPath = "")
     {
+      Damper = new PeriodicalSwitcher("ELEM.DAMPER");
+      Damper.SetupControl("YA03", 1000, 1000);
 
+      GasHeater = new GasHeater("ELEM.GASHEATER");
+      GasHeater.SetupControl("TE20", );
     }
 
     // Флаг для сигнализации о завершении потока
@@ -277,7 +297,7 @@ namespace NTCC.NET.Core.Facility
 
       // Останавливаем поток ping
       stopPingThread = true;
-      pingThread.Join();
+      pingThread.Join(0);
 
     }
 

@@ -77,7 +77,8 @@
                 Orientation="Horizontal" 
                 Margin="10" 
                 HorizontalAlignment ="Right">
-      <Button Content="Закрыть"/>
+      <Button Content="Закрыть"
+              Click="btnClose_Click"/>
     </StackPanel>
       
   </Grid>

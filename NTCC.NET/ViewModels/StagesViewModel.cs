@@ -166,13 +166,13 @@ namespace NTCC.NET.ViewModels
       private set;
     } = ArtMonbatFacility.FullCycle;
 
-    public FaciliitySet<DataPoint> DataPoints
+    public FacilitySet<DataPoint> DataPoints
     {
       get;
       private set;
     } = ArtMonbatFacility.DataPoints;
 
-    public FaciliitySet<ReactorHeatingZone> ReactorZones
+    public FacilitySet<ReactorHeatingZone> ReactorZones
     {
       get;
       private set;

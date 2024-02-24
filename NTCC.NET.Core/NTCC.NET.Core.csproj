@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facility\GasHeater.cs" />
     <Compile Include="Facility\HeatingParameters.cs" />
+    <Compile Include="Facility\PeriodicalSwitcher.cs" />
     <Compile Include="Facility\StageFactory.cs" />
     <Compile Include="Facility\StageParameters.cs" />
     <Compile Include="Stages\StageAir.cs" />
@@ -59,7 +61,7 @@
     <Compile Include="Facility\ArtMonbatFacility.cs" />
     <Compile Include="Facility\DeviceFactory.cs" />
     <Compile Include="Facility\ArtMonbatDevice.cs" />
-    <Compile Include="Facility\FaciliitySet.cs" />
+    <Compile Include="Facility\FacilitySet.cs" />
     <Compile Include="Facility\FacilityElement.cs" />
     <Compile Include="Facility\FacilityElementFactory.cs" />
     <Compile Include="Facility\FacilityHandlers.cs" />

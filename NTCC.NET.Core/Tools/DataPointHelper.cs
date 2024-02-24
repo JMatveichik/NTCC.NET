@@ -89,7 +89,7 @@ namespace NTCC.NET.Core.Tools
 
         TimeSpan waitTime = DateTime.Now - startTime;
         if (waitTime > timeout)
-          throw new Exception($"Превышено время установления  {discreteDataPoint.ID} ({timeout.TotalSeconds} s)");
+          throw new Exception($"Превышено время установления {discreteDataPoint.ID} ({timeout.TotalSeconds} s)");
       }
     }
 

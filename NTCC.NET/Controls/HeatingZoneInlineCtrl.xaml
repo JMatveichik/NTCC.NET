@@ -167,7 +167,7 @@
                                         VerticalAlignment="Center"
                                         Style="{StaticResource MetroToolBoxIconStyle16}"
                                         Margin="5"
-                                        Foreground="{Binding PowerState, Converter={StaticResource BoolToEnabledDisabled}}">
+                                        Foreground="{Binding PowerState.State, Converter={StaticResource BoolToEnabledDisabled}}">
             </iconPacks:PackIconIonicons>
             <iconPacks:PackIconVaadinIcons Kind="Controller"
                                            Margin="5"
