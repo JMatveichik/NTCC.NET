@@ -96,12 +96,11 @@
 
 
 
-      <Image Grid.Column="1" Grid.Row="1"
+            <Image Grid.Column="1" Grid.Row="1"
              Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
              Margin='10'
-             Stretch="Fill"
-             Width="1552"
-             Height="1000"/>
+             Stretch="Fill"/>
+            <!--Width="1552" Height="940" -->
 
       <Canvas Grid.Column="1"
               Grid.Row="1" 
@@ -562,8 +561,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="530"
-                                     Canvas.Left="1110"/>
+                                     Canvas.Top="510"
+                                     Canvas.Left="1110"
+                                     DataContext="{Binding ReactorZones[HT06.IN.TOP]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -575,8 +576,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="510"
-                                     Canvas.Left="1195"/>
+                                     Canvas.Top="460"
+                                     Canvas.Left="1170"
+                                     DataContext="{Binding ReactorZones[HT01.TOP]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
          <!--       
         <Ellipse Canvas.Top="510"
                  Canvas.Left="1220" 
@@ -605,8 +608,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="565"
-                                     Canvas.Left="1195"/>
+                                     Canvas.Top="510"
+                                     Canvas.Left="1170"                                     
+                                     DataContext="{Binding ReactorZones[HT02.MID.TOP]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная средняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -618,8 +623,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="620"
-                                     Canvas.Left="1195"/>
+                                     Canvas.Top="560"
+                                     Canvas.Left="1170"
+                                     DataContext="{Binding ReactorZones[HT03.MID]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная средне-нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -631,8 +638,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="675"
-                                     Canvas.Left="1195"/>
+                                     Canvas.Top="610"
+                                     Canvas.Left="1170"
+                                     DataContext="{Binding ReactorZones[HT04.MID.BOT]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -644,8 +653,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="730"
-                                     Canvas.Left="1195"/>
+                                     Canvas.Top="660"
+                                     Canvas.Left="1170"
+                                     DataContext="{Binding ReactorZones[HT05.BOT]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Внутренняя нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -657,8 +668,10 @@
         <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
-                                     Canvas.Top="700"
-                                     Canvas.Left="1110"/>
+                                     Canvas.Top="630"
+                                     Canvas.Left="1110"
+                                     DataContext="{Binding ReactorZones[HT07.IN.BOT]}"
+                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
         
       </Canvas>
 

@@ -79,7 +79,11 @@
                                                 TrueBrush="ForestGreen" 
                                                 FalseBrush="LightGray"/>
 
-      <converters:BooleanToBrushConverter x:Key="InvertedBoolToColor"  
+            <converters:BooleanToBrushConverter x:Key="HeaterPWM"  
+                                                TrueBrush="OrangeRed" 
+                                                FalseBrush="DarkGray"/>
+
+            <converters:BooleanToBrushConverter x:Key="InvertedBoolToColor"  
                                                 TrueBrush="ForestGreen" 
                                                 FalseBrush="OrangeRed"/>
 
