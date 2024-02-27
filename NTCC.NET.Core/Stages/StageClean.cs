@@ -223,7 +223,7 @@ namespace NTCC.NET.Core.Stages
       DataPointHelper.SetDiscreteParameter(this, "YA02", true, (int)OperationDelay.TotalMilliseconds);
 
       //останавливаем управление заслонкой
-      ArtMonbatFacility.Damper.StartControl();
+      ArtMonbatFacility.Damper.StopControl();
 
       return StageResult.Successful;
     }
