@@ -25,13 +25,17 @@ namespace NTCC.NET.Core.Facility
     public void SetupControl(string gasTemperatureId, string heaterTemperatureId, string heaterStateId)
     {
       GasTemperature = ArtMonbatFacility.DataPoints[gasTemperatureId] as AnalogDataPoint;
-
       if (GasTemperature == null)
-        throw new ArgumentNullException($"Discrete output data point {gasTemperatureId} not found for temperature control");
+        throw new ArgumentNullException($"Analog input data point {gasTemperatureId} not found for gas temperature control");
+
+      HeaterTemperature = ArtMonbatFacility.DataPoints[heaterTemperatureId] as AnalogDataPoint;
+      if (HeaterTemperature == null)
+        throw new ArgumentNullException($"Analog input data point {heaterTemperatureId} not found heater temperature control");
 
       HeaterState = ArtMonbatFacility.DataPoints[heaterStateId] as DiscreteOutputDataPoint;
       if (HeaterState == null)
-        throw new ArgumentNullException($"Discrete output data point {gasTemperatureId} not found heater switching");
+        throw new ArgumentNullException($"Discrete output data point {heaterStateId} not found heater switching");
+     
     }
 
     /// <summary>
@@ -94,7 +98,7 @@ namespace NTCC.NET.Core.Facility
       }
     }
 
-    private double maxHeaterTemperature = 80.0;
+    private double maxHeaterTemperature = 70.0;
 
     /// <summary>
     /// Запуск контроля температуры газа на выходе из подогревателя

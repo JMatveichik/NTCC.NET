@@ -281,7 +281,7 @@
             <ProgressBar.RenderTransform>
               <TransformGroup>
                 <RotateTransform Angle="180" />
-                <TranslateTransform Y="30"
+                <TranslateTransform Y="17"
                                     X="3" />
               </TransformGroup>
             </ProgressBar.RenderTransform>
