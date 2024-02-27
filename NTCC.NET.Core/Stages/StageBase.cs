@@ -110,6 +110,8 @@ namespace NTCC.NET.Core.Stages
 
       StageStep?.Invoke(this, new FacilityMessageArgs(message, messageType));
 
+      OnTick(message, messageType);
+
       //сделать задержку после выполнения операции
       if (delayAfter)
         Thread.Sleep((int)OperationDelay.TotalMilliseconds);

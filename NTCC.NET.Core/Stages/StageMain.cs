@@ -181,6 +181,9 @@ namespace NTCC.NET.Core.Stages
       //Подать питание на нагреватель газа (EK8. EK9)
       DataPointHelper.SetDiscreteParameter(this, "HT04.QF.RUN", true, (int)OperationDelay.TotalMilliseconds);
 
+      //запустить контроль температуры газа
+      ArtMonbatFacility.GasHeater.StartControl();
+
       #endregion
 
       return StageResult.Successful;
@@ -189,6 +192,9 @@ namespace NTCC.NET.Core.Stages
     protected override StageResult Finalization()
     {
       #region Подготовка нагревателей
+
+      //остановить контроль температуры газа
+      ArtMonbatFacility.GasHeater.StopControl();
 
       List<ReactorHeatingZone> reactorHeatingZones = ArtMonbatFacility.ReactorZones.Items.Values.ToList();
 
@@ -210,6 +216,7 @@ namespace NTCC.NET.Core.Stages
 
       //Снять питание на нагреватель газа (EK8. EK9)
       DataPointHelper.SetDiscreteParameter(this, "HT04.QF.RUN", false, (int)OperationDelay.TotalMilliseconds);
+
 
       #endregion
 

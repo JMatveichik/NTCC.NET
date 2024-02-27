@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-  class StageClean : StageBase
+  public class StageClean : StageBase
   {
     public StageClean(string id) : base(id)
     {
@@ -63,7 +63,7 @@ namespace NTCC.NET.Core.Stages
         OnPropertyChanged();
       }
     }
-    private TimeSpan collingTime = TimeSpan.FromSeconds(15);
+    private TimeSpan collingTime = TimeSpan.FromSeconds(5);
 
     /// <summary>
     /// Oжидания прохода скребка в одном напровлении
@@ -123,11 +123,11 @@ namespace NTCC.NET.Core.Stages
         //включаем линейный модуль скребка #2
         moveDownDataPoint.SetState(true);
 
+        //технологическая задержка
+        Thread.Sleep(50);
+
         //подача азота в сребок
         nitroToScraper.SetState(true);
-
-        //технологическая задержка
-        Thread.Sleep(100);
 
         //если не достигли нижнего положения ошибка
         if (!WaitScraperPosition(isScaperOnDown, moveTimeOut))
@@ -181,8 +181,6 @@ namespace NTCC.NET.Core.Stages
 
     public override StageResult Prepare()
     {
-      OnTick($"Подготовка стадии  {Title}.", MessageType.Info);
-
       //задание параметров прогрева
       SetupHeating();
 
@@ -203,8 +201,6 @@ namespace NTCC.NET.Core.Stages
 
     protected override StageResult Finalization()
     {
-      OnTick($"Завершение стадии {Title}", MessageType.Warning);
-
       //отправляем команду на перемещение скребка вверх
       MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
 
@@ -234,7 +230,6 @@ namespace NTCC.NET.Core.Stages
 
     protected override StageResult Main(CancellationToken stop, CancellationToken skip)
     {
-      OnTick($"Начато выполнение стадии {Title}.", MessageType.Warning);
       StartTime = DateTime.Now;
 
       CurrentPass = 0;
@@ -268,8 +263,7 @@ namespace NTCC.NET.Core.Stages
           DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromMinutes(2.0));
         }
 
-
-        OnTick($"Завершен проход [{CurrentPass}] скребка.", MessageType.Info);
+        OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков", MessageType.Info);
         CurrentPass++;
 
         //ожидаем охлождение штоков

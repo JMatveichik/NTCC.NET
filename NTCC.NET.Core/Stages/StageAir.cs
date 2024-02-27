@@ -16,8 +16,6 @@ namespace NTCC.NET.Core.Stages
 
     public override StageResult Prepare()
     {
-      OnTick($"Подготовка стадии  {Title} ...", MessageType.Info);
-
       //задание параметров прогрева
       SetupHeating();
       
@@ -38,8 +36,6 @@ namespace NTCC.NET.Core.Stages
 
     protected override StageResult Finalization()
     {
-      OnTick($"Завершение стадии  {Title} ...", MessageType.Info);
-
       //закрыть клапан подачи воздуха в камеру синтеза
       DataPointHelper.SetDiscreteParameter(this, "YA05.OPN", false, (int)OperationDelay.TotalMilliseconds);
 

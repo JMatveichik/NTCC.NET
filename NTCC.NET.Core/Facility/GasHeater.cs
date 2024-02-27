@@ -37,9 +37,9 @@ namespace NTCC.NET.Core.Facility
     /// <summary>
     /// Точка данных для контроля температуры газа
     /// </summary>
-    public AnalogDataPoint GasTemperature 
-    { 
-      get; 
+    public AnalogDataPoint GasTemperature
+    {
+      get;
       private set;
     } = null;
 
@@ -76,7 +76,7 @@ namespace NTCC.NET.Core.Facility
         OnPropertyChanged();
       }
     }
-    private double targetGasTemperature = 0.0;
+    private double targetGasTemperature = 25.0;
 
     /// <summary>
     ///Максимальная температура нагревательного элемента подогревателя
@@ -94,7 +94,7 @@ namespace NTCC.NET.Core.Facility
       }
     }
 
-    private double maxHeaterTemperature = 0.0;
+    private double maxHeaterTemperature = 80.0;
 
     /// <summary>
     /// Запуск контроля температуры газа на выходе из подогревателя
@@ -178,7 +178,7 @@ namespace NTCC.NET.Core.Facility
 
         //Если температура газа больше заданной или температура
         //нагревательного элемента выше заданной выключаем  нагрев 
-        if (GasTemperature.Value > TargetGasTemperature || 
+        if (GasTemperature.Value > TargetGasTemperature ||
             HeaterTemperature.Value > MaxHeaterTemperature)
         {
           HeaterState.SetState(false);

@@ -17,8 +17,6 @@ namespace NTCC.NET.Core.Stages
 
     public override StageResult Prepare()
     {
-      OnTick($"Подготовка стадии  {Title} ...", MessageType.Warning);
-
       //задание параметров прогрева
       SetupHeating();
 
@@ -50,8 +48,6 @@ namespace NTCC.NET.Core.Stages
 
     protected override StageResult Finalization()
     {
-      OnTick($"Завершение стадии  {Title} ...", MessageType.Warning);
-
       //сбросить расход азота в камеру синтеза
       DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", ZERRO);
 

@@ -1,104 +1,103 @@
 ﻿<UserControl x:Class="NTCC.NET.Controls.StageItemPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
              xmlns:local="clr-namespace:NTCC.NET.Controls"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:stages="clr-namespace:NTCC.NET.Core.Stages;assembly=NTCC.NET.Core"
-             mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="300">
+             mc:Ignorable="d"
+             d:DesignHeight="100"
+             d:DesignWidth="300">
 
   <UserControl.Resources>
-    
+
     <DataTemplate DataType="{x:Type stages:StageTimeBased}">
-      
+
       <Grid Margin="5">
 
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="60"/>
-          <ColumnDefinition Width="20"/>
-          <ColumnDefinition Width="210"/>
+          <ColumnDefinition Width="60" />
+          <ColumnDefinition Width="20" />
+          <ColumnDefinition Width="210" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
 
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
           </Grid.RowDefinitions>
 
-          <TextBlock  
-            Grid.Row="0"
-            Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
-            IsEnabled="False"
-            Style="{StaticResource ItemDescriptionDynamic}"/>
+          <TextBlock Grid.Row="0"
+                     Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                     IsEnabled="False"
+                     Style="{StaticResource ItemDescriptionDynamic}" />
 
           <TextBlock Grid.Row="1"
-              Style="{StaticResource ItemTitleDynamic}"
-              VerticalAlignment="Center"
-              HorizontalAlignment="Center"
-              Text="{Binding Path=TimeLeft, StringFormat=mm\\:ss}"/>
+                     Style="{StaticResource ItemTitleDynamic}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Text="{Binding Path=TimeLeft, StringFormat=mm\\:ss}" />
 
         </Grid>
 
         <Grid Grid.Column="2">
 
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
           </Grid.RowDefinitions>
 
           <TextBlock Grid.Row="0"
-            Style="{StaticResource ItemTitleDynamic}"
-            Text="{Binding Path=Title}"/>
+                     Style="{StaticResource ItemTitleDynamic}"
+                     Text="{Binding Path=Title}" />
 
           <TextBlock Grid.Row="1"
-            Style="{StaticResource ItemDescriptionDynamic}"
-            Width="150"
-            HorizontalAlignment="Left"
-            Text="{Binding Path=Description}" 
-            TextWrapping="Wrap"
-            Margin="5"/>
+                     Style="{StaticResource ItemDescriptionDynamic}"
+                     Width="150"
+                     HorizontalAlignment="Left"
+                     Text="{Binding Path=Description}"
+                     TextWrapping="Wrap"
+                     Margin="5" />
 
         </Grid>
 
         <Grid Grid.Column="1">
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
           </Grid.RowDefinitions>
 
-          <iconPacks:PackIconUnicons 
-              Grid.Row="0" Kind="Circle"
-              HorizontalAlignment="Center"
-              Margin="0, 3"
-              Width="10"
-              Height="10"
-              Foreground="{StaticResource PrimaryHueLightBrush}"/>
+          <iconPacks:PackIconUnicons Grid.Row="0"
+                                     Kind="Circle"
+                                     HorizontalAlignment="Center"
+                                     Margin="0, 3"
+                                     Width="10"
+                                     Height="10"
+                                     Foreground="{StaticResource PrimaryHueLightBrush}" />
 
           <ProgressBar Grid.Row="1"
-               Height="3"
-               Maximum="{Binding TotalDuration.TotalSeconds}"
-               Value="{Binding Duration.TotalSeconds, Mode=OneWay}"
-               IsIndeterminate="False"
-               BorderThickness="0.5"
-               BorderBrush="Transparent"
-               Orientation="Vertical">
+                       Height="3"
+                       Maximum="{Binding TotalDuration.TotalSeconds}"
+                       Value="{Binding Duration.TotalSeconds, Mode=OneWay}"
+                       IsIndeterminate="False"
+                       BorderThickness="0.5"
+                       BorderBrush="Transparent"
+                       Orientation="Vertical">
 
             <ProgressBar.RenderTransform>
               <TransformGroup>
                 <RotateTransform Angle="180" />
-                <TranslateTransform Y="30" X="3" />
+                <TranslateTransform Y="30"
+                                    X="3" />
               </TransformGroup>
             </ProgressBar.RenderTransform>
 
-
           </ProgressBar>
-
 
         </Grid>
 
@@ -110,107 +109,195 @@
       <Grid Margin="5">
 
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="60"/>
-          <ColumnDefinition Width="20"/>
-          <ColumnDefinition Width="210"/>
+          <ColumnDefinition Width="60" />
+          <ColumnDefinition Width="20" />
+          <ColumnDefinition Width="210" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
 
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
           </Grid.RowDefinitions>
 
           <TextBlock  Grid.Row="0"
-            Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
-            IsEnabled="False"
-            Style="{StaticResource ItemDescriptionDynamic}"/>
+                      Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                      IsEnabled="False"
+                      Style="{StaticResource ItemDescriptionDynamic}" />
 
           <TextBlock Grid.Row="1"
-            Style="{StaticResource ItemTitleDynamic}"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Text="{Binding Path=Duration, StringFormat=mm\\:ss}"/>
+                     Style="{StaticResource ItemTitleDynamic}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Text="{Binding Path=Duration, StringFormat=mm\\:ss}" />
 
           <TextBlock Grid.Row="2"
-            Style="{StaticResource ItemTitleDynamic}"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Text="{Binding Path=AverageTemperature, StringFormat='{}{0:F1},°C'}"/>
+                     Style="{StaticResource ItemTitleDynamic}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Text="{Binding Path=AverageTemperature, StringFormat='{}{0:F1},°C'}" />
 
         </Grid>
 
         <Grid Grid.Column="2">
 
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
           </Grid.RowDefinitions>
 
           <TextBlock Grid.Row="0"
-        Style="{StaticResource ItemTitleDynamic}"
-        Text="{Binding Path=Title}"/>
+                     Style="{StaticResource ItemTitleDynamic}"
+                     Text="{Binding Path=Title}" />
 
           <TextBlock Grid.Row="1"
-        Style="{StaticResource ItemDescriptionDynamic}"
+                     Style="{StaticResource ItemDescriptionDynamic}"
                      HorizontalAlignment="Left"
                      Width="150"
-        Text="{Binding Path=Description}" 
-        TextWrapping="Wrap"
-        Margin="5"/>
+                     Text="{Binding Path=Description}"
+                     TextWrapping="Wrap"
+                     Margin="5" />
 
         </Grid>
 
         <Grid Grid.Column="1">
           <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
           </Grid.RowDefinitions>
 
-          <iconPacks:PackIconUnicons 
-            Grid.Row="0" Kind="Circle"
-            HorizontalAlignment="Center"
-            Margin="0, 3"
-            Width="10"
-            Height="10"
-            Foreground="{StaticResource PrimaryHueLightBrush}"/>
+          <iconPacks:PackIconUnicons Grid.Row="0"
+                                     Kind="Circle"
+                                     HorizontalAlignment="Center"
+                                     Margin="0, 3"
+                                     Width="10"
+                                     Height="10"
+                                     Foreground="{StaticResource PrimaryHueLightBrush}" />
 
           <ProgressBar Grid.Row="1"
-             Height="3"
-             Maximum="100"
-             IsIndeterminate="{Binding IsActive}"
-             Value="{cb:Binding IsActive ? 0 : 100, Mode=OneWay}"
-             BorderThickness="0.5"
-             BorderBrush="Transparent"
-             Orientation="Vertical">
+                       Height="3"
+                       Maximum="100"
+                       IsIndeterminate="{Binding IsActive}"
+                       Value="{cb:Binding IsActive ? 0 : 100, Mode=OneWay}"
+                       BorderThickness="0.5"
+                       BorderBrush="Transparent"
+                       Orientation="Vertical">
 
             <ProgressBar.RenderTransform>
               <TransformGroup>
                 <RotateTransform Angle="180" />
-                <TranslateTransform Y="30" X="3" />
+                <TranslateTransform Y="30"
+                                    X="3" />
               </TransformGroup>
             </ProgressBar.RenderTransform>
-
-
           </ProgressBar>
+        </Grid>
+      </Grid>
+    </DataTemplate>
 
+    <DataTemplate DataType="{x:Type stages:StageClean}">
+
+      <Grid Margin="5">
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="60" />
+          <ColumnDefinition Width="20" />
+          <ColumnDefinition Width="210" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+
+          <TextBlock  Grid.Row="0"
+                      Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                      IsEnabled="False"
+                      Style="{StaticResource ItemDescriptionDynamic}" />
+
+          <TextBlock Grid.Row="2"
+                     Style="{StaticResource ItemTitleDynamic}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center">
+            <TextBlock.Text>
+              <MultiBinding StringFormat="{}{0}({1})">
+                <Binding Path="CurrentPass" Mode="OneWay"/>
+                <Binding Path="MaxPassCount" />
+              </MultiBinding>
+            </TextBlock.Text>
+          </TextBlock>
 
         </Grid>
 
+        <Grid Grid.Column="2">
+
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="0"
+                     Style="{StaticResource ItemTitleDynamic}"
+                     Text="{Binding Path=Title}" />
+
+          <TextBlock Grid.Row="1"
+                     Style="{StaticResource ItemDescriptionDynamic}"
+                     HorizontalAlignment="Left"
+                     Width="150"
+                     Text="{Binding Path=Description}"
+                     TextWrapping="Wrap"
+                     Margin="5" />
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+
+          <iconPacks:PackIconUnicons Grid.Row="0"
+                                     Kind="Circle"
+                                     HorizontalAlignment="Center"
+                                     Margin="0, 3"
+                                     Width="10"
+                                     Height="10"
+                                     Foreground="{StaticResource PrimaryHueLightBrush}" />
+
+          <ProgressBar Grid.Row="1"
+                       Height="3"
+                       Maximum="{Binding MaxPassCount}"
+                       IsIndeterminate="False"
+                       Value="{Binding CurrentPass , Mode=OneWay}"
+                       BorderThickness="0.5"
+                       BorderBrush="Transparent"
+                       Orientation="Vertical">
+
+            <ProgressBar.RenderTransform>
+              <TransformGroup>
+                <RotateTransform Angle="180" />
+                <TranslateTransform Y="30"
+                                    X="3" />
+              </TransformGroup>
+            </ProgressBar.RenderTransform>
+          </ProgressBar>
+        </Grid>
       </Grid>
     </DataTemplate>
 
   </UserControl.Resources>
 
-
   <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                       Margin="10, 0" 
+                       Margin="10, 0"
                        Width="290">
 
-    <ContentControl Content="{Binding}"/>
+    <ContentControl Content="{Binding}" />
 
   </materialDesign:Card>
-  
+
 </UserControl>

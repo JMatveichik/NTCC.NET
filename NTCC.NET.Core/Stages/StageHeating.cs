@@ -20,8 +20,6 @@ namespace NTCC.NET.Core.Stages
 
     public override StageResult Prepare()
     {
-      OnTick($"Подготовка стадии  {Title}.", MessageType.Warning);
-
       //получаем среднюю температуру стенок реактора
       AverageTemperature = getAverageTemperature();
 
@@ -50,8 +48,6 @@ namespace NTCC.NET.Core.Stages
 
     protected override StageResult Finalization()
     {
-      OnTick($"Завершение стадии  {Title}.", MessageType.Warning);
-
       //если был задан расход для стадии прогрева задаем проток воздуха 0.0
       if (StageParameters.FlowRate > 0.0)
       {
@@ -149,7 +145,6 @@ namespace NTCC.NET.Core.Stages
     /// <returns></returns>
     protected override StageResult Main(CancellationToken stop, CancellationToken skip)
     {
-      OnTick($"Начато выполнение стадии {Title}.", MessageType.Warning);
       StartTime = DateTime.Now;
 
       //ожидаем пока средняя температура стенок реактора по заданным зонам
