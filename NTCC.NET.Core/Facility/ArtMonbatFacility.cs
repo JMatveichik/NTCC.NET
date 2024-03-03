@@ -75,6 +75,15 @@ namespace NTCC.NET.Core.Facility
     } = null;
 
     /// <summary>
+    /// Подтверждение связи со шкафом управления
+    /// </summary>
+    public static PeriodicalSwitcher Ping
+    {
+      get;
+      private set;
+    } = null;
+
+    /// <summary>
     /// Управление подогревателем газа
     /// </summary>
     public static GasHeater GasHeater
@@ -82,6 +91,8 @@ namespace NTCC.NET.Core.Facility
       get; 
       private set;
     } = null;
+
+
 
     #endregion
 
@@ -207,8 +218,6 @@ namespace NTCC.NET.Core.Facility
         }
       }
 
-      // Запускаем поток ping
-      pingThread.Start();
     }
 
     /// <summary>
@@ -264,42 +273,44 @@ namespace NTCC.NET.Core.Facility
     private void initializeElements(string xmlConfigPath, string xsdSchemaPath = "")
     {
       //TODO: Move setup elements to XML
+      Ping = new PeriodicalSwitcher("ELEM.PING");
+      Ping.SetupControl("UNIT.PING", TimeSpan.FromSeconds(3.0), TimeSpan.FromSeconds(0.0));
+      Ping.StartControl();
+
       Damper = new PeriodicalSwitcher("ELEM.DAMPER");
-      Damper.SetupControl("YA03", 1000, 1000);
+      Damper.SetupControl("YA03", TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000));
 
       GasHeater = new GasHeater("ELEM.GASHEATER");
       GasHeater.SetupControl("TE20", "TE21", "EK08.RUN");
     }
 
-    // Флаг для сигнализации о завершении потока
-    private static volatile bool stopPingThread = false;
-
-    // Создаем новый поток и передаем метод, который будет выполняться в потоке
-    private Thread pingThread = new Thread(new ThreadStart(PingFunction));
-
-    // Метод, который будет выполняться в отдельном потоке
-    static void PingFunction()
-    {
-      DiscreteOutputDataPoint pingDataPoint = (DiscreteOutputDataPoint)DataPoints["UNIT.PING"];
-
-      while (!stopPingThread)
-      {
-        Thread.Sleep(3000);
-        pingDataPoint.SetState(true);
-      }
-    }
-
+    
     public void Stop()
     {
+      //останавливаем опрос устройств
       foreach (var device in Devices.Items.Values)
       {
         device.Stop();
       }
 
-      // Останавливаем поток ping
-      stopPingThread = true;
-      pingThread.Join(0);
+      //останавливаем текущую стадию 
+      StageBase.CurrentStage?.Stop();
 
+      //останавливаем контроль нагревателей
+      foreach (var zone in ReactorZones.Items.Values)
+      {
+        zone.StopControl();
+        zone.Run.SetState(false);
+      }
+
+      //останавливаем нагреватель газа
+      GasHeater.StopControl();
+
+      //останавливаем управление заслонкой
+      Damper.StopControl();
+
+      //останавливаем поток подтверждения связи со шкафом управления
+      Ping.StopControl();
     }
   }
 }

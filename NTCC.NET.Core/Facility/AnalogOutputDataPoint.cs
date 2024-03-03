@@ -81,6 +81,7 @@ namespace NTCC.NET.Core.Facility
         public void WriteValue (double val)
         {
             Device.SetAnalogOutput(ListenedChannel, val);
-        }
+            OnTick($"Задание  параметра {ID}  ({val})", MessageType.Debug);
+    }
     }
 }

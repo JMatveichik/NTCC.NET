@@ -7,20 +7,11 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Facility
 {
-  public class GasHeater : FacilityElement
+  public class GasHeater : FacilityThreadElement
   {
     public GasHeater(string id) : base(id)
     {
     }
-
-    //объект синхронизации потока
-    private readonly object threadLock = new object();
-
-    // Флаг остановки потока переключения
-    private CancellationTokenSource cancelToken = null;
-
-    // Поток контроля нагрева зоны реактора
-    private Thread controlThread = null;
 
     public void SetupControl(string gasTemperatureId, string heaterTemperatureId, string heaterStateId)
     {
@@ -28,14 +19,14 @@ namespace NTCC.NET.Core.Facility
       if (GasTemperature == null)
         throw new ArgumentNullException($"Analog input data point {gasTemperatureId} not found for gas temperature control");
 
-      HeaterTemperature = ArtMonbatFacility.DataPoints[heaterTemperatureId] as AnalogDataPoint;
-      if (HeaterTemperature == null)
-        throw new ArgumentNullException($"Analog input data point {heaterTemperatureId} not found heater temperature control");
+      WaterTemperature = ArtMonbatFacility.DataPoints[heaterTemperatureId] as AnalogDataPoint;
+      if (WaterTemperature == null)
+        throw new ArgumentNullException($"Analog input data point {heaterTemperatureId} not found water temperature control");
 
       HeaterState = ArtMonbatFacility.DataPoints[heaterStateId] as DiscreteOutputDataPoint;
       if (HeaterState == null)
         throw new ArgumentNullException($"Discrete output data point {heaterStateId} not found heater switching");
-     
+
     }
 
     /// <summary>
@@ -50,7 +41,7 @@ namespace NTCC.NET.Core.Facility
     /// <summary>
     /// Точка данных для контроля температуры нагревательного элемента
     /// </summary>
-    public AnalogDataPoint HeaterTemperature
+    public AnalogDataPoint WaterTemperature
     {
       get;
       private set;
@@ -83,120 +74,59 @@ namespace NTCC.NET.Core.Facility
     private double targetGasTemperature = 25.0;
 
     /// <summary>
-    ///Максимальная температура нагревательного элемента подогревателя
+    ///Максимальная температура воды подогревателя газа
     /// </summary>
-    public double MaxHeaterTemperature
+    public double MaxWaterTemperature
     {
-      get => maxHeaterTemperature;
+      get => maxWaterTemperature;
       set
       {
-        if (value == maxHeaterTemperature)
+        if (value == maxWaterTemperature)
           return;
 
-        maxHeaterTemperature = value;
+        maxWaterTemperature = value;
         OnPropertyChanged();
       }
     }
 
-    private double maxHeaterTemperature = 70.0;
+    private double maxWaterTemperature = 70.0;
 
-    /// <summary>
-    /// Запуск контроля температуры газа на выходе из подогревателя
-    /// </summary>
-    public void StartControl()
+
+    protected override void OnControlStarted()
     {
-      //контроль уже запущен или поток все еще активен
-      lock (threadLock)
-      {
-        //если поток уже запущен запрещаем запуск нового потока 
-        if (controlThread != null && controlThread.IsAlive)
-          return;
-
-        // Создаем новый экземпляр CancellationTokenSource
-        cancelToken = new CancellationTokenSource();
-
-        // Создаем делегат для нестатического метода
-        ThreadStart threadDelegate = new ThreadStart(this.ControlFunction);
-
-        controlThread = new Thread(threadDelegate);
-        controlThread.Start();
-
-        string message = $"Запущена процедура подогрева пропан-бутана";
-        OnTick(message, MessageType.Warning);
-
-        //обновляем состояние потока контроля нагрева зоны
-        IsControlStarted = true;
-      }
+      //сообщаем об запуске потока переключения
+      string message = $"Запущена процедура подогрева пропан-бутана";
+      OnTick(message, MessageType.Debug);
     }
 
-    /// <summary>
-    /// Остановить контроль зоны нагрева
-    /// </summary>
-    public void StopControl()
+    protected override void OnControlStopped()
     {
-      //Выставляем запрос на остановку потока контроля нагрева зоны 
-      cancelToken.Cancel();
+      //Выключаем подогреватель газа
+      HeaterState.SetState(false);
 
-      //ждем завершения потока контроля нагрева зоны
-      controlThread.Join(0);
-
-      //сообщаем об остановке потока контроля нагрева зоны
+      //сообщаем об остановке потока переключения 
       string message = $"Процедура процедура подогрева пропан-бутана остановлена";
-      OnTick(message, MessageType.Warning);
-
-      //обновляем состояние потока контроля нагрева зоны
-      IsControlStarted = false;
+      OnTick(message, MessageType.Debug);
     }
-
-    //проверка состояния потока контроля нагрева зоны
-    public bool IsControlStarted
-    {
-      get => isControlStarted;
-      private set
-      {
-        if (value == isControlStarted)
-          return;
-
-        isControlStarted = value;
-        OnPropertyChanged();
-      }
-    }
-
-    private bool isControlStarted = false;
-
+    
     /// <summary>
-    /// Процедура переключения
+    /// Процедура контроля температуры газа
     /// </summary>
-    private void ControlFunction()
+    protected override void ControlFunction()
     {
-      while (true)
+      //Если температура газа больше заданной или температура
+      //нагревательного элемента выше заданной выключаем  нагрев 
+      if (GasTemperature.Value > TargetGasTemperature ||
+          WaterTemperature.Value > MaxWaterTemperature)
       {
-        Thread.Sleep(500);
-
-        if (cancelToken.IsCancellationRequested)
-        {
-          //Выключаем подогреватель газа
-          HeaterState.SetState(false);
-          break;
-        }
-
-        //Если температура газа больше заданной или температура
-        //нагревательного элемента выше заданной выключаем  нагрев 
-        if (GasTemperature.Value > TargetGasTemperature ||
-            HeaterTemperature.Value > MaxHeaterTemperature)
-        {
-          HeaterState.SetState(false);
-        }
-
-        //если температура газа меньше заданной
-        //включаем нагревательный элемент
-        if (GasTemperature.Value < TargetGasTemperature)
-        {
-          HeaterState.SetState(true);
-        }
-
+        HeaterState.SetState(false);
+        return;
       }
+
+      //если температура газа меньше заданной
+      //включаем нагревательный элемент
+      if (GasTemperature.Value < TargetGasTemperature)
+        HeaterState.SetState(true);
     }
   }
 }
-

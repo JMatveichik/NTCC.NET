@@ -33,7 +33,7 @@
           </Grid.RowDefinitions>
 
           <TextBlock Grid.Row="0"
-                     Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                     Text="{Binding Path=StartTime, StringFormat=HH\\:mm\\:ss}"
                      IsEnabled="False"
                      Style="{StaticResource ItemDescriptionDynamic}" />
 
@@ -123,7 +123,7 @@
           </Grid.RowDefinitions>
 
           <TextBlock  Grid.Row="0"
-                      Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                      Text="{Binding Path=StartTime, StringFormat=HH\\:mm\\:ss}"
                       IsEnabled="False"
                       Style="{StaticResource ItemDescriptionDynamic}" />
 
@@ -216,7 +216,7 @@
           </Grid.RowDefinitions>
 
           <TextBlock  Grid.Row="0"
-                      Text="{Binding Path=StartTime, StringFormat=hh\\:mm\\:ss}"
+                      Text="{Binding Path=StartTime, StringFormat=HH\\:mm\\:ss}"
                       IsEnabled="False"
                       Style="{StaticResource ItemDescriptionDynamic}" />
 

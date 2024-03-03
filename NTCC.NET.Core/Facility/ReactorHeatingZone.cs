@@ -39,6 +39,8 @@ namespace NTCC.NET.Core.Facility
       PowerState = (DiscreteDataPoint)dataPoints["PowerState"];
       Run = (DiscreteOutputDataPoint)dataPoints["Run"];
       Duty = (AnalogDataPoint)dataPoints["Duty"];
+      Duty.PropertyChanged += OnDutyChanged;
+      
       Period = (AnalogDataPoint)dataPoints["Period"];
       ErrorCode = (AnalogDataPoint)dataPoints["ErrorCode"];
       EStop = (DiscreteDataPoint)dataPoints["EStop"];
@@ -46,8 +48,35 @@ namespace NTCC.NET.Core.Facility
       DutyWrite = (AnalogOutputDataPoint)dataPoints["DutyWrite"];
       PeriodWrite = (AnalogOutputDataPoint)dataPoints["PeriodWrite"];
       WallTemperature = (AnalogDataPoint)dataPoints["WallTemperature"];
+
+
     }
 
+    private void OnDutyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+      if (e.PropertyName == "Value")
+      {
+        if (Duty.Value > 0.0)
+          IsPowerPresent = true;
+
+        IsPowerPresent = false;
+      }
+    }
+
+    public bool IsPowerPresent
+    {
+      get => isPowerPresent;
+      private set
+      {
+        if (value == isPowerPresent)
+          return;
+
+        isPowerPresent = value;
+        OnPropertyChanged();
+      }
+    }
+
+    private bool isPowerPresent = false;
     /// <summary>
     /// Мощность нагревателей, %
     /// </summary>                
@@ -303,6 +332,9 @@ namespace NTCC.NET.Core.Facility
     /// </summary>
     public void StopControl()
     {
+      if (cts == null)
+        return;
+
       //Выставляем запрос на остановку потока контроля нагрева зоны 
       cts.Cancel();
 

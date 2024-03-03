@@ -7,6 +7,7 @@
              xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+             xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              mc:Ignorable="d" 
@@ -665,14 +666,14 @@
           DataContext="{Binding ReactorZones[HT07.IN.BOT]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <iconPacks:PackIconFileIcons Kind="Cwl" 
-                                     Height="48" 
+        <iconPacks:PackIconFileIcons Kind="Cwl"
+                                     Height="48"
                                      Width="48"
                                      Canvas.Top="630"
                                      Canvas.Left="1110"
                                      DataContext="{Binding ReactorZones[HT07.IN.BOT]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
-        
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}" />
+
       </Canvas>
 
 

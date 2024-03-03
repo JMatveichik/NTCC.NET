@@ -34,6 +34,8 @@ namespace NTCC.NET
       InitializeComponent();
       DataContext = new MainWindowViewModel();
 
+      this.Closing += OnClosing;
+
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.StartFullCycle, StartFullCycleExecuted, StartFullCycleCanExecuted));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.StopFullCycle, StopFullCycleExecuted, StopFullCycleCanExecuted));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SkipCurrentStage, SkipCurrentStageExecuted, SkipCurrentStageCanExecuted));
@@ -47,6 +49,7 @@ namespace NTCC.NET
       
     }
 
+    
     private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
     {
       if (StageBase.CurrentStage == null ||
@@ -196,17 +199,27 @@ namespace NTCC.NET
       }
     }
 
-    
-    protected override void OnClosed(EventArgs e)
+    private void OnClosing(object sender, CancelEventArgs e)
     {
-      MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;
+      string message = $"Вы уверены, что хотите закрыть приложение?";
 
+      bool? Result = new CustomMessageBox(message, Dialogs.MessageType.Confirmation, MessageButtons.YesNo).ShowDialog();
+      if (!Result.Value)
+      {
+        e.Cancel = true;
+        return;
+      }
+
+      //останваливаем установку
+      ArtMonbatFacility.Instance.Stop();
+
+      //останавливаем потоки в моделях отображения
+      MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;
       foreach (PageViewModel model in mainViewModel.Pages)
       {
         model.Stop();
       }
-
-      base.OnClosed(e);
+      
     }
 
   }

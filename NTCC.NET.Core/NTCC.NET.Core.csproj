@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facility\FacilityThreadElement.cs" />
     <Compile Include="Facility\GasHeater.cs" />
     <Compile Include="Facility\HeatingParameters.cs" />
     <Compile Include="Facility\PeriodicalSwitcher.cs" />

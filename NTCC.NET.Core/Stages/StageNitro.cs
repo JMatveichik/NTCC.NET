@@ -23,8 +23,10 @@ namespace NTCC.NET.Core.Stages
       //открыть клапан подачи азота на расходомер
       DataPointHelper.SetDiscreteParameter(this, "YA06.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
-      //открыть клапан подачи азота/воздуха в камеру синтеза
+      //открыть клапан подачи азота/воздуха в камеру синтеза на секунд
       DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", true, (int)OperationDelay.TotalMilliseconds);
+      Thread.Sleep(TimeSpan.FromSeconds(30.0));
+      DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", false, (int)OperationDelay.TotalMilliseconds);
 
       //открыть клапан подачи азота в тару
       DataPointHelper.SetDiscreteParameter(this, "YA15.OPN", true, (int)OperationDelay.TotalMilliseconds);
@@ -42,8 +44,7 @@ namespace NTCC.NET.Core.Stages
         DataPointHelper.SetDiscreteParameter(this, "YA10.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
         //задать расход азота в камеру синтеза через линию пропан-бутана
-        //TODO : хватит ли расхода азота ? 
-        DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", StageParameters.FlowRate);
+        DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", 5.0);
       }
 
       return StageResult.Successful;
