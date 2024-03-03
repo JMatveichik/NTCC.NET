@@ -12,6 +12,7 @@
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
+  
   <Grid>
 
 
@@ -355,16 +356,16 @@
         </ctrls:ValveStateInlineCtrl>
 
         <!-- Аварийная продувка -->
-        <ctrls:ValveInlineCtrl
+        <ctrls:ValveInvertedInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
           Canvas.Top="580" 
           Canvas.Left="340"/>
 
-        <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveInvertedStateInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
           Canvas.Top="595" 
           Canvas.Left="600">
-        </ctrls:ValveStateInlineCtrl>
+        </ctrls:ValveInvertedStateInlineCtrl>
 
         <!-- Продувка линии пропан бутана-->
         <ctrls:ValveInlineCtrl
@@ -540,18 +541,6 @@
             Canvas.Top="760 " 
             Canvas.Left="540"/>
 
-        <!--
-        <TextBlock Width="280"
-                 TextAlignment="Center"
-                 VerticalAlignment="Center"
-                 Height="800" 
-                 Canvas.Top="10" 
-                 Canvas.Left="800"
-                 TextWrapping="Wrap"
-                 Style="{StaticResource Header1}"
-                 Background="Bisque" >ТУТ БУДЕТ БЛОК УПРАВЛЕНИЯ НАГРЕВАТЕЛЯМИ</TextBlock>
-        -->
-
         <!--Внутренняя верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="20"
@@ -565,7 +554,7 @@
                                      Canvas.Top="510"
                                      Canvas.Left="1110"
                                      DataContext="{Binding ReactorZones[HT06.IN.TOP]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная верхняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -580,7 +569,7 @@
                                      Canvas.Top="460"
                                      Canvas.Left="1170"
                                      DataContext="{Binding ReactorZones[HT01.TOP]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
          <!--       
         <Ellipse Canvas.Top="510"
                  Canvas.Left="1220" 
@@ -610,9 +599,9 @@
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="510"
-                                     Canvas.Left="1170"                                     
+                                     Canvas.Left="1170"
                                      DataContext="{Binding ReactorZones[HT02.MID.TOP]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная средняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -627,7 +616,7 @@
                                      Canvas.Top="560"
                                      Canvas.Left="1170"
                                      DataContext="{Binding ReactorZones[HT03.MID]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная средне-нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -642,7 +631,7 @@
                                      Canvas.Top="610"
                                      Canvas.Left="1170"
                                      DataContext="{Binding ReactorZones[HT04.MID.BOT]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Наружная нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -657,7 +646,7 @@
                                      Canvas.Top="660"
                                      Canvas.Left="1170"
                                      DataContext="{Binding ReactorZones[HT05.BOT]}"
-                                     Foreground="{Binding PWM.State, Converter={StaticResource HeaterPWM}}"/>
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
                 <!--Внутренняя нижняя зона-->
         <ctrls:HeatingZoneInlineCtrl 
@@ -672,7 +661,41 @@
                                      Canvas.Top="630"
                                      Canvas.Left="1110"
                                      DataContext="{Binding ReactorZones[HT07.IN.BOT]}"
-                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}" />
+                                     Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
+
+
+        <iconPacks:PackIconMaterial Kind="WaterCheck" 
+                                    Canvas.Top="600"
+                                    Canvas.Left="925"
+                                    DataContext="{Binding DataPoints[M06.1]}"
+                                    Visibility="{cb:Binding State, FalseToVisibility=Hidden}"
+                                    Style="{StaticResource MetroToolBoxIconStyle24}"
+                                    Foreground="ForestGreen"/>
+
+        <iconPacks:PackIconMaterial Kind="WaterMinus"
+                                    DataContext="{Binding DataPoints[M06.1]}"
+                                    Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
+                                    Style="{StaticResource MetroToolBoxIconStyle24}"
+                                    Foreground="OrangeRed"
+                                    Canvas.Top="600"
+                                    Canvas.Left="925"/>
+
+
+        <iconPacks:PackIconMaterial Kind="FlaskEmptyRemoveOutline"
+                            DataContext="{Binding DataPoints[LE01]}"
+                            Visibility="{cb:Binding State, FalseToVisibility=Hidden}"
+                            Style="{StaticResource MetroToolBoxIconStyle24}"
+                            Foreground="ForestGreen"
+                            Canvas.Top="600"
+                            Canvas.Left="950"/>
+        
+        <iconPacks:PackIconMaterial Kind="FlaskEmptyPlusOutline"
+                                    DataContext="{Binding DataPoints[LE01]}"
+                                    Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
+                                    Style="{StaticResource MetroToolBoxIconStyle24}"
+                                    Foreground="OrangeRed"
+                                    Canvas.Top="600"
+                                    Canvas.Left="950"/>
 
       </Canvas>
 

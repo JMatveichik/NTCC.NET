@@ -205,6 +205,9 @@ namespace NTCC.NET.Core.Stages
         heater.StopControl();
       }
 
+      //остановить контроль температуры газа
+      ArtMonbatFacility.GasHeater.StopControl();
+
       //Снять питание на внутренний нагреватель (EK1.1. EK1.2. EK2)
       DataPointHelper.SetDiscreteParameter(this, "HT01.QF.RUN", false, (int)OperationDelay.TotalMilliseconds);
 
@@ -217,6 +220,8 @@ namespace NTCC.NET.Core.Stages
       //Снять питание на нагреватель газа (EK8. EK9)
       DataPointHelper.SetDiscreteParameter(this, "HT04.QF.RUN", false, (int)OperationDelay.TotalMilliseconds);
 
+      //продувка реактора азотом
+      DataPointHelper.SetDiscreteParameter(this, "YA09.CLS", false, (int)OperationDelay.TotalMilliseconds);
 
       #endregion
 

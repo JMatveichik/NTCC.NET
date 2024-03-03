@@ -63,14 +63,16 @@ namespace NTCC.NET.Core.Facility
     {
       //сообщаем об запуске потока переключения
       string message = $"Запущена процедура переключения {Title}";
-      OnTick(message, MessageType.Debug);
+      OnTick(message, MessageType.Info);
     }
 
     protected override void OnControlStopped()
     {
+      Switcher.SetState(false);
+
       //сообщаем об остановке потока переключения 
       string message = $"Процедура переодического переключения {Title} остановлена";
-      OnTick(message, MessageType.Debug);
+      OnTick(message, MessageType.Info);
     }
 
   }

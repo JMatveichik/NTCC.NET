@@ -28,6 +28,8 @@ namespace NTCC.NET.Core.Facility
       parameters.CoolingTime = XmlHelper.ParseDoubleAttribute(xmlStage, "CoolingTime", 10.0);
       parameters.OneWayTimeout = XmlHelper.ParseDoubleAttribute(xmlStage, "OneWayTimeout", 5.0);
 
+      parameters.CheckWaterLevel = XmlHelper.ParseBoolAttribute(xmlStage, "CheckWaterLevel", false);
+      parameters.UseGasHeating   = XmlHelper.ParseBoolAttribute(xmlStage, "UseGasHeating", false);
 
       foreach (var xmlZone in xmlStage.Descendants("Zone"))
       {
@@ -88,5 +90,20 @@ namespace NTCC.NET.Core.Facility
       get;
       private set;
     }
+
+    public bool UseGasHeating
+    {
+      get;
+      private set;
+    }
+
+    public bool CheckWaterLevel
+    {
+      get;
+      private set;
+    }
+
+
+
   }
 }

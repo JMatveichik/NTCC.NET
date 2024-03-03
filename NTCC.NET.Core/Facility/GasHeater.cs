@@ -96,7 +96,7 @@ namespace NTCC.NET.Core.Facility
     {
       //сообщаем об запуске потока переключения
       string message = $"Запущена процедура подогрева пропан-бутана";
-      OnTick(message, MessageType.Debug);
+      OnTick(message, MessageType.Info);
     }
 
     protected override void OnControlStopped()
@@ -106,7 +106,7 @@ namespace NTCC.NET.Core.Facility
 
       //сообщаем об остановке потока переключения 
       string message = $"Процедура процедура подогрева пропан-бутана остановлена";
-      OnTick(message, MessageType.Debug);
+      OnTick(message, MessageType.Info);
     }
     
     /// <summary>

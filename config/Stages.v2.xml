@@ -192,6 +192,8 @@
 			FlowRate="30.0"
 			Duration="5.0"
 			PurgePropaneLine="true"
+      CheckWaterLevel="true"
+      UseGasHeating="true"
 			Description="Допинг. Продувка реактора после допинга">
 		
 		<Heating>

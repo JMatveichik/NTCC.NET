@@ -74,15 +74,15 @@ namespace NTCC.NET.Core.Stages
     private bool WaitScraperPosition(DiscreteDataPoint positionDataPoint, TimeSpan moveTimeOut)
     {
       DateTime moveStart = DateTime.Now;
-      TimeSpan moveTime = DateTime.Now - moveStart;
+      TimeSpan moveTime  = TimeSpan.FromMilliseconds(0);
 
       //ожидаем положения скребка или таймаута
       while (true)
       {
-        Thread.Sleep(100);
+        Thread.Sleep(50);
 
         //обновляем время движения скребка
-        moveTime = moveStart - DateTime.Now;
+        moveTime = DateTime.Now - moveStart;
 
         //если превышено время ожидания положения скребка
         if (moveTime > moveTimeOut)
@@ -90,7 +90,6 @@ namespace NTCC.NET.Core.Stages
 
         if (positionDataPoint.State)
           return true;
-
       }
     }
 
@@ -124,7 +123,7 @@ namespace NTCC.NET.Core.Stages
         moveDownDataPoint.SetState(true);
 
         //технологическая задержка
-        Thread.Sleep(50);
+        Thread.Sleep(100);
 
         //подача азота в сребок
         nitroToScraper.SetState(true);
@@ -250,16 +249,14 @@ namespace NTCC.NET.Core.Stages
         if (!MoveScraperDown(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
         {
           //TODO:если застрял при движении вниз
-          OnTick($"Скребок не достиг нижнего положения. Ожидаем ручного ДОЛБЛЕНИЯ в течении 2 мин!!!",
-            MessageType.Error);
+          OnTick($"Скребок не достиг нижнего положения.", MessageType.Error);
           DataPointHelper.WaitDiscreteParameterSet(this, "CS02", true, TimeSpan.FromMinutes(2.0));
         }
 
         if (!MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
         {
           //TODO:если застрял при движении вверх
-          OnTick($"Скребок не достиг верхнего положения. Ожидаем ручного ДОЛБЛЕНИЯ  в течении 2 мин!!!",
-            MessageType.Error);
+          OnTick($"Скребок не достиг верхнего положения.", MessageType.Error);
           DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromMinutes(2.0));
         }
 

@@ -22,7 +22,7 @@
         <ResourceDictionary Source="pack://application:,,,/NTCC.NET.UI;component/NTCC.NET.UI.Resources.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
-      
+
         <!-- material design styles -->
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/Generic.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
@@ -67,9 +67,9 @@
       </ResourceDictionary.MergedDictionaries>
 
 
-            <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
-                <Setter Property="Background" Value="LightGray"/>
-            </Style>
+      <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
+        <Setter Property="Background" Value="LightGray"/>
+      </Style>
 
       <converters:BooleanToBrushConverter x:Key="BoolToColor"  
                                                 TrueBrush="ForestGreen" 
@@ -79,15 +79,15 @@
                                                 TrueBrush="ForestGreen" 
                                                 FalseBrush="LightGray"/>
 
-            <converters:BooleanToBrushConverter x:Key="HeaterPWM"  
+      <converters:BooleanToBrushConverter x:Key="HeaterPWM"  
                                                 TrueBrush="OrangeRed" 
                                                 FalseBrush="DarkGray"/>
 
-            <converters:BooleanToBrushConverter x:Key="InvertedBoolToColor"  
+      <converters:BooleanToBrushConverter x:Key="InvertedBoolToColor"  
                                                 TrueBrush="ForestGreen" 
                                                 FalseBrush="OrangeRed"/>
 
-      
+
 
 
     </ResourceDictionary>

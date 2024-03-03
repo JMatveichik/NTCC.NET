@@ -226,9 +226,10 @@
             </Grid.ColumnDefinitions>
             <ProgressBar Height="3"
                          Grid.Column="0"
-                         Tag="{Binding PWM.State}"
+                         Tag="{Binding IsPowerPresent}"
                          Value="{Binding WallTemperature.Value, Mode=OneWay}"
-                         Foreground="{Binding PWM.State, Converter={StaticResource ZoneHeatingToColor}}"/>
+                         Foreground="{Binding IsPowerPresent, Converter={StaticResource ZoneHeatingToColor}}"/>
+                         
             <TextBlock Text="{Binding WallTemperature.Value, StringFormat={}{0:F0} °C}"
                        Grid.Column="1"
                        Width="40"

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Facility
 {
-  public class ReactorHeatingZone : FacilityElement
+  public class ReactorHeatingZone : FacilityThreadElement
   {
 
     public static List<string> PropertiesList = new List<string>()
@@ -49,7 +49,6 @@ namespace NTCC.NET.Core.Facility
       PeriodWrite = (AnalogOutputDataPoint)dataPoints["PeriodWrite"];
       WallTemperature = (AnalogDataPoint)dataPoints["WallTemperature"];
 
-
     }
 
     private void OnDutyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -58,8 +57,8 @@ namespace NTCC.NET.Core.Facility
       {
         if (Duty.Value > 0.0)
           IsPowerPresent = true;
-
-        IsPowerPresent = false;
+        else
+          IsPowerPresent = false;
       }
     }
 
@@ -77,9 +76,11 @@ namespace NTCC.NET.Core.Facility
     }
 
     private bool isPowerPresent = false;
+
+
     /// <summary>
     /// Мощность нагревателей, %
-    /// </summary>                
+    /// </summary>
     public AnalogDataPoint Duty
     {
       get;
@@ -288,158 +289,85 @@ namespace NTCC.NET.Core.Facility
       MaxPowerLevel = maxPower;
     }
 
-    private readonly object threadLock = new object();
-
-    // Флаг остановки потока контроля нагрева зоны реактора
-    private CancellationTokenSource cts = null;
-
-    // Поток контроля нагрева зоны реактора
-    private Thread heatingControlThread = null;
-
-
-    /// <summary>
-    /// Начать контроль зоны нагрева
-    /// </summary>
-    public void StartControl()
+    protected override void ControlFunction()
     {
-      //контроль нагрева уже запущен или поток нагрева зоны все еще активен      
-      lock (threadLock)
+      //TODO: контроль тока нагревательных элементов
+      foreach (var element in HeatingElements)
       {
-        //если поток контроля нагрева зоны уже запущен запрещаем запуск нового потока 
-        if (heatingControlThread != null && heatingControlThread.IsAlive)
-          return;
-
-        PeriodWrite.WriteValue(500.0);
-
-        // Создаем новый экземпляр CancellationTokenSource
-        cts = new CancellationTokenSource();
-
-        // Создаем делегат для нестатического метода
-        ThreadStart threadDelegate = new ThreadStart(this.HeatingZoneControlFunction);
-
-        heatingControlThread = new Thread(threadDelegate);
-        heatingControlThread.Start();
-
-        string message = $"Запущена процедура автоматического контроля нагрева зоны реактора";
-        OnTick(message, MessageType.Info);
-
-        IsControlStarted = true;
+        if (element.Current.Value == 0)
+        {
+          //TODO: Перегорел нагревательный элемент 
+        }
+        else
+        {
+          //TODO: Рассчет потенциального ресурса 
+        }
       }
-    }
 
-    /// <summary>
-    /// Остановить контроль зоны нагрева
-    /// </summary>
-    public void StopControl()
-    {
-      if (cts == null)
-        return;
+      double wallTemperature = WallTemperature.Value;
+      MaxHeatingElementTemperature = HeatingElements.Max(heatingElement => heatingElement.Temperature.Value);
 
-      //Выставляем запрос на остановку потока контроля нагрева зоны 
-      cts.Cancel();
-
-      //ждем завершения потока контроля нагрева зоны
-      heatingControlThread.Join(0);
-
+      //если температура кагого либо наргревателя больше максимальной
+      //или температура стенки реактора больше целевой
       //сбросить мощность нагревателя в 0.0%
-      DutyWrite.WriteValue(0.0);
-
-      //сообщаем об остановке потока контроля нагрева зоны
-      string message = $"Процедура автоматического контроля нагрева зоны реактора остановлена";
-      OnTick(message, MessageType.Info);
-      
-      IsControlStarted = false;
-    }
-
-    //проверка состояния потока контроля нагрева зоны
-    public bool IsControlStarted
-    {
-      get => isControlStarted;
-      private set
+      if (MaxHeatingElementTemperature > MaxHeaterTemperature)
       {
-        if (value == isControlStarted)
-          return;
-
-        isControlStarted = value;
-        OnPropertyChanged();
-      }
-    }
-
-    private bool isControlStarted = false;
-
-    /// <summary>
-    /// Процедура контроля нагрева зоны  реактора
-    /// </summary>
-    private void HeatingZoneControlFunction()
-    {
-      while (true)
-      {
-        Thread.Sleep(1000);
-
-        if (cts.IsCancellationRequested)
+        if (DutyWrite.Value != 0.0)
         {
           DutyWrite.WriteValue(0.0);
-          break;
-        } 
 
-        //TODO: контроль тока нагревательных элементов
-        foreach (var element in HeatingElements)
-        {
-          if (element.Current.Value == 0)
-          {
-            //TODO: Перегорел нагревательный элемент 
-          }
-          else
-          {
-            //TODO: Рассчет потенциального ресурса 
-          }
+          string message = $"Нагреватель отключен. Текущая температура нагревательных элементов {heatingElementsMaxTemperature:F0}°C превысила заданную {MaxHeaterTemperature:F0}°C.";
+          OnTick(message, MessageType.Debug);
         }
-
-        double wallTemperature = WallTemperature.Value;
-        MaxHeatingElementTemperature = HeatingElements.Max(heatingElement => heatingElement.Temperature.Value);
-
-        //если температура кагого либо наргревателя больше максимальной
-        //или температура стенки реактора больше целевой
-        //сбросить мощность нагревателя в 0.0%
-        if (MaxHeatingElementTemperature > MaxHeaterTemperature)
-        {
-          if (DutyWrite.Value != 0.0)
-          {
-            DutyWrite.WriteValue(0.0);
-
-            string message = $"Нагреватель отключен. Текущая температура нагревательных элементов {heatingElementsMaxTemperature}°C превысила заданную {MaxHeaterTemperature}°C.";
-            OnTick(message, MessageType.Info);
-          }
-          continue;
-        }
-
-        if (wallTemperature > MaxTargetWallTemperature)
-        {
-          if (DutyWrite.Value != 0.0)
-          {
-            //TODO:Обработать сообщение об отключении нагревателя по превышении температуры стенки ревктора
-            DutyWrite.WriteValue(0.0);
-            string message = $"Нагреватель отключен. Текущая температура стенки зоны реактора {wallTemperature}°C превысила максимально заданную {MaxTargetWallTemperature}°C.";
-            OnTick(message, MessageType.Info);
-          }
-          continue;
-        }
-
-        //устанавливаем заданную мощность прогрева если температура стенки реактора
-        //упала ниже минимальной
-        if (wallTemperature < MinTargetWallTemperature)
-        {
-          if (DutyWrite.Value != MaxPowerLevel)
-          {
-            //TODO:Обработать сообщение о включении нагревателя по понижению температуры стенки реактора
-            DutyWrite.WriteValue(MaxPowerLevel);
-
-            string message = $"Нагреватель включен. Текущая температура стенки зоны реактора {wallTemperature}°C упала ниже минимально заданной {MinTargetWallTemperature}°C.";
-            OnTick(message, MessageType.Info);
-          }
-          continue;
-        }
+        return;
       }
+
+      if (wallTemperature > MaxTargetWallTemperature)
+      {
+        if (DutyWrite.Value != 0.0)
+        {
+          //TODO:Обработать сообщение об отключении нагревателя по превышении температуры стенки ревктора
+          DutyWrite.WriteValue(0.0);
+          string message = $"Нагреватель отключен. Текущая температура стенки зоны реактора {wallTemperature:F0}°C превысила максимально заданную {MaxTargetWallTemperature:F0}°C.";
+          OnTick(message, MessageType.Debug);
+        }
+        return;
+      }
+
+      //устанавливаем заданную мощность прогрева если температура стенки реактора
+      //упала ниже минимальной
+      if (wallTemperature < MinTargetWallTemperature)
+      {
+        if (DutyWrite.Value != MaxPowerLevel)
+        {
+          //TODO:Обработать сообщение о включении нагревателя по понижению температуры стенки реактора
+          DutyWrite.WriteValue(MaxPowerLevel);
+
+          string message = $"Нагреватель включен. Текущая температура стенки зоны реактора {wallTemperature:F0}°C упала ниже минимально заданной {MinTargetWallTemperature:F0}°C.";
+          OnTick(message, MessageType.Debug);
+        }
+        return;
+      }
+    }
+
+    protected override void OnControlStarted()
+    {
+      //сообщаем об запуске потока переключения
+      string message = $"Запущена процедура контроля нагрева {Description}";
+      OnTick(message, MessageType.Info);
+    }
+
+    protected override void OnControlStopped()
+    {
+      //задаем нулевую мощность 
+      DutyWrite.WriteValue(0.0);
+
+      //отключаем питание зоны нагрева
+      Run.SetState(false);
+
+      //сообщаем об остановке контроля нагрева зоны
+      string message = $"Процедура контроля нагрева {Description} остановлена. Питание нагревателя отключено.";
+      OnTick(message, MessageType.Info);
     }
 
     #endregion

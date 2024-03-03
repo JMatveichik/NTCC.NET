@@ -77,6 +77,24 @@ namespace NTCC.NET.Core.Stages
         DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", ZERRO);
       }
 
+      //если задана проверка уровня воды
+      //TODO:Перенести проверку и заполнение увлажнителя в отдельный класс 
+      if (StageParameters.CheckWaterLevel)
+      {
+        if (!DataPointHelper.CheckDiscreteParameter("M06.1", true))
+        {
+          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", true, (int)OperationDelay.TotalMilliseconds);
+          DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, TimeSpan.FromSeconds(10.0));
+          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", false, (int)OperationDelay.TotalMilliseconds);
+        }
+      }
+
+      //Если предусмотрено использование подогревателя газа
+      if (StageParameters.UseGasHeating)
+      {
+        ArtMonbatFacility.GasHeater.StartControl();
+      }
+
       return StageResult.Successful;
     }
 

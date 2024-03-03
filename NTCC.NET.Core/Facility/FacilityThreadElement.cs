@@ -68,6 +68,9 @@ namespace NTCC.NET.Core.Facility
     /// </summary>
     public void StopControl()
     {
+      if (!IsControlStarted)
+        return;
+
       //Выставляем запрос на остановку потока
       cancelToken.Cancel();
 
