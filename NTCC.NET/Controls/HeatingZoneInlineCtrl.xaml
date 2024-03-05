@@ -243,26 +243,13 @@
                    HorizontalAlignment="Center"
                    Margin="0"
                    Style="{StaticResource Value}"/>
+
         <StackPanel x:Name="HeatinigZoneQuickControl"
                     Visibility="Collapsed"
                     Grid.Row="0"
                     Grid.Column="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
-          
-          <Button Width="30"
-                  Height="30"
-                  Margin="5"
-                  ToolTip="Выключить питание нагревателя"
-                  Style="{StaticResource MaterialDesignFloatingActionButton}"
-                  Command="{x:Static cmds:FacilityCommands.SwitchHeatingZonePower}"
-                  CommandParameter="{Binding}">
-            
-            <iconPacks:PackIconIonicons Kind="PoweriOS"
-                                        Style="{StaticResource MetroToolBoxIconStyle16}"
-                                        Foreground="White">
-            </iconPacks:PackIconIonicons>
-          </Button>
           <Button Width="30"
                   Height="30"
                   Margin="5"

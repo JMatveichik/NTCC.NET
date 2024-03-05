@@ -1,4 +1,5 @@
 ﻿using NTCC.NET.Core.Facility;
+using NTCC.NET.Core.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -95,6 +96,29 @@ namespace NTCC.NET.Core.Stages
                             stageHeatingParams.HeaterPower,
                             stageHeatingParams.MaxHeaterTemperature);
       }
+    }
+
+    protected bool CheckWaterLevel (TimeSpan waitLevel)
+    {
+      if (DataPointHelper.CheckDiscreteParameter("M06.1", true))
+        return true;
+
+      bool result;
+      try
+      {
+        OnTick($"Долив воды в увлажнитель", MessageType.Warning );
+        DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", true, (int) OperationDelay.TotalMilliseconds);
+        DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, waitLevel);
+        result = true;
+      }
+      catch (Exception e)
+      {
+        OnTick($"Низкий уровень воды в увлажнителе. ({e.Message})", MessageType.Error);
+        result = false;
+      }
+
+      DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", false, (int)OperationDelay.TotalMilliseconds);
+      return result;
     }
 
     #region СОБЫТИЯ и ОбРАБОТЧИКИ

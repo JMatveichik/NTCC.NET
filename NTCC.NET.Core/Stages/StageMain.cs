@@ -55,19 +55,6 @@ namespace NTCC.NET.Core.Stages
     {
       OnTick($"Подготовка стадии  : {Title} ...", MessageType.Info);
 
-      var dataPoints = ArtMonbatFacility.DataPoints;
-
-      /*
-      YA9 (аварийная продувка  азотом, нормально откры-тый) – закрыть до конца всех стадий
-      YA1.1 открыт (пневмоцилиндр скребка вверх)
-      датчик верхнего положения скребка CS01(?) - ON
-      YA7(подача азота в ресивер) открыт
-      Проверяется состояние датчика уровня воды М06.1 в увлажнителе. 
-      Если OFF, то открывается клапан подачи воды YA11 до тех пор, пока М06.1 не будет ON.
-      Остальные клапаны закрыты
-      Контролируется датчик верхнего положения штоков + см. примечания в конце таблицы
-      */
-
       #region Подготовка клапанов
       //Открыть клапан YA4 продувки шкафа электрического
       DataPointHelper.SetDiscreteParameter(this, "YA04.OPN", true, (int)OperationDelay.TotalMilliseconds);
@@ -106,18 +93,7 @@ namespace NTCC.NET.Core.Stages
 
       #region Подготовка увлажнителя воздуха
 
-      //Проверяется состояние датчика уровня воды М06.1 в увлажнителе. 
-      if (DataPointHelper.CheckDiscreteParameter("M06.1", false))
-      {
-        //открывается клапан подачи воды YA11 
-        DataPointHelper.SetDiscreteParameter(this, "YA11.OPN", true);
-
-        //ожидаем заполнение увлажнителя
-        DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, TimeSpan.FromSeconds(60));
-
-        //Закрывается клапан подачи воды YA11
-        DataPointHelper.SetDiscreteParameter(this, "YA11.OPN", false);
-      }
+      CheckWaterLevel(TimeSpan.FromSeconds(20.0));
 
       #endregion
 
@@ -181,9 +157,6 @@ namespace NTCC.NET.Core.Stages
       //Подать питание на нагреватель газа (EK8. EK9)
       DataPointHelper.SetDiscreteParameter(this, "HT04.QF.RUN", true, (int)OperationDelay.TotalMilliseconds);
 
-      //запустить контроль температуры газа
-      ArtMonbatFacility.GasHeater.StartControl();
-
       #endregion
 
       return StageResult.Successful;
@@ -229,6 +202,7 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
+    public IUserConfirmation ContinueCycleConfirmation = null;
     protected override StageResult Main(CancellationToken cancel, CancellationToken skip)
     {
       StageResult result = StageResult.Successful;
@@ -260,8 +234,14 @@ namespace NTCC.NET.Core.Stages
         //если стадия завершилась с результатом отличным от успешного
         if (result != StageResult.Successful)
           break;
-      }
 
+        //запрашиваем переход на новый цикл 
+        if (ContinueCycleConfirmation != null)
+        {
+          if (!ContinueCycleConfirmation.Confirm())
+            break;
+        }
+      }
       return result;
     }
   }

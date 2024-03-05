@@ -665,8 +665,8 @@
 
 
         <iconPacks:PackIconMaterial Kind="WaterCheck" 
-                                    Canvas.Top="600"
-                                    Canvas.Left="925"
+                                    Canvas.Top="680"
+                                    Canvas.Left="892"
                                     DataContext="{Binding DataPoints[M06.1]}"
                                     Visibility="{cb:Binding State, FalseToVisibility=Hidden}"
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
@@ -676,26 +676,25 @@
                                     DataContext="{Binding DataPoints[M06.1]}"
                                     Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
-                                    Foreground="OrangeRed"
-                                    Canvas.Top="600"
-                                    Canvas.Left="925"/>
+                                    Foreground="DarkRed"
+                                    Canvas.Top="680"
+                                    Canvas.Left="892"/>
 
-
-        <iconPacks:PackIconMaterial Kind="FlaskEmptyRemoveOutline"
+        <iconPacks:PackIconMaterial Kind="FlaskEmptyPlusOutline"
                             DataContext="{Binding DataPoints[LE01]}"
                             Visibility="{cb:Binding State, FalseToVisibility=Hidden}"
                             Style="{StaticResource MetroToolBoxIconStyle24}"
                             Foreground="ForestGreen"
-                            Canvas.Top="600"
-                            Canvas.Left="950"/>
-        
-        <iconPacks:PackIconMaterial Kind="FlaskEmptyPlusOutline"
+                            Canvas.Top="895"
+                            Canvas.Left="1222"/>
+
+        <iconPacks:PackIconMaterial Kind="FlaskEmptyRemoveOutline"
                                     DataContext="{Binding DataPoints[LE01]}"
                                     Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
-                                    Foreground="OrangeRed"
-                                    Canvas.Top="600"
-                                    Canvas.Left="950"/>
+                                    Foreground="DarkRed"
+                                    Canvas.Top="895"
+                                    Canvas.Left="1222"/>
 
       </Canvas>
 

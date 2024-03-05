@@ -22,23 +22,10 @@ namespace NTCC.NET.Core.Stages
       //задание параметров прогрева
       SetupHeating();
 
-      //открыть клапан подачи пропан-бутана на расходомер
-      DataPointHelper.SetDiscreteParameter(this, "YA13.OPN", true, (int)OperationDelay.TotalMilliseconds);
-
-      //задать расход пропан-бутана в камеру синтеза
-      DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", StageParameters.FlowRate);
-
-
       //если задана проверка уровня воды
-      //TODO:Перенести проверку и заполнение увлажнителя в отдельный класс 
       if (StageParameters.CheckWaterLevel)
       {
-        if (!DataPointHelper.CheckDiscreteParameter("M06.1", true))
-        {
-          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", true, (int)OperationDelay.TotalMilliseconds);
-          DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, TimeSpan.FromSeconds(10.0));
-          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", false, (int)OperationDelay.TotalMilliseconds);
-        }
+        CheckWaterLevel(TimeSpan.FromSeconds(20.0));
       }
 
       //Если предусмотрено использование подогревателя газа
@@ -46,6 +33,13 @@ namespace NTCC.NET.Core.Stages
       {
         ArtMonbatFacility.GasHeater.StartControl();
       }
+
+      //открыть клапан подачи пропан-бутана на расходомер
+      DataPointHelper.SetDiscreteParameter(this, "YA13.OPN", true, (int)OperationDelay.TotalMilliseconds);
+
+      //задать расход пропан-бутана в камеру синтеза
+      DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", StageParameters.FlowRate);
+
       return StageResult.Successful;
     }
 
@@ -56,6 +50,12 @@ namespace NTCC.NET.Core.Stages
 
       //сбросить расход пропан-бутана в камеру синтеза
       DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", ZERRO);
+
+      //Если предусмотрено использование подогревателя газа
+      if (StageParameters.UseGasHeating)
+      {
+        ArtMonbatFacility.GasHeater.StopControl();
+      }
 
       return StageResult.Successful;
     }

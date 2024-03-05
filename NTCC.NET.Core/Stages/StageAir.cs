@@ -18,7 +18,19 @@ namespace NTCC.NET.Core.Stages
     {
       //задание параметров прогрева
       SetupHeating();
-      
+
+      //если задана проверка уровня воды
+      if (StageParameters.CheckWaterLevel)
+      {
+        CheckWaterLevel(TimeSpan.FromSeconds(20.0));
+      }
+
+      //Если предусмотрено использование подогревателя газа
+      if (StageParameters.UseGasHeating)
+      {
+        ArtMonbatFacility.GasHeater.StartControl();
+      }
+
       //открыть клапан подачи воздуха в камеру синтеза
       DataPointHelper.SetDiscreteParameter(this, "YA05.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
@@ -31,23 +43,7 @@ namespace NTCC.NET.Core.Stages
       //ожидаем установление расхода воздуха
       DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));
 
-      //если задана проверка уровня воды
-      //TODO:Перенести проверку и заполнение увлажнителя в отдельный класс 
-      if (StageParameters.CheckWaterLevel)
-      {
-        if( !DataPointHelper.CheckDiscreteParameter("M06.1", true))
-        {
-          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", true, (int)OperationDelay.TotalMilliseconds);
-          DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, TimeSpan.FromSeconds(10.0));
-          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", false, (int)OperationDelay.TotalMilliseconds);
-        }
-      }
 
-      //Если предусмотрено использование подогревателя газа
-      if (StageParameters.UseGasHeating) 
-      {
-        ArtMonbatFacility.GasHeater.StartControl();
-      }
 
       return StageResult.Successful;
     }
@@ -65,6 +61,12 @@ namespace NTCC.NET.Core.Stages
 
       //ожидаем установление расхода воздуха
       DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", ZERRO, TimeSpan.FromSeconds(5.0));
+
+      //Если предусмотрено использование подогревателя газа
+      if (StageParameters.UseGasHeating)
+      {
+        ArtMonbatFacility.GasHeater.StopControl();
+      }
 
       return StageResult.Successful;
     }

@@ -44,12 +44,15 @@ namespace NTCC.NET
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SetAnalogOutputValue, SetAnalogOutputValueExecuted, SetAnalogOutputValueCanExecuted));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchDiscreteOutputValue, SwitchDiscreteOutputExecuted, SwitchDiscreteOutputCanExecuted));
 
-      this.CommandBindings.Add(new CommandBinding(FacilityCommands.HeatingZoneParameters, ExecuteHeatingZoneParameters, HeatingZoneParametersCanExecute));
-      this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchHeatingZonePower, ExecuteSwitchHeatingZonePower, SwitchHeatingZonePowerCanExecute));
+      this.CommandBindings.Add(new CommandBinding(FacilityCommands.HeatingZoneParameters, HeatingZoneParametersExecuted, HeatingZoneParametersCanExecute));
       
+      
+
+
     }
 
     
+
     private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
     {
       if (StageBase.CurrentStage == null ||
@@ -107,45 +110,14 @@ namespace NTCC.NET
       StageBase.CurrentStage.Skip();
     }
 
-    private void SwitchHeatingZonePowerCanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-      e.CanExecute = true;
-    }
-
-    /// <summary>
-    /// Включить.выключить питание зоны нагрева
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    /// <exception cref="NotImplementedException"></exception>
-    private void ExecuteSwitchHeatingZonePower(object sender, ExecutedRoutedEventArgs e)
-    {
-      ReactorHeatingZone zone = e.Parameter as ReactorHeatingZone;
-     
-      if (zone != null)
-      {
-        bool curState = zone.PowerState.State;
-        string message = curState ? $"Вы уверены, что хотите выключить питание {zone.Description}?" :
-                                    $"Вы уверены, что хотите включить питание {zone.Description}?";
-
-        bool? Result = new CustomMessageBox(message, Dialogs.MessageType.Confirmation, MessageButtons.YesNo).ShowDialog();
-
-        ///если пользователь подтвердил действие 
-        ///задаем нулевую мощность и включаем/выключаем зону
-        if (Result.Value)
-        {
-          zone.DutyWrite.WriteValue(0.0);
-          zone.Run.SetState(!curState);
-        }
-      }
-    }
+   
 
     private void HeatingZoneParametersCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
       e.CanExecute = true;
     }
 
-    private void ExecuteHeatingZoneParameters(object sender, ExecutedRoutedEventArgs e)
+    private void HeatingZoneParametersExecuted(object sender, ExecutedRoutedEventArgs e)
     {
       ReactorHeatingZone zone = e.Parameter as ReactorHeatingZone;
 
@@ -210,15 +182,17 @@ namespace NTCC.NET
         return;
       }
 
-      //останваливаем установку
-      ArtMonbatFacility.Instance.Stop();
-
       //останавливаем потоки в моделях отображения
       MainWindowViewModel mainViewModel = (MainWindowViewModel)DataContext;
       foreach (PageViewModel model in mainViewModel.Pages)
       {
         model.Stop();
       }
+
+      //останваливаем установку
+      ArtMonbatFacility.Instance.Stop();
+
+      
       
     }
 

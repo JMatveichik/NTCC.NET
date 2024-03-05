@@ -55,12 +55,20 @@ namespace NTCC.NET.Commands
     } = new RoutedUICommand("Setup heating zone parameter", "HeatingZoneParameters", typeof(FacilityCommands), null);
 
     /// <summary>
-    /// Команда включения выключения питания зоны
+    /// Команда включения\выключения питания зоны
     /// </summary>
     public static RoutedUICommand SwitchHeatingZonePower
     {
       get;
     } = new RoutedUICommand("Switch heating zone power", "SwitchHeatingZonePower", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда включения\выключения контроля автоматического контроля температуры зоны
+    /// </summary>
+    public static RoutedUICommand SwitchHeatingZoneControl
+    {
+      get;
+    } = new RoutedUICommand("Switch heating zone control state", "SwitchHeatingZoneControl", typeof(FacilityCommands), null);
 
   }
 }

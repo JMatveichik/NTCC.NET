@@ -20,6 +20,18 @@ namespace NTCC.NET.Core.Stages
       //задание параметров прогрева
       SetupHeating();
 
+      //если задана проверка уровня воды
+      if (StageParameters.CheckWaterLevel)
+      {
+        CheckWaterLevel(TimeSpan.FromSeconds(20.0));
+      }
+
+      //Если предусмотрено использование подогревателя газа
+      if (StageParameters.UseGasHeating)
+      {
+        ArtMonbatFacility.GasHeater.StartControl();
+      }
+
       //открыть клапан подачи азота на расходомер
       DataPointHelper.SetDiscreteParameter(this, "YA06.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
@@ -77,22 +89,10 @@ namespace NTCC.NET.Core.Stages
         DataPointHelper.SetAnalogParameter(this, "BH.SETPOINT.WR", ZERRO);
       }
 
-      //если задана проверка уровня воды
-      //TODO:Перенести проверку и заполнение увлажнителя в отдельный класс 
-      if (StageParameters.CheckWaterLevel)
-      {
-        if (!DataPointHelper.CheckDiscreteParameter("M06.1", true))
-        {
-          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", true, (int)OperationDelay.TotalMilliseconds);
-          DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, TimeSpan.FromSeconds(10.0));
-          DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", false, (int)OperationDelay.TotalMilliseconds);
-        }
-      }
-
       //Если предусмотрено использование подогревателя газа
       if (StageParameters.UseGasHeating)
       {
-        ArtMonbatFacility.GasHeater.StartControl();
+        ArtMonbatFacility.GasHeater.StopControl();
       }
 
       return StageResult.Successful;

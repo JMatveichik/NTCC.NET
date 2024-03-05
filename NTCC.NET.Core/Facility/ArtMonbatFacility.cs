@@ -88,7 +88,7 @@ namespace NTCC.NET.Core.Facility
     /// </summary>
     public static GasHeater GasHeater
     {
-      get; 
+      get;
       private set;
     } = null;
 
@@ -112,7 +112,7 @@ namespace NTCC.NET.Core.Facility
     /// <returns>Средняя температура по заданным зонам реактора</returns>
     public static double GetAverageTemperature(IEnumerable<string> zonesNames = null)
     {
-      List<ReactorHeatingZone> zones    = null;
+      List<ReactorHeatingZone> zones = null;
       List<ReactorHeatingZone> allZones = ReactorZones.Items.Values.ToList();
 
       //если зоны реактора не заданы, то берем все зоны
@@ -284,33 +284,39 @@ namespace NTCC.NET.Core.Facility
       GasHeater.SetupControl("TE20", "TE21", "EK08.RUN");
     }
 
-    
+
     public void Stop()
     {
-      //останавливаем опрос устройств
-      foreach (var device in Devices.Items.Values)
-      {
-        device.Stop();
-      }
-
       //останавливаем текущую стадию 
       StageBase.CurrentStage?.Stop();
 
       //останавливаем контроль нагревателей
-      foreach (var zone in ReactorZones.Items.Values)
+      if (ReactorZones != null)
       {
-        zone.StopControl();
-        zone.Run.SetState(false);
+        foreach (var zone in ReactorZones.Items.Values)
+        {
+          zone?.StopControl();
+          zone?.Run.SetState(false);
+        }
       }
 
       //останавливаем нагреватель газа
-      GasHeater.StopControl();
+      GasHeater?.StopControl();
 
       //останавливаем управление заслонкой
-      Damper.StopControl();
+      Damper?.StopControl();
 
       //останавливаем поток подтверждения связи со шкафом управления
-      Ping.StopControl();
+      Ping?.StopControl();
+
+      //останавливаем опрос устройств
+      if (Devices != null)
+      {
+        foreach (var device in Devices.Items.Values)
+        {
+          device?.Stop();
+        }
+      }
     }
   }
 }

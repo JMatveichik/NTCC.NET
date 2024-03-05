@@ -3,44 +3,61 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NTCC.NET.Core.Facility;
+using NTCC.NET.Dialogs;
 using NTCC.NET.Properties;
 using NTCC.NET.ViewModels;
 
 namespace NTCC.NET
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+  /// <summary>
+  /// Interaction logic for App.xaml
+  /// </summary>
+  public partial class App : Application
+  {
+    protected override void OnStartup(StartupEventArgs e)
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+      Duplicate  = new Mutex(true, ResourceAssembly.GetName().Name);
 
-            ArtMonbatFacility facility = ArtMonbatFacility.Instance;
+      try
+      {
+        string configDir = Settings.Default.ConfigDirectory;
+        ArtMonbatFacility.Instance.Initialize(configDir);
+
+        ArtMonbatFacility.FullCycle.ContinueCycleConfirmation = new DialogUserConfirmation("Перейти на следующий цикл ? ");
+      }
+      catch (Exception ex)
+      {
+        bool? Result = new CustomMessageBox(ex.Message, Dialogs.MessageType.Error, MessageButtons.Ok).ShowDialog();
+        Current.Shutdown();
+        return;
+      }
 
 
-            try
-            {
-                string configDir = Settings.Default.ConfigDirectory;
-                facility.Initialize(configDir);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка инициализации ...", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-        
-        protected override void OnExit(ExitEventArgs e)
-        {
+      if (!Duplicate.WaitOne())
+      {
+        Current.Shutdown();
+        return;
+      }
+      
+      new MainWindow().Show();
+      ShutdownMode = ShutdownMode.OnLastWindowClose;
 
-            ArtMonbatFacility facility = ArtMonbatFacility.Instance;
-            facility.Stop();
-
-            base.OnExit(e);
-        }
+      base.OnStartup(e);
     }
+
+    protected Mutex Duplicate;
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+
+      ArtMonbatFacility facility = ArtMonbatFacility.Instance;
+      facility.Stop();
+
+      base.OnExit(e);
+    }
+  }
 }
