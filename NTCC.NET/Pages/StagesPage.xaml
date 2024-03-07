@@ -7,6 +7,7 @@
              xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
@@ -26,6 +27,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+      <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                           Margin="5">
+        
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
             <StackPanel.Resources >
                 <Style TargetType="{x:Type Button}"
@@ -67,8 +71,9 @@
 
         </StackPanel>
 
+    </materialDesign:Card>
 
-        <ScrollViewer Grid.Row="1" 
+    <ScrollViewer Grid.Row="1" 
                   ScrollViewer.VerticalScrollBarVisibility="Auto" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   Background="#00FFFFFF" BorderBrush="{x:Null}">
@@ -695,23 +700,27 @@
                                     Foreground="DarkRed"
                                     Canvas.Top="855"
                                     Canvas.Left="1222"/>
-
             </Canvas>
-
-
         </Grid>
 
 
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ctrls:CurrentDateTimeCtrl 
-            Margin="10,0"
-            Grid.Column="2"
-            HorizontalAlignment="Right" />
+
+          <ctrls:CurrentStagePanel Grid.Column="1"
+                               DataContext="{x:Static stages:StageBase.CurrentStage}"/>
+
+          <ctrls:AverageReactorTemperatureCtrl Grid.Column="2"
+                                     HorizontalAlignment="Right" />
+
+      <ctrls:CurrentDateTimeCtrl Grid.Column="3"
+                                     HorizontalAlignment="Right" />
+
         </Grid>
 
     </Grid>

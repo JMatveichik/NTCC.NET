@@ -6,13 +6,17 @@
              xmlns:local="clr-namespace:NTCC.NET.Controls"
              xmlns:src="clr-namespace:System;assembly=mscorlib"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="200">
 
     <UserControl.Resources>
         <ObjectDataProvider x:Key="date" ObjectType="{x:Type src:DateTime}"/>
     </UserControl.Resources>
-    
+
+  <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                       Margin="5, 5">
+  
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,17 +28,21 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <iconPacks:PackIconEntypo Kind="Clock" 
-                                  Grid.RowSpan="2"
-                                  Style="{StaticResource MetroToolBoxIconStyle48}"/>
-        
-        <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Header1}" 
-                   Text="{Binding Source={StaticResource date}, StringFormat={}{0:\hh\:mm}, Path=Now, Mode=OneWay}"/>
+    <iconPacks:PackIconMaterial Kind="ClockOutline"
+                                Grid.RowSpan="2"
+                                Style="{StaticResource TopHeaderIconStyle}"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource ItemDescription}"                   
-                   Text="{Binding Source={StaticResource date}, StringFormat={}{0:dd MMMM }, Path=Now, Mode=OneWay}" />
+    <TextBlock Grid.Row="1"
+               Grid.Column="1"
+               Style="{StaticResource TopPanelHeader}" Text="{Binding Source={StaticResource date}, StringFormat={}{0:\hh\:mm}, Path=Now, Mode=OneWay}"/>
+
+    <TextBlock Grid.Row="0"
+               Grid.Column="1"
+               Style="{StaticResource TopPanelDescription}"
+               HorizontalAlignment="Center"
+               Text="{Binding Source={StaticResource date}, StringFormat={}{0:dd MMMM }, Path=Now, Mode=OneWay}" />
         
         
     </Grid>
-    
+  </materialDesign:Card>
 </UserControl>

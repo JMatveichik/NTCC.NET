@@ -1,5 +1,4 @@
-﻿using NTCC.NET.Core.Facility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using NTCC.NET.Core.Stages;
 
-namespace NTCC.NET.Pages
+namespace NTCC.NET.Controls
 {
-    /// <summary>
-    /// Interaction logic for StagesPage.xaml
-    /// </summary>
-    public partial class StagesPage : UserControl
+  /// <summary>
+  /// Interaction logic for AverageReactorTemperatureCtrl.xaml
+  /// </summary>
+  public partial class AverageReactorTemperatureCtrl : UserControl
+  {
+    public AverageReactorTemperatureCtrl()
     {
-        public StagesPage()
-        {
-            InitializeComponent();
-        }
+      InitializeComponent();
     }
+  }
 }

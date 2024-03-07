@@ -16,9 +16,42 @@
     <Style x:Key="ApplicationTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource RCRegularLight}" />
     </Style>
-    
 
-    <Style
+  <Style x:Key="TopPanelHeader"
+         BasedOn="{StaticResource ApplicationTextBlockStyle}"
+         TargetType="TextBlock">
+
+    <Setter Property="FontSize"
+            Value="24" />
+    <Setter Property="Margin"
+            Value="3" />
+    <Setter Property="VerticalAlignment"
+            Value="Center" />
+    <Setter Property="TextAlignment"
+            Value="Center" />
+    <Setter Property="Typography.Capitals"
+            Value="SmallCaps"></Setter>
+
+  </Style>
+
+  <Style x:Key="TopPanelDescription"
+         BasedOn="{StaticResource ApplicationTextBlockStyle}"
+         TargetType="TextBlock">
+
+    <Setter Property="FontSize"
+            Value="14" />
+    <Setter Property="Margin"
+            Value="3" />
+    <Setter Property="VerticalAlignment"
+            Value="Center" />
+    <Setter Property="TextAlignment"
+            Value="Center" />
+    <Setter Property="Typography.Capitals"
+            Value="SmallCaps"></Setter>
+
+  </Style>
+
+  <Style
         x:Key="Header1"
         BasedOn="{StaticResource ApplicationTextBlockStyle}"
         TargetType="TextBlock">
