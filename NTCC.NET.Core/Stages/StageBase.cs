@@ -107,7 +107,7 @@ namespace NTCC.NET.Core.Stages
       try
       {
         OnTick($"Долив воды в увлажнитель", MessageType.Warning );
-        DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", true, (int) OperationDelay.TotalMilliseconds);
+        DataPointHelper.SetDiscreteParameter(this, "YA11.OPN", true, (int) OperationDelay.TotalMilliseconds);
         DataPointHelper.WaitDiscreteParameterSet(this, "M06.1", true, waitLevel);
         result = true;
       }
@@ -117,7 +117,7 @@ namespace NTCC.NET.Core.Stages
         result = false;
       }
 
-      DataPointHelper.SetDiscreteParameter(this, "YA16.OPN", false, (int)OperationDelay.TotalMilliseconds);
+      DataPointHelper.SetDiscreteParameter(this, "YA11.OPN", false, (int)OperationDelay.TotalMilliseconds);
       return result;
     }
 

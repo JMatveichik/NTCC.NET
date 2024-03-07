@@ -196,6 +196,9 @@ namespace NTCC.NET.Core.Stages
       //продувка реактора азотом
       DataPointHelper.SetDiscreteParameter(this, "YA09.CLS", false, (int)OperationDelay.TotalMilliseconds);
 
+      //закрываем клапан подачи азота в ресивер
+      DataPointHelper.SetDiscreteParameter(this, "YA07.OPN", false, (int)OperationDelay.TotalMilliseconds);
+
       #endregion
 
       CurrentStage = null;

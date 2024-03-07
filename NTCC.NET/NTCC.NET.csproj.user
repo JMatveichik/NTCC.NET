@@ -13,6 +13,9 @@
     <Compile Update="Controls\AnalogOutputDataPointInlineCtrl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\CurrentDateTimeCtrl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\CurrentStagePanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -76,6 +79,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\AnalogOutputDataPointInlineCtrl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\CurrentDateTimeCtrl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\CurrentStagePanel.xaml">
