@@ -22,6 +22,7 @@ namespace NTCC.NET.Core.Tools
 
       //переключение выходной дискретной точки данных в заданное состояние
       outputDataPoint.SetState(state);
+      element.OnTick($"Переключение {outputDataPoint.Description} ({outputDataPoint.ID}) в сосояние ({outputDataPoint.GetStateString(state)})", MessageType.Info);
 
       //Задержка перед следующей операцией 
       Thread.Sleep(delayAfter);
@@ -39,6 +40,7 @@ namespace NTCC.NET.Core.Tools
 
       //переключение выходной дискретной точки данных в заданное состояние
       outputDataPoint.WriteValue(val);
+      element.OnTick($"Задание параметра {outputDataPoint.Description} ({outputDataPoint.ID}) в сосояние ({val})", MessageType.Info);
 
       //Задержка перед следующей операцией 
       Thread.Sleep(delayAfter);
@@ -56,7 +58,7 @@ namespace NTCC.NET.Core.Tools
         throw new Exception($"Не найдена аналоговая точка данных <{id}>");
 
       DateTime startTime = DateTime.Now;
-      //element.OnTick($"Ожидание установки параметра {analogDataPoint.ID}  ({val})", MessageType.Info);
+      element.OnTick($"Ожидание установки параметра {analogDataPoint.ID}  ({val})", MessageType.Info);
 
       while (Math.Abs(analogDataPoint.Value - val) < precition)
       {
@@ -77,7 +79,7 @@ namespace NTCC.NET.Core.Tools
         throw new Exception($"Не найдена дискретная точка данных <{id}>");
 
       DateTime startTime = DateTime.Now;
-      //element.OnTick($"Ожидание установки параметра {discreteDataPoint.ID}  ({state})", MessageType.Info);
+      element.OnTick($"Ожидание установки параметра {discreteDataPoint.ID}  ({state})", MessageType.Info);
 
       while (discreteDataPoint.State != state)
       {

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:NTCC.NET.Controls"
+             xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -29,7 +30,7 @@
         <TextBlock Grid.Column="0" Grid.Row="0"
                    Style="{StaticResource Value}"
                    HorizontalAlignment="Right"
-                   Text="{Binding Value, StringFormat={}{0:F1}}"/>
+                   Text="{cb:Binding Math.Abs(Value), StringFormat={}{0:F1}}"/>
 
         <TextBlock Grid.Column="1" Grid.Row="0"
                    HorizontalAlignment="Left"

@@ -208,7 +208,7 @@
           <Run Text="в расходомер"/>
         </TextBlock>
 
-        <TextBlock Canvas.Top="420" Canvas.Left="740" Text="Продувка тары"/>
+        <TextBlock Canvas.Top="415" Canvas.Left="740" Text="Продувка тары"/>
 
         <TextBlock Canvas.Top="320" Canvas.Left="740" >
           <Run Text="Подача воздуха"/>
@@ -309,7 +309,7 @@
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
-          Canvas.Top="775" 
+          Canvas.Top="770" 
           Canvas.Left="1224"
           RenderTransformOrigin="0.5,0.5">
           <ctrls:ValveStateInlineCtrl.RenderTransform>
@@ -320,29 +320,29 @@
         <!-- Подача воздуха в расходомер -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA05.OPN]}"
-          Canvas.Top="335" 
+          Canvas.Top="332" 
           Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA05.OPN]}"
-          Canvas.Top="348" 
+          Canvas.Top="345" 
           Canvas.Left="460"/>
 
         <!-- Подача азота в расходомер-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA06.OPN]}"
-          Canvas.Top="420" 
+          Canvas.Top="413" 
           Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA06.OPN]}"
-          Canvas.Top="428" 
+          Canvas.Top="425" 
           Canvas.Left="460"/>
 
         <!-- Подача азота в скребок-->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA08.OPN]}"
-          Canvas.Top="500" 
+          Canvas.Top="495" 
           Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
@@ -358,19 +358,19 @@
         <!-- Аварийная продувка -->
         <ctrls:ValveInvertedInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
-          Canvas.Top="580" 
+          Canvas.Top="576" 
           Canvas.Left="340"/>
 
         <ctrls:ValveInvertedStateInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
-          Canvas.Top="595" 
+          Canvas.Top="590" 
           Canvas.Left="600">
         </ctrls:ValveInvertedStateInlineCtrl>
 
         <!-- Продувка линии пропан бутана-->
         <ctrls:ValveInlineCtrl
          DataContext="{Binding DataPoints[YA10.OPN]}"
-         Canvas.Top="665" 
+         Canvas.Top="657" 
          Canvas.Left="340"/>
 
         <ctrls:ValveStateInlineCtrl
@@ -386,23 +386,23 @@
         <!-- Подача воды в увлажнитель -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA11.OPN]}"
-          Canvas.Top="710" 
+          Canvas.Top="705" 
           Canvas.Left="150"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA11.OPN]}"
-          Canvas.Top="722" 
+          Canvas.Top="716" 
           Canvas.Left="855"/>
 
         <!-- Подача пропан-бутана -->
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA13.OPN]}"
-          Canvas.Top="825" 
+          Canvas.Top="818" 
           Canvas.Left="150"/>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA13.OPN]}"
-          Canvas.Top="837" 
+          Canvas.Top="832" 
           Canvas.Left="400"/>
 
         <!-- Подача воздуха в реактор -->
@@ -413,7 +413,7 @@
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA14.OPN]}"
-          Canvas.Top="663" 
+          Canvas.Top="659" 
           Canvas.Left="855"/>
 
         <!-- Продувка тары -->
@@ -424,7 +424,7 @@
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA15.OPN]}"
-          Canvas.Top="861" 
+          Canvas.Top="854" 
           Canvas.Left="1190"/>
 
 
@@ -484,7 +484,7 @@
         <!--Расход пропан-бутана-->
         <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[BH.MEASSURE]}"
-            Canvas.Top="770" 
+            Canvas.Top="765" 
             Canvas.Left="650"/>
 
         <!--Температура стенки реактора (верх)-->
