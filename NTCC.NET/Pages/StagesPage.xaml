@@ -685,7 +685,7 @@
                             Visibility="{cb:Binding State, FalseToVisibility=Hidden}"
                             Style="{StaticResource MetroToolBoxIconStyle24}"
                             Foreground="ForestGreen"
-                            Canvas.Top="895"
+                            Canvas.Top="855"
                             Canvas.Left="1222"/>
 
         <iconPacks:PackIconMaterial Kind="FlaskEmptyRemoveOutline"
@@ -693,7 +693,7 @@
                                     Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
                                     Foreground="DarkRed"
-                                    Canvas.Top="895"
+                                    Canvas.Top="855"
                                     Canvas.Left="1222"/>
 
       </Canvas>

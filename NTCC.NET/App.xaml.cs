@@ -22,6 +22,13 @@ namespace NTCC.NET
     {
       Duplicate  = new Mutex(true, ResourceAssembly.GetName().Name);
 
+      if (!Duplicate.WaitOne())
+      {
+        isDuplicate = true;
+        Current.Shutdown();
+        return;
+      }
+
       try
       {
         string configDir = Settings.Default.ConfigDirectory;
@@ -35,13 +42,7 @@ namespace NTCC.NET
         Current.Shutdown();
         return;
       }
-
-
-      if (!Duplicate.WaitOne())
-      {
-        Current.Shutdown();
-        return;
-      }
+      
       
       new MainWindow().Show();
       ShutdownMode = ShutdownMode.OnLastWindowClose;
@@ -50,13 +51,16 @@ namespace NTCC.NET
     }
 
     protected Mutex Duplicate;
+    protected bool isDuplicate = false;
 
     protected override void OnExit(ExitEventArgs e)
     {
 
-      ArtMonbatFacility facility = ArtMonbatFacility.Instance;
-      facility.Stop();
-
+      if (!isDuplicate)
+      {
+        ArtMonbatFacility facility = ArtMonbatFacility.Instance;
+        facility.Stop();
+      }
       base.OnExit(e);
     }
   }

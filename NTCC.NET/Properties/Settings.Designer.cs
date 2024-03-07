@@ -25,7 +25,7 @@ namespace NTCC.NET.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("С:\\NTCC.NET\\config")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\NTCC.NET\\config")]
         public string ConfigDirectory {
             get {
                 return ((string)(this["ConfigDirectory"]));
