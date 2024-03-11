@@ -37,14 +37,14 @@ namespace NTCC.NET.Core.Stages
 
       //открыть клапан подачи азота/воздуха в камеру синтеза на секунд
       DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", true, (int)OperationDelay.TotalMilliseconds);
+      //задать расход азота в камеру синтеза
+      DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", StageParameters.FlowRate);
+
       Thread.Sleep(TimeSpan.FromSeconds(30.0));
       DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", false, (int)OperationDelay.TotalMilliseconds);
 
       //открыть клапан подачи азота в тару
       DataPointHelper.SetDiscreteParameter(this, "YA15.OPN", true, (int)OperationDelay.TotalMilliseconds);
-
-      //задать расход азота в камеру синтеза
-      DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", StageParameters.FlowRate);
 
       //ожидаем установление расхода азота
       DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));

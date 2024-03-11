@@ -176,6 +176,7 @@
 			FlowRate="40.0"
 			Duration="4.0"
 			UseGasHeating="true"
+			CheckWaterLevel="true"
 			Description="Допинг. Подача большого расхода пропан-бутана">
 		
 		<Heating>
@@ -193,7 +194,7 @@
 	<Stage  ID="STG.PREACTIVATION.PURGE.02"
 			Name="Допинг. Продувка #2"
 			Type="Nitro"
-			FlowRate="30.0"
+			FlowRate="50.0"
 			Duration="5.0"
 			PurgePropaneLine="true"
 			CheckWaterLevel="true"
@@ -236,7 +237,7 @@
 	<Stage  ID="STG.PURGE.01"
 			Name="Продувка реактора #1"
 			Type="Nitro"
-			FlowRate="20.0"
+			FlowRate="50.0"
 			Duration="5.0"
 			UseGasHeating="true"
 			Description="Продувка реактора азотом после окисления">

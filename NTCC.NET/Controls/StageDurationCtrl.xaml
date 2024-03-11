@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="NTCC.NET.Controls.StageDurationCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:stages="clr-namespace:NTCC.NET.Core.Stages;assembly=NTCC.NET.Core"
+             xmlns:local="clr-namespace:NTCC.NET.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+  <UserControl.Resources>
+
+    <DataTemplate DataType="{x:Type stages:StageTimeBased}">
+
+      <Grid >
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+             Text="Длительность"
+             Style="{StaticResource TopPanelDescription}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0"
+             Text="{Binding TotalDuration, StringFormat={}{0:mm\\:ss} }"
+             Style="{StaticResource TopPanelHeader}" />
+
+        <TextBlock Grid.Row="0" Grid.Column="1" 
+              Text="До окончания"
+              Style="{StaticResource TopPanelDescription}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="1"
+             Style="{StaticResource TopPanelHeader}"
+             Text="{Binding TimeLeft, StringFormat={}{0:mm\\:ss}}" />
+
+      </Grid>
+
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type stages:StageHeating}">
+      <Grid >
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" 
+        Text="От старта"
+        Style="{StaticResource TopPanelDescription}" />
+
+
+        <TextBlock Grid.Row="1" Grid.Column="1"
+       Style="{StaticResource TopPanelHeader}"
+       Text="{Binding Duration, StringFormat={}{0:mm\\:ss}}" />
+
+      </Grid>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type stages:StageClean}" >
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+     Text="Проход"
+     Style="{StaticResource TopPanelDescription}" />
+
+        <TextBlock Grid.Row="1" Grid.Column="0"
+     Text="{Binding CurrentPass}"
+     Style="{StaticResource TopPanelHeader}" />
+
+        <TextBlock Grid.Row="0" Grid.Column="1" 
+      Text="Всего"
+      Style="{StaticResource TopPanelDescription}" />
+
+
+        <TextBlock Grid.Row="1" Grid.Column="1"
+     Style="{StaticResource TopPanelHeader}"
+     Text="{Binding MaxPassCount}" />
+
+
+      </Grid>
+    </DataTemplate>
+
+  </UserControl.Resources>
+
+  <Grid>
+    <ContentControl Content="{Binding}" />
+  </Grid>
+
+</UserControl>

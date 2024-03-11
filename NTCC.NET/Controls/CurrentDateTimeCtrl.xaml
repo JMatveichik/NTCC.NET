@@ -10,10 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="200">
 
-    <UserControl.Resources>
-        <ObjectDataProvider x:Key="date" ObjectType="{x:Type src:DateTime}"/>
-    </UserControl.Resources>
-
+   
   <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                        Margin="5, 5">
   
@@ -34,13 +31,14 @@
 
     <TextBlock Grid.Row="1"
                Grid.Column="1"
-               Style="{StaticResource TopPanelHeader}" Text="{Binding Source={StaticResource date}, StringFormat={}{0:\hh\:mm}, Path=Now, Mode=OneWay}"/>
+               Style="{StaticResource TopPanelHeader}" 
+               Text="{Binding CurrentTime, StringFormat={}{0:\HH\:mm\:ss}, Mode=OneWay}"/>
 
     <TextBlock Grid.Row="0"
                Grid.Column="1"
                Style="{StaticResource TopPanelDescription}"
                HorizontalAlignment="Center"
-               Text="{Binding Source={StaticResource date}, StringFormat={}{0:dd MMMM }, Path=Now, Mode=OneWay}" />
+               Text="{Binding CurrentTime, StringFormat={}{0:dd MMMM }, Mode=OneWay}" />
         
         
     </Grid>

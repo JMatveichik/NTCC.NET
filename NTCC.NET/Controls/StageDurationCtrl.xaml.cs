@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NTCC.NET.Pages
+namespace NTCC.NET.Controls
 {
-    /// <summary>
-    /// Interaction logic for SettingsPage.xaml
-    /// </summary>
-    public partial class SettingsPage : UserControl
+  /// <summary>
+  /// Interaction logic for StageDurationCtrl.xaml
+  /// </summary>
+  public partial class StageDurationCtrl : UserControl
+  {
+    public StageDurationCtrl()
     {
-        public SettingsPage()
-        {
-            InitializeComponent();
-        }
+      InitializeComponent();
     }
+  }
 }

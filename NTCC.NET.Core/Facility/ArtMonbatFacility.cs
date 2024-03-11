@@ -92,7 +92,11 @@ namespace NTCC.NET.Core.Facility
       private set;
     } = null;
 
-
+    public static ReactorAverageTemperature AverageTemperatureProvider
+    {
+      get;
+      private set;
+    } = null; 
 
     #endregion
 
@@ -110,7 +114,7 @@ namespace NTCC.NET.Core.Facility
     /// </summary>
     /// <param name="zonesNames">Список зон реактора, по которым вычисляется среднее значение</param>
     /// <returns>Средняя температура по заданным зонам реактора</returns>
-    public static double GetAverageTemperature(IEnumerable<string> zonesNames = null)
+    public double GetAverageTemperature(IEnumerable<string> zonesNames = null)
     {
       List<ReactorHeatingZone> zones = null;
       List<ReactorHeatingZone> allZones = ReactorZones.Items.Values.ToList();
@@ -280,15 +284,18 @@ namespace NTCC.NET.Core.Facility
       Damper = new PeriodicalSwitcher("ELEM.DAMPER");
       Damper.SetupControl("YA03", TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000));
 
-      GasHeater = new GasHeater("ELEM.GASHEATER");
+      GasHeater = new GasHeater("ELEM.GAS.HEATER");
       GasHeater.SetupControl("TE20", "TE21", "EK08.RUN");
+
+      AverageTemperatureProvider = new ReactorAverageTemperature("ELEM.AVERAGE.TEMPERATURE");
+      AverageTemperatureProvider.StartControl();
     }
 
 
     public void Stop()
     {
       //останавливаем текущую стадию 
-      StageBase.CurrentStage?.Stop();
+      FullCycle.CurrentStage?.Stop();
 
       //останавливаем контроль нагревателей
       if (ReactorZones != null)
@@ -299,6 +306,9 @@ namespace NTCC.NET.Core.Facility
           zone?.Run.SetState(false);
         }
       }
+
+      //останавливаем поток вычисления средней температуры
+      AverageTemperatureProvider?.StopControl();
 
       //останавливаем нагреватель газа
       GasHeater?.StopControl();

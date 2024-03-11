@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTCC.NET.Core.Facility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +16,14 @@ using System.Windows.Shapes;
 
 namespace NTCC.NET.Controls
 {
-    /// <summary>
-    /// Interaction logic for GasPanel.xaml
-    /// </summary>
-    public partial class GasPanel : UserControl
+  /// <summary>
+  /// Interaction logic for CurrentStageState.xaml
+  /// </summary>
+  public partial class CurrentStageStatePanel : UserControl
+  {
+    public CurrentStageStatePanel()
     {
-        public GasPanel()
-        {
-            InitializeComponent();
-        }
+      InitializeComponent();
     }
+  }
 }

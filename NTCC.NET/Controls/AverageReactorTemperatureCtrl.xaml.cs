@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTCC.NET.Core.Facility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace NTCC.NET.Controls
     public AverageReactorTemperatureCtrl()
     {
       InitializeComponent();
+      DataContext = ArtMonbatFacility.AverageTemperatureProvider;
     }
   }
 }

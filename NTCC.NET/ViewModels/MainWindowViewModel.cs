@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,11 +10,16 @@ using MahApps.Metro.IconPacks;
 
 namespace NTCC.NET.ViewModels
 {
-    internal class MainWindowViewModel : ViewModelBase
-    {
-        static Style iconStyle = (Style)Application.Current.Resources["MetroToolBoxIconStyle32"];
+  internal class MainWindowViewModel : ViewModelBase
+  {
 
-        private List<ViewModelBase> _pages = new List<ViewModelBase>()
+    public MainWindowViewModel()
+    {
+      this.AssemblyTitle = $"{Assembly.GetExecutingAssembly().GetName().Name} v.{Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
+    }
+    static Style iconStyle = (Style)Application.Current.Resources["MetroToolBoxIconStyle32"];
+
+    private List<ViewModelBase> _pages = new List<ViewModelBase>()
         {
 
             new StagesViewModel()
@@ -41,7 +47,7 @@ namespace NTCC.NET.ViewModels
 
             new FacilityViewModel()
             {
-                Title = "Система нагрева", 
+                Title = "Система нагрева",
                 Description = "Description",
                 PageIcon = new PackIconMaterial()
                 {
@@ -72,14 +78,17 @@ namespace NTCC.NET.ViewModels
            
         };
 
-        public List<ViewModelBase> Pages
-        {
-            get => _pages;
-            private set
-            {
-                _pages = value;
-                OnPropertyChanged();
-            }
-        }
+    public string AssemblyTitle { get; }
+
+
+    public List<ViewModelBase> Pages
+    {
+      get => _pages;
+      private set
+      {
+        _pages = value;
+        OnPropertyChanged();
+      }
     }
+  }
 }

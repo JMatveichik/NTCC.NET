@@ -18,6 +18,7 @@ namespace NTCC.NET.Core.Stages
     {
       Title = "Технологический цикл";
       Description = "Последовательное циклическое выполнение всех стадий";
+      CurrentStage = this;
     }
 
     /// <summary>
@@ -28,6 +29,24 @@ namespace NTCC.NET.Core.Stages
       get;
       private set;
     } = new List<StageBase>();
+
+    /// <summary>
+    /// Текущая стадия (основная выполняющаяся в данный момент)
+    /// </summary>
+    public StageBase CurrentStage
+    {
+      get => currentStage;
+      protected set
+      {
+        if (value == currentStage)
+          return;
+        currentStage = value;
+
+        OnPropertyChanged();
+      }
+    }
+    private StageBase currentStage = null;
+
 
     /// <summary>
     /// Номер текущего цикла

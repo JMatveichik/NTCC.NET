@@ -9,58 +9,57 @@
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="{Binding AssemblyTitle }" Height="450" Width="800"
         WindowStyle="SingleBorderWindow" 
         WindowState="Maximized">
 
-  
-    <Grid>
-    
-        <mah:MetroTabControl 
+
+  <Grid>
+
+    <mah:MetroTabControl 
             mah:TabControlHelper.Underlined="TabPanel"
             TabStripPlacement="Left"
             SelectedIndex="0"
             ItemsSource="{Binding Pages}">
 
-            <mah:MetroTabControl.Resources>
+      <mah:MetroTabControl.Resources>
 
-                <Style TargetType="mah:MetroTabItem">
-                    <Setter Property="Margin" Value="0"/>
-                </Style>
+        <Style TargetType="mah:MetroTabItem">
+          <Setter Property="Margin" Value="0"/>
+        </Style>
 
-                <DataTemplate DataType="{x:Type models:FacilityViewModel}">
+
+        <!--<DataTemplate DataType="{x:Type models:FacilityViewModel}">
                     <pages:FacilityPage/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:SettingViewModel}">
-                    <pages:SettingsPage/>
-                </DataTemplate>
+                </DataTemplate>-->
 
-                <DataTemplate DataType="{x:Type models:MessagesViewModel}">
-                    <pages:MessagesPage/>
-                </DataTemplate>
+        <DataTemplate DataType="{x:Type models:MessagesViewModel}">
+          <pages:MessagesPage/>
+        </DataTemplate>
 
-                <DataTemplate DataType="{x:Type models:TablesViewModel}">
-                    <pages:TablesPage/>
-                </DataTemplate>
+        <DataTemplate DataType="{x:Type models:TablesViewModel}">
+          <pages:TablesPage/>
+        </DataTemplate>
 
-                <DataTemplate DataType="{x:Type models:ChartsViewModel}">
-                    <pages:ChartsPage/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type models:StagesViewModel}">
-                    <pages:StagesPage/>
-                </DataTemplate>
+        <DataTemplate DataType="{x:Type models:ChartsViewModel}">
+          <pages:ChartsPage/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type models:StagesViewModel}">
+          <pages:StagesPage/>
+        </DataTemplate>
 
-            </mah:MetroTabControl.Resources>
+      </mah:MetroTabControl.Resources>
 
-            <mah:MetroTabControl.ItemContainerStyle>
-                <Style TargetType="{x:Type mah:MetroTabItem}">
-                    <Setter Property="Header" Value="{Binding PageIcon}" />
-                    <Setter Property="Padding" Value="8, 20"/>
-                </Style>
-            </mah:MetroTabControl.ItemContainerStyle>
+      <mah:MetroTabControl.ItemContainerStyle>
+        <Style TargetType="{x:Type mah:MetroTabItem}">
+          <Setter Property="Header" Value="{Binding PageIcon}" />
+          <Setter Property="Padding" Value="8, 20"/>
+        </Style>
+      </mah:MetroTabControl.ItemContainerStyle>
 
-        </mah:MetroTabControl>
+    </mah:MetroTabControl>
 
-    </Grid>
+  </Grid>
 
 </mah:MetroWindow>

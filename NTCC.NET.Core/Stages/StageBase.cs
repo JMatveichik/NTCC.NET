@@ -24,29 +24,21 @@ namespace NTCC.NET.Core.Stages
     /// </summary>  
     public StageBase(string id) : base(id)
     {
-
+    
     }
 
 
     /// <summary>
     ///Стадия владелец (которая вызвала выполнение)
     /// </summary>
-    public StageBase OwnerStage
+    protected StageBase OwnerStage
     {
       get;
       private set;
     }
 
 
-    /// <summary>
-    /// Текущая стадия (основная выполняющаяся в данный момент)
-    /// </summary>
-    public static StageBase CurrentStage
-    {
-      get;
-      protected set;
-    }
-
+    
     /// <summary>
     /// Состояние стадии
     /// </summary>
@@ -59,7 +51,6 @@ namespace NTCC.NET.Core.Stages
           return;
 
         OnPropertyChanged();
-        OnPropertyChanged("IsActive");
       }
     }
 
@@ -67,19 +58,36 @@ namespace NTCC.NET.Core.Stages
 
     public bool IsActive
     {
-      get
+      get => isActive;
+      protected set
       {
-        if (CurrentStage == this)
-          return true;
+        if (value == isActive)
+          return;
 
-        return false;
+        isActive = value;
+        OnPropertyChanged();
       }
     }
-
+    private bool isActive = false;
+    
+    
     public StageParameters StageParameters
     {
       get;
       set;
+    }
+
+    /// <summary>
+    /// Получаем среднюю температуру стенок реактора по заданным для стадии зонам  
+    /// </summary>
+    /// <returns> Средняя температура по заданным зонам</returns>
+    public double GetAverageTemperature()
+    {
+      //выбираем зоны по которым вычисляется средняя температура
+      var activeZonesIDs = StageParameters?.StageHeatingParameters.Where(z => z.Value.UseWhenAverageTemperatureCalc == true).Select(z => z.Key).ToList();
+
+      //вычисляем среднюю температуру по заданным зонам
+      return ArtMonbatFacility.Instance.GetAverageTemperature(activeZonesIDs);
     }
 
     protected void SetupHeating()
@@ -113,7 +121,7 @@ namespace NTCC.NET.Core.Stages
       }
       catch (Exception e)
       {
-        OnTick($"Низкий уровень воды в увлажнителе. ({e.Message})", MessageType.Error);
+        OnTick($"Низкий уровень воды в увлажнителе. Долейте воду в бак! ({e.Message})", MessageType.Error);
         result = false;
       }
 
@@ -124,9 +132,6 @@ namespace NTCC.NET.Core.Stages
     #region СОБЫТИЯ и ОбРАБОТЧИКИ
     protected void OnStageStep(StageState stageState, bool delayAfter = true)
     {
-      //текущая стадия
-      CurrentStage = this;
-
       //Выставляем состояние стадии
       State = stageState;
       MessageType messageType;
@@ -328,15 +333,13 @@ namespace NTCC.NET.Core.Stages
       //запоминаем владельца стадии
       OwnerStage = owner;
 
-      //текущая стадия
-      CurrentStage = this;
+      IsActive = true;
 
       //инициализация токена остановки стадии по инициативе пользователя
       stop = new CancellationTokenSource();
 
       //инициализация токена пропуска стадии по инициативе пользователя
       skip = new CancellationTokenSource();
-
 
       try
       {
@@ -349,6 +352,7 @@ namespace NTCC.NET.Core.Stages
         if (result != StageResult.Successful)
         {
           Finalization();
+          IsActive = false;
           return result;
         }
 
@@ -400,13 +404,19 @@ namespace NTCC.NET.Core.Stages
         //обработчик после выполнением завершения стадии
         OnStageStep(StageState.Finalized);
 
+        IsActive = false;
         return result;
 
       }
       catch (Exception ex)
       {
-        State = StageState.Excepted;
         OnTick($"Непредвиденное завершение стадии : {ex.Message}", MessageType.Exception);
+
+        State = StageState.Excepted;
+        IsActive = false;
+
+        //выполнение завершение стадии
+        Finalization();
         return StageResult.Excepted;
       }
 

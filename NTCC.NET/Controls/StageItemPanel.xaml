@@ -33,7 +33,7 @@
           </Grid.RowDefinitions>
 
           <TextBlock Grid.Row="0"
-                     Text="{Binding Path=StartTime, StringFormat=HH\\:mm\\:ss}"
+                     Text="{Binding Path=StartTime, StringFormat={}{0:HH\\:mm\\:ss}}"
                      IsEnabled="False"
                      Style="{StaticResource ItemDescriptionDynamic}" />
 
@@ -41,7 +41,15 @@
                      Style="{StaticResource ItemTitleDynamic}"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Center"
-                     Text="{Binding Path=TimeLeft, StringFormat=mm\\:ss}" />
+                     Visibility="{cb:Binding IsActive, FalseToVisibility=Hidden}"
+                     Text="{Binding Path=TimeLeft, StringFormat={}{0:mm\\:ss}}" />
+
+          <TextBlock Grid.Row="1"
+                     Style="{StaticResource ItemTitleDynamic}"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"
+                     Visibility="{cb:Binding !IsActive, FalseToVisibility=Hidden}"
+                     Text="{Binding Path=TotalDuration, StringFormat={}{0:mm\\:ss}}" />
 
         </Grid>
 
@@ -119,26 +127,17 @@
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition />
           </Grid.RowDefinitions>
 
           <TextBlock  Grid.Row="0"
-                      Text="{Binding Path=StartTime, StringFormat=HH\\:mm\\:ss}"
-                      IsEnabled="False"
-                      Style="{StaticResource ItemDescriptionDynamic}" />
+                      Text="{Binding StartTime, StringFormat=HH\\:mm\\:ss}"
+                      Style="{StaticResource ItemDescriptionDynamic}"/>
 
           <TextBlock Grid.Row="1"
                      Style="{StaticResource ItemTitleDynamic}"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Center"
-                     Text="{Binding Path=Duration, StringFormat=mm\\:ss}" />
-
-          <TextBlock Grid.Row="2"
-                     Style="{StaticResource ItemTitleDynamic}"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     Text="{Binding Path=AverageTemperature, StringFormat='{}{0:F1},°C'}" />
-
+                     Text="{Binding Duration, StringFormat=mm\\:ss}" />
         </Grid>
 
         <Grid Grid.Column="2">
@@ -150,13 +149,13 @@
 
           <TextBlock Grid.Row="0"
                      Style="{StaticResource ItemTitleDynamic}"
-                     Text="{Binding Path=Title}" />
+                     Text="{Binding Title}" />
 
           <TextBlock Grid.Row="1"
                      Style="{StaticResource ItemDescriptionDynamic}"
                      HorizontalAlignment="Left"
                      Width="150"
-                     Text="{Binding Path=Description}"
+                     Text="{Binding Description}"
                      TextWrapping="Wrap"
                      Margin="5" />
 
@@ -180,7 +179,7 @@
                        Height="3"
                        Maximum="100"
                        IsIndeterminate="{Binding IsActive}"
-                       Value="{cb:Binding IsActive ? 0 : 100, Mode=OneWay}"
+                       Value="{cb:Binding 'IsActive ? 0 : 100', Mode=OneWay}"
                        BorderThickness="0.5"
                        BorderBrush="Transparent"
                        Orientation="Vertical">

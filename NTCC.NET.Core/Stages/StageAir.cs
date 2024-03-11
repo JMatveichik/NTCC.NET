@@ -16,6 +16,7 @@ namespace NTCC.NET.Core.Stages
 
     public override StageResult Prepare()
     {
+
       //задание параметров прогрева
       SetupHeating();
 
@@ -42,8 +43,6 @@ namespace NTCC.NET.Core.Stages
 
       //ожидаем установление расхода воздуха
       DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));
-
-
 
       return StageResult.Successful;
     }

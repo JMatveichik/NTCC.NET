@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:stages="clr-namespace:NTCC.NET.Core.Stages;assembly=NTCC.NET.Core"
-             xmlns:local="clr-namespace:NTCC.NET.Controls"
+             xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -15,7 +15,6 @@
     <Style TargetType="{x:Type ProgressBar}">
       <Setter Property="BorderThickness" Value="0.5"/>
       <Setter Property="BorderBrush" Value="Transparent"/>
-      <Setter Property="Width" Value="3" />
       <Setter Property="IsIndeterminate" Value="False" />
     </Style>
 
@@ -26,21 +25,34 @@
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*"/>
-          <RowDefinition Height="5"/>
+          <RowDefinition Height="3"/>
         </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-          <TextBlock Grid.Row="0"
+        <ctrls:CurrentStageStatePanel Grid.Column="0"/>
+
+        <TextBlock Grid.Row="0" Grid.Column="1"
                      Text="{Binding Path=Title}"
                      Style="{StaticResource TopPanelHeader}" />
 
-          <TextBlock Grid.Row="1"
+        <TextBlock Grid.Row="1" Grid.Column="1"
                      Style="{StaticResource TopPanelDescription}"
                      Text="{Binding Path=Description}" />
 
-         <ProgressBar Grid.Row="2"
+        <ctrls:StageDurationCtrl Grid.Row="0"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="2"/>
+
+        <ProgressBar Grid.Row="2" Grid.ColumnSpan="3"
                       Maximum="{Binding TotalDuration.TotalSeconds}"
-                      Value="{Binding Duration.TotalSeconds, Mode=OneWay}"
-         />
+                      Value="{Binding Duration.TotalSeconds, Mode=OneWay}"/>
+           
+           
       </Grid>
 
     </DataTemplate>
@@ -52,32 +64,54 @@
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
-          <RowDefinition Height="5" />
+          <RowDefinition Height="1" />
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ctrls:CurrentStageStatePanel Grid.Column="0"/>
+        
         <TextBlock Grid.Row="0"
-                   Text="{Binding Path=Title}"
+                   Grid.Column="1"
+                   Text="{Binding Title}"
                    Style="{StaticResource TopPanelHeader}" />
 
         <TextBlock Grid.Row="1"
-                   Style="{StaticResource TopPanelDescription}"
-                   Text="{Binding Path=Description}" />
+                   Grid.Column="1"
+                   Text="{Binding Description}"
+                   Style="{StaticResource TopPanelDescription}"/>
 
+        <ctrls:StageDurationCtrl Grid.Row="0"
+                                 Grid.Column="2"
+                                 Grid.RowSpan="2"/>
+        
         <ProgressBar Grid.Row="2"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
                      IsIndeterminate="True"/>
       </Grid>
 
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type stages:StageClean}">
+    <DataTemplate DataType="{x:Type stages:StageClean}" >
 
       <Grid Margin="5">
 
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
           <RowDefinition Height="*" />
-          <RowDefinition Height="5" />
+          <RowDefinition Height="3" />
         </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="0"
                    Text="{Binding Path=Title}"
@@ -86,6 +120,10 @@
         <TextBlock Grid.Row="1"
                    Style="{StaticResource TopPanelDescription}"
                    Text="{Binding Path=Description}" />
+
+        <ctrls:StageDurationCtrl Grid.Row="0"
+                         Grid.RowSpan="2"
+                         Grid.Column="2"/>
 
         <ProgressBar Grid.Row="2"
                      Maximum="{Binding MaxPassCount}"
@@ -94,11 +132,42 @@
 
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type stages:StageMain}">
+
+      <Grid Margin="5">
+
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="3" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="3*"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ctrls:CurrentStageStatePanel Grid.Column="0"/>
+        
+        <TextBlock Grid.Row="0"
+           Grid.Column="1"
+           Text="{Binding Title}"
+           Style="{StaticResource TopPanelHeader}" />
+
+        <TextBlock Grid.Row="1"
+           Grid.Column="1"
+           Text="{Binding Description}"
+           Style="{StaticResource TopPanelDescription}"/>
+      </Grid>
+
+    </DataTemplate>
+
   </UserControl.Resources>
 
   <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="5, 5">
 
-    <ContentControl Content="{Binding}" />
+    <ContentControl Content="{Binding CurrentStage}" />
 
   </materialDesign:Card>
 

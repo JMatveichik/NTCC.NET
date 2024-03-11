@@ -58,8 +58,7 @@ namespace NTCC.NET
 
       if (!isDuplicate)
       {
-        ArtMonbatFacility facility = ArtMonbatFacility.Instance;
-        facility.Stop();
+        ArtMonbatFacility.Instance.Stop();
       }
       base.OnExit(e);
     }

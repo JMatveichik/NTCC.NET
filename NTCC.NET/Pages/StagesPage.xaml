@@ -81,7 +81,7 @@
             <ItemsControl  ItemsSource="{Binding FullCycle.Stages}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ctrls:StageItemPanel DataContext="{Binding}"/>
+                        <ctrls:StageItemPanel DataContext="{Binding UpdateSourceTrigger=PropertyChanged}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -712,13 +712,14 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-          <ctrls:CurrentStagePanel Grid.Column="1"
-                               DataContext="{x:Static stages:StageBase.CurrentStage}"/>
+          <ctrls:CurrentStagePanel Grid.Column="1"/>
 
-          <ctrls:AverageReactorTemperatureCtrl Grid.Column="2"
-                                     HorizontalAlignment="Right" />
+        
+                               
+        <ctrls:AverageReactorTemperatureCtrl Grid.Column="2"
+                                                HorizontalAlignment="Right" />
 
-      <ctrls:CurrentDateTimeCtrl Grid.Column="3"
+          <ctrls:CurrentDateTimeCtrl Grid.Column="3"
                                      HorizontalAlignment="Right" />
 
         </Grid>

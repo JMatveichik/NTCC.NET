@@ -22,6 +22,9 @@
     <Compile Update="Controls\CurrentStagePanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\CurrentStageStatePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\DataPointPreviewCtrl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -29,6 +32,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\HeatingZoneInlineCtrl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\StageDurationCtrl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\ValveInlineCtrl.xaml.cs">
@@ -67,9 +73,6 @@
     <Compile Update="Pages\MessagesPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\SettingsPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Pages\StagesPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +96,9 @@
     <Page Update="Controls\CurrentStagePanel.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\CurrentStageStatePanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\DataPointPreviewCtrl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -100,6 +106,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\HeatingZoneInlineCtrl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StageDurationCtrl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ValveInlineCtrl.xaml">
@@ -139,9 +148,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\MessagesPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\StagesPage.xaml">

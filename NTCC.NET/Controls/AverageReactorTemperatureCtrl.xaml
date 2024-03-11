@@ -10,13 +10,6 @@
              d:DesignHeight="100"
              d:DesignWidth="200">
 
-  <UserControl.Resources>
-    <ObjectDataProvider x:Key="AverageTemperature"
-                        ObjectInstance="{x:Static facility:ArtMonbatFacility.Instance}"
-                        MethodName="GetAverageTemperature"/>
-
-  </UserControl.Resources>
-
   <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                        Margin="5, 5">
 
@@ -29,6 +22,7 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
 
       <iconPacks:PackIconMaterial Kind="TemperatureCelsius"
@@ -36,7 +30,7 @@
                                   Style="{StaticResource TopHeaderIconStyle}" />
 
       <TextBlock Grid.Row="0"
-                 Grid.Column="1"
+                 Grid.Column="1" Grid.ColumnSpan="2"
                  Style="{StaticResource TopPanelDescription}"
                  HorizontalAlignment="Center"
                  Text="Средняя температура" />
@@ -44,7 +38,14 @@
       <TextBlock Grid.Row="1"
                  Grid.Column="1"
                  Style="{StaticResource TopPanelHeader}"
-                 Text="{Binding Source={StaticResource AverageTemperature}}" />
+                 ToolTip="Средняя температура для всех зон реактора"
+                 Text="{Binding AverageTemperatureAllZones, StringFormat={}{0:F0}}" />
+
+      <TextBlock Grid.Row="1"
+           Grid.Column="2"
+           Style="{StaticResource TopPanelHeader}"
+           ToolTip="Средняя температура для выбранных зон реактора"
+           Text="{Binding AverageTemperatureSelectedZones, StringFormat={}{0:F0}}" />
 
     </Grid>
   </materialDesign:Card>

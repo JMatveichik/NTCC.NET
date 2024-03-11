@@ -45,18 +45,16 @@ namespace NTCC.NET
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchDiscreteOutputValue, SwitchDiscreteOutputExecuted, SwitchDiscreteOutputCanExecuted));
 
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.HeatingZoneParameters, HeatingZoneParametersExecuted, HeatingZoneParametersCanExecute));
-      
-      
-
 
     }
 
     
 
+
     private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
     {
-      if (StageBase.CurrentStage == null ||
-          StageBase.CurrentStage == ArtMonbatFacility.FullCycle)
+      if (ArtMonbatFacility.FullCycle.CurrentStage == null ||
+          ArtMonbatFacility.FullCycle.CurrentStage == ArtMonbatFacility.FullCycle)
       {
         e.CanExecute = false;
         return;
@@ -66,7 +64,7 @@ namespace NTCC.NET
 
     private void StopFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
     {
-      StageBase.CurrentStage.Stop();
+      ArtMonbatFacility.FullCycle.CurrentStage.Stop();
     }
 
     private void StartFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -96,8 +94,8 @@ namespace NTCC.NET
 
     private void SkipCurrentStageCanExecuted(object sender, CanExecuteRoutedEventArgs e)
     {
-      if (StageBase.CurrentStage == null || 
-          StageBase.CurrentStage == ArtMonbatFacility.FullCycle)
+      if (ArtMonbatFacility.FullCycle.CurrentStage == null ||
+          ArtMonbatFacility.FullCycle.CurrentStage == ArtMonbatFacility.FullCycle)
       {
          e.CanExecute = false;
         return;
@@ -107,7 +105,7 @@ namespace NTCC.NET
 
     private void SkipCurrentStageExecuted(object sender, ExecutedRoutedEventArgs e)
     {
-      StageBase.CurrentStage.Skip();
+      ArtMonbatFacility.FullCycle.CurrentStage.Skip();
     }
 
    
