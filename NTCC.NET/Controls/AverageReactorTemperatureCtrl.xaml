@@ -11,7 +11,7 @@
              d:DesignWidth="200">
 
   <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
-                       Margin="5, 5">
+                       Margin="0, 5">
 
     <Grid>
       <Grid.RowDefinitions>

@@ -38,7 +38,7 @@
          TargetType="TextBlock">
 
     <Setter Property="FontSize"
-            Value="10" />
+            Value="12" />
     <Setter Property="Margin"
             Value="10,0" />
     <Setter Property="VerticalAlignment"

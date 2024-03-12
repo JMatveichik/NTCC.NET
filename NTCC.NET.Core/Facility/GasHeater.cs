@@ -89,7 +89,7 @@ namespace NTCC.NET.Core.Facility
       }
     }
 
-    private double maxWaterTemperature = 70.0;
+    private double maxWaterTemperature = 45.0;
 
 
     protected override void OnControlStarted()

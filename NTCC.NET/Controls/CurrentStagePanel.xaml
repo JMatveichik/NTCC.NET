@@ -20,7 +20,7 @@
 
     <DataTemplate DataType="{x:Type stages:StageTimeBased}">
 
-      <Grid Margin="5">
+      <Grid >
 
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
@@ -59,7 +59,7 @@
 
     <DataTemplate DataType="{x:Type stages:StageHeating}">
 
-      <Grid Margin="5">
+      <Grid>
 
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
@@ -99,7 +99,7 @@
 
     <DataTemplate DataType="{x:Type stages:StageClean}" >
 
-      <Grid Margin="5">
+      <Grid >
 
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
@@ -134,7 +134,7 @@
 
     <DataTemplate DataType="{x:Type stages:StageMain}">
 
-      <Grid Margin="5">
+      <Grid>
 
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto" />
