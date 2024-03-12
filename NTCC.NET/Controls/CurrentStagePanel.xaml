@@ -27,14 +27,14 @@
           <RowDefinition Height="*"/>
           <RowDefinition Height="3"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
           <ColumnDefinition Width="3*"/>
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ctrls:CurrentStageStatePanel Grid.Column="0"/>
+        <ctrls:CurrentStageStatePanel Grid.Column="0" Grid.RowSpan="2"/>
 
         <TextBlock Grid.Row="0" Grid.Column="1"
                      Text="{Binding Path=Title}"
@@ -51,8 +51,8 @@
         <ProgressBar Grid.Row="2" Grid.ColumnSpan="3"
                       Maximum="{Binding TotalDuration.TotalSeconds}"
                       Value="{Binding Duration.TotalSeconds, Mode=OneWay}"/>
-           
-           
+
+
       </Grid>
 
     </DataTemplate>
@@ -73,8 +73,8 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ctrls:CurrentStageStatePanel Grid.Column="0"/>
-        
+        <ctrls:CurrentStageStatePanel Grid.Column="0" Grid.RowSpan="2"/>
+
         <TextBlock Grid.Row="0"
                    Grid.Column="1"
                    Text="{Binding Title}"
@@ -88,7 +88,7 @@
         <ctrls:StageDurationCtrl Grid.Row="0"
                                  Grid.Column="2"
                                  Grid.RowSpan="2"/>
-        
+
         <ProgressBar Grid.Row="2"
                      Grid.Column="0"
                      Grid.ColumnSpan="3"
@@ -113,11 +113,13 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0"
+        <ctrls:CurrentStageStatePanel Grid.Column="0" Grid.RowSpan="2"/>
+
+        <TextBlock Grid.Row="0" Grid.Column="1"
                    Text="{Binding Path=Title}"
                    Style="{StaticResource TopPanelHeader}" />
 
-        <TextBlock Grid.Row="1"
+        <TextBlock Grid.Row="1" Grid.Column="1"
                    Style="{StaticResource TopPanelDescription}"
                    Text="{Binding Path=Description}" />
 
@@ -148,8 +150,8 @@
           <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ctrls:CurrentStageStatePanel Grid.Column="0"/>
-        
+        <ctrls:CurrentStageStatePanel Grid.Column="0" Grid.RowSpan="2"/>
+
         <TextBlock Grid.Row="0"
            Grid.Column="1"
            Text="{Binding Title}"

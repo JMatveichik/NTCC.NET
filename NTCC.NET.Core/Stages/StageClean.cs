@@ -155,7 +155,7 @@ namespace NTCC.NET.Core.Stages
           return false;
       }
 
-      return false;
+      return true;
     }
 
     /// <summary>
@@ -235,8 +235,10 @@ namespace NTCC.NET.Core.Stages
       MaxPassCount = StageParameters.PassCount;
       CollingTime = TimeSpan.FromSeconds(StageParameters.CoolingTime);
 
-      while (CurrentPass <= MaxPassCount)
+      while (CurrentPass < MaxPassCount)
       {
+        CurrentPass++;
+
         //проверяем на прерывание стадии пользователем
         if (stop.IsCancellationRequested)
           return StageResult.Stopped;
@@ -244,7 +246,6 @@ namespace NTCC.NET.Core.Stages
         //проверяем на пропуск стадии пользователем
         if (skip.IsCancellationRequested)
           return StageResult.Skipped;
-
 
         if (!MoveScraperDown(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
         {
@@ -261,7 +262,6 @@ namespace NTCC.NET.Core.Stages
         }
 
         OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков", MessageType.Info);
-        CurrentPass++;
 
         //ожидаем охлождение штоков
         Thread.Sleep(TimeSpan.FromSeconds(StageParameters.CoolingTime));
