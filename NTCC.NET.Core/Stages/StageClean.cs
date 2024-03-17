@@ -74,7 +74,7 @@ namespace NTCC.NET.Core.Stages
     private bool WaitScraperPosition(DiscreteDataPoint positionDataPoint, TimeSpan moveTimeOut)
     {
       DateTime moveStart = DateTime.Now;
-      TimeSpan moveTime  = TimeSpan.FromMilliseconds(0);
+      TimeSpan moveTime = TimeSpan.FromMilliseconds(0);
 
       //ожидаем положения скребка или таймаута
       while (true)
@@ -247,18 +247,33 @@ namespace NTCC.NET.Core.Stages
         if (skip.IsCancellationRequested)
           return StageResult.Skipped;
 
-        if (!MoveScraperDown(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
+        try
         {
-          //TODO:если застрял при движении вниз
-          OnTick($"Скребок не достиг нижнего положения.", MessageType.Error);
-          DataPointHelper.WaitDiscreteParameterSet(this, "CS02", true, TimeSpan.FromMinutes(2.0));
-        }
+          if (!MoveScraperDown(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
+          {
+            //TODO:если застрял при движении вниз
+            OnTick($"Скребок не достиг нижнего положения.", MessageType.Error);
+            DataPointHelper.WaitDiscreteParameterSet(this, "CS02", true, TimeSpan.FromSeconds(5.0));
+          }
 
-        if (!MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
+          if (!MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
+          {
+            //TODO:если застрял при движении вверх
+            OnTick($"Скребок не достиг верхнего положения.", MessageType.Error);
+            DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromSeconds(5.0));
+          }
+        }
+        catch (TimeoutException toex)
         {
-          //TODO:если застрял при движении вверх
-          OnTick($"Скребок не достиг верхнего положения.", MessageType.Error);
-          DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromMinutes(2.0));
+          MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
+          OnTick(toex.Message, MessageType.Error);
+          return StageResult.Failed;
+        }
+        catch (Exception ex)
+        {
+          MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
+          OnTick(ex.Message, MessageType.Exception);
+          return StageResult.Excepted;
         }
 
         OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков", MessageType.Info);

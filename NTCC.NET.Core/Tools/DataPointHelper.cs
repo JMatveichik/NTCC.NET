@@ -76,7 +76,7 @@ namespace NTCC.NET.Core.Tools
 
       var discreteDataPoint = dataPoints[id] as DiscreteDataPoint;
       if (discreteDataPoint == null)
-        throw new Exception($"Не найдена дискретная точка данных <{id}>");
+        throw new ArgumentException($"Не найдена дискретная точка данных <{id}>", "Data point ID");
 
       DateTime startTime = DateTime.Now;
       element.OnTick($"Ожидание установки параметра {discreteDataPoint.ID}  ({state})", MessageType.Info);
@@ -87,7 +87,7 @@ namespace NTCC.NET.Core.Tools
 
         TimeSpan waitTime = DateTime.Now - startTime;
         if (waitTime > timeout)
-          throw new Exception($"Превышено время установления {discreteDataPoint.ID} ({timeout.TotalSeconds} s)");
+          throw new TimeoutException($"Превышено время установления {discreteDataPoint.ID} ({timeout.TotalSeconds} s)");
       }
     }
 
