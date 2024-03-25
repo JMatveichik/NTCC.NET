@@ -90,7 +90,9 @@
 
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Margin" Value="0"/>
-    </Style>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+  </Style>
 
     <Style
         x:Key="TableHeader"

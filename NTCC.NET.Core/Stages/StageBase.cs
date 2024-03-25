@@ -77,6 +77,12 @@ namespace NTCC.NET.Core.Stages
       set;
     }
 
+    public static IUserConfirmation UserConfirmation 
+    { 
+      get; 
+      set; 
+    } = null;
+
     /// <summary>
     /// Получаем среднюю температуру стенок реактора по заданным для стадии зонам  
     /// </summary>

@@ -9,165 +9,167 @@ using System.Xml.Linq;
 namespace NTCC.NET.Core.Facility
 {
 
-    public class DataPointFactory
+  public class DataPointFactory
+  {
+    public static BaseConverter CreateConverter(XElement dataPointElement, out double minValue, out double maxValue, out double minSignal, out double maxSignal)
     {
-        public static BaseConverter CreateConverter(XElement dataPointElement, out double minValue, out double maxValue, out double minSignal, out double maxSignal)
-        {
-            minValue = 0.0;
-            maxValue = 100.0;
-            minSignal = 0.0;
-            maxSignal = 100.0;
+      minValue = 0.0;
+      maxValue = 100.0;
+      minSignal = 0.0;
+      maxSignal = 100.0;
 
-            double minV;
-            if (!double.TryParse(dataPointElement.Attribute("MinValue")?.Value, out minV))
-                return null;
+      double minV;
+      if (!double.TryParse(dataPointElement.Attribute("MinValue")?.Value, out minV))
+        return null;
 
-            double maxV;
-            if (!double.TryParse(dataPointElement.Attribute("MaxValue")?.Value, out maxV))
-                return null;
+      double maxV;
+      if (!double.TryParse(dataPointElement.Attribute("MaxValue")?.Value, out maxV))
+        return null;
 
-            double minS;
-            if (!double.TryParse(dataPointElement.Attribute("MinSignal")?.Value, out minS))
-                return null;
+      double minS;
+      if (!double.TryParse(dataPointElement.Attribute("MinSignal")?.Value, out minS))
+        return null;
 
-            double maxS;
-            if (!double.TryParse(dataPointElement.Attribute("MaxSignal")?.Value, out maxS))
-                return null;
+      double maxS;
+      if (!double.TryParse(dataPointElement.Attribute("MaxSignal")?.Value, out maxS))
+        return null;
 
-            minValue = minV;
-            maxValue = maxV;
+      minValue = minV;
+      maxValue = maxV;
 
-            minSignal = minS;
-            maxSignal = maxS;
+      minSignal = minS;
+      maxSignal = maxS;
 
-            LinearConverter converter = new LinearConverter(minS, minV, maxS, maxV, "", "");
-            return converter;
-        }
+      LinearConverter converter = new LinearConverter(minS, minV, maxS, maxV, "", "");
+      return converter;
+    }
 
-        public static DataPoint CreateDataPoint(XElement dataPointElement)
-        {
-            string type = dataPointElement.Attribute("Type")?.Value;
-            string id   = dataPointElement.Attribute("ID")?.Value;
-            string name = dataPointElement.Attribute("Name")?.Value;
+    public static DataPoint CreateDataPoint(XElement dataPointElement)
+    {
+      string type = dataPointElement.Attribute("Type")?.Value;
+      string id = dataPointElement.Attribute("ID")?.Value;
+      string name = dataPointElement.Attribute("Name")?.Value;
 
 
-            //получаем устройство 
-            string deviceID = dataPointElement.Attribute("DeviceID")?.Value;
-            AcquisitionDeviceBase device = ArtMonbatFacility.Devices[deviceID];
-            if (device == null)
-                throw new ArgumentException($"Device [{deviceID}] not found.");
+      //получаем устройство 
+      string deviceID = dataPointElement.Attribute("DeviceID")?.Value;
+      AcquisitionDeviceBase device = ArtMonbatFacility.Devices[deviceID];
+      if (device == null)
+        throw new ArgumentException($"Device [{deviceID}] not found.");
 
-            //получаем номер канала
-            int channel = -1;
-            if (!int.TryParse(dataPointElement.Attribute("Channel")?.Value, out channel))
-                throw new ArgumentException($"Invalid channel number [{channel}] for sensor [{id}]");
+      //получаем номер канала
+      int channel = -1;
+      if (!int.TryParse(dataPointElement.Attribute("Channel")?.Value, out channel))
+        throw new ArgumentException($"Invalid channel number [{channel}] for sensor [{id}]");
 
-            string description = dataPointElement.Value;
+      string description = dataPointElement.Value;
 
-            string states = dataPointElement.Attribute("ToStr")?.Value;
+      string group = dataPointElement.Attribute("Group")?.Value;
 
-            string group = dataPointElement.Attribute("Group")?.Value;
+      string units = dataPointElement.Attribute("Units")?.Value;
 
-            string units = dataPointElement.Attribute("Units")?.Value;
+      string toStr = dataPointElement.Attribute("ToStr")?.Value;
 
-            DataPoint dataPoint = null;
-            switch (type.ToUpper())
+      DataPoint dataPoint = null;
+      switch (type.ToUpper())
+      {
+        case "DI":
+          {
+            dataPoint = new DiscreteDataPoint(id)
             {
-                case "DI":
-                    {
-                        dataPoint = new DiscreteDataPoint(id)
-                        {
-                            StateStringsMap = DataPointFactory.GetDiscreteStatesAsString(states)
-                        };
-                    }
-                    break;
-                case "AI":
-                    {
-                        double minValue, maxValue, minSignal, maxSignal;
-                        BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue, out minSignal, out maxSignal);
-                        dataPoint = new AnalogDataPoint(id)
-                        {
-                            Converter = converter,
-                            MinValue = minValue,
-                            MaxValue = maxValue,
-                            MinSignal = minSignal,
-                            MaxSignal = maxSignal,
-                            Units = units 
-                        };
-                    }
-                    break;
-
-                case "DO":
-                    {
-                        dataPoint = new DiscreteOutputDataPoint(id)
-                        {
-                            StateStringsMap = DataPointFactory.GetDiscreteStatesAsString(states)
-                        };
-                    }
-                    break;
-
-                case "AO":
-                    {
-                        double minValue, maxValue, minSignal, maxSignal;
-                        BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue, out minSignal, out maxSignal);
-                        dataPoint = new AnalogOutputDataPoint(id)
-                        {
-                            Converter = converter,
-                            MinValue = minValue,
-                            MaxValue = maxValue,
-                            MinSignal = minSignal,
-                            MaxSignal = maxSignal,
-                            Units = units
-                        };
-                    }
-                    break;
-
-                default:
-                    throw new ArgumentException($"Unsupported sensor type: {type}");
-            }
-
-            if ( dataPoint != null )
+              StateStringsMap = DataPointFactory.GetDiscreteStatesAsString(toStr)
+            };
+          }
+          break;
+        case "AI":
+          {
+            double minValue, maxValue, minSignal, maxSignal;
+            BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue, out minSignal, out maxSignal);
+            dataPoint = new AnalogDataPoint(id)
             {
-                dataPoint.Title = name;
-                dataPoint.Description = description;
-                dataPoint.Device = device;
-                dataPoint.ListenedChannel = channel;
+              Converter = converter,
+              MinValue = minValue,
+              MaxValue = maxValue,
+              MinSignal = minSignal,
+              MaxSignal = maxSignal,
+              Units = units,
+              ValueFormat = toStr
+            };
+          }
+          break;
 
-                if (!string.IsNullOrEmpty(group))
-                    dataPoint.Group = group;
-            }
-            
-            return dataPoint;
-        }
-
-        public static Dictionary<bool, string> GetDiscreteStatesAsString(string states)
-        {
-            Dictionary<bool, string> stateStrings = null;
-
-            if (string.IsNullOrEmpty(states))
-                return null;
-
-            try
+        case "DO":
+          {
+            dataPoint = new DiscreteOutputDataPoint(id)
             {
-                stateStrings =  new Dictionary<bool, string>()
+              StateStringsMap = DataPointFactory.GetDiscreteStatesAsString(toStr)
+            };
+          }
+          break;
+
+        case "AO":
+          {
+            double minValue, maxValue, minSignal, maxSignal;
+            BaseConverter converter = CreateConverter(dataPointElement, out minValue, out maxValue, out minSignal, out maxSignal);
+            dataPoint = new AnalogOutputDataPoint(id)
+            {
+              Converter = converter,
+              MinValue = minValue,
+              MaxValue = maxValue,
+              MinSignal = minSignal,
+              MaxSignal = maxSignal,
+              Units = units,
+              ValueFormat = toStr
+            };
+          }
+          break;
+
+        default:
+          throw new ArgumentException($"Unsupported sensor type: {type}");
+      }
+
+      if (dataPoint != null)
+      {
+        dataPoint.Title = name;
+        dataPoint.Description = description;
+        dataPoint.Device = device;
+        dataPoint.ListenedChannel = channel;
+
+        if (!string.IsNullOrEmpty(group))
+          dataPoint.Group = group;
+      }
+
+      return dataPoint;
+    }
+
+    public static Dictionary<bool, string> GetDiscreteStatesAsString(string states)
+    {
+      Dictionary<bool, string> stateStrings = null;
+
+      if (string.IsNullOrEmpty(states))
+        return null;
+
+      try
+      {
+        stateStrings = new Dictionary<bool, string>()
                 {
                     { false, "OFF"},
                     { true , "ON" }
                 };
 
-                string[] starray = states.Split(';');
+        string[] starray = states.Split(';');
 
-                stateStrings[false] = starray[0];
-                stateStrings[true] = starray[1];
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-            
+        stateStrings[false] = starray[0];
+        stateStrings[true] = starray[1];
+      }
+      catch (Exception ex)
+      {
+        return null;
+      }
 
-            return stateStrings;
-        }
-    
+
+      return stateStrings;
     }
+
+  }
 }

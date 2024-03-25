@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyVersion>1.1.2403.11</AssemblyVersion>
     <ApplicationIcon>SimpleIcons-Moleculer.ico</ApplicationIcon>
     <IncrementVersionOnBuild>1.1.yyMM.dd</IncrementVersionOnBuild>
-    <Version>1.1.2403.11</Version>
+    <Version>1.1.2403.25</Version>
   </PropertyGroup>
 
   <ItemGroup>

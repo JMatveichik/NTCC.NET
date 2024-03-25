@@ -45,10 +45,12 @@ namespace NTCC.NET
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchDiscreteOutputValue, SwitchDiscreteOutputExecuted, SwitchDiscreteOutputCanExecuted));
 
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.HeatingZoneParameters, HeatingZoneParametersExecuted, HeatingZoneParametersCanExecute));
+      this.CommandBindings.Add(new CommandBinding(FacilityCommands.StageParameters, StageParametersExecuted, StageParametersCanExecute));
+      this.CommandBindings.Add(new CommandBinding(FacilityCommands.GasHeaterParameters, GasHeaterParametersExecuted, GasHeaterParametersCanExecute));
 
+      
     }
 
-    
 
 
     private void StopFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -125,6 +127,39 @@ namespace NTCC.NET
         dialog.ShowDialog();
       } 
     }
+    
+    private void StageParametersCanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = true;
+    }
+
+    private void StageParametersExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
+      StageBase stage = e.Parameter as StageBase;
+
+      if (stage != null)
+      {
+        StageParametersDialog dialog = new StageParametersDialog(stage);
+        dialog.ShowDialog();
+      }
+    }
+
+    private void GasHeaterParametersCanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+      e.CanExecute = true;
+    }
+
+    private void GasHeaterParametersExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
+      GasHeater heater = e.Parameter as GasHeater;
+
+      if (heater != null)
+      {
+        GasHeaterParametersDialog dialog = new GasHeaterParametersDialog();
+        dialog.ShowDialog();
+      }
+    }
+
 
     private void SwitchDiscreteOutputCanExecuted(object sender, CanExecuteRoutedEventArgs e)
     {

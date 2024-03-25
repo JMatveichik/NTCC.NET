@@ -12,7 +12,7 @@ namespace NTCC.NET.Core.Tools
     {
         public static double ParseDoubleAttribute(XElement xmlElem, string strAttribute, double? defaultValue = null)
         {
-            string strValue = xmlElem.Attribute(strAttribute)?.Value;            
+            string strValue = xmlElem.Attribute(strAttribute)?.Value;
 
             if (string.IsNullOrEmpty(strValue))
             {

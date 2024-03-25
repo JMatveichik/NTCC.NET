@@ -1,17 +1,20 @@
 ﻿using NTCC.NET.Core.Tools;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace NTCC.NET.Core.Facility
 {
-  public class StageParameters
+  public class StageParameters : INotifyPropertyChanged
   {
     private StageParameters()
     {
+      
     }
 
     public static StageParameters FromXml(XElement xmlStage)
@@ -43,24 +46,56 @@ namespace NTCC.NET.Core.Facility
       return parameters;
     }
 
+    /// <summary>
+    /// Число проходов
+    /// </summary>
     public int PassCount 
     { 
-      get; 
-      private set; 
-    }
+      get => passCount;
+      set
+      {
+        if (passCount == value)
+          return;
 
+        passCount = value;
+        OnPropertyChanged();
+      }
+    }
+    private int passCount = 0;
     
+    /// <summary>
+    /// Время охлажнедния штоков
+    /// </summary>
     public double CoolingTime 
     { 
-      get; 
-      private set; 
-    }
+      get => coldingTime;
+      set
+      {
+        if (coldingTime == value)
+          return;
 
+        coldingTime = value;
+        OnPropertyChanged();
+      }
+    }
+    private double  coldingTime = 0.0;
+
+    /// <summary>
+    /// Время ожидания одностороннего прохода
+    /// </summary>
 		public double OneWayTimeout 
     {  
-      get; 
-      private set; 
+      get => oneWayTimeout;
+      set
+      {
+        if (oneWayTimeout == value)
+          return;
+
+        oneWayTimeout = value;
+        OnPropertyChanged();
+      }
     }
+    private double oneWayTimeout = 0.0; 
 
     public Dictionary<string, HeatingParameters> StageHeatingParameters
     {
@@ -68,42 +103,119 @@ namespace NTCC.NET.Core.Facility
       private set;
     }
 
+    /// <summary>
+    /// Расход газа
+    /// </summary>
     public double FlowRate
     {
-      get;
-      private set;
-    }
+      get => flowRate;
+      set
+      {
+        if (flowRate == value)
+          return;
 
+        flowRate = value;
+        OnPropertyChanged();
+      }
+    }
+    private double flowRate = 0.0;
+
+    /// <summary>
+    /// Длительность стадии
+    /// </summary>
     public double Duration
     {
-      get;
-      private set;
-    }
+      get => duration;
+      set
+      {
+        if (duration == value)
+          return;
 
+        duration = value;
+        OnPropertyChanged();
+      }
+    }
+    private double duration = 0.0;
+
+    /// <summary>
+    /// Продувать линию пропан-бутана
+    /// </summary>
     public bool PurgePropaneLine
     {
-      get;
-      private set;
+      get => purgePropaneLine;
+      set
+      {
+        if (purgePropaneLine == value)
+          return;
+
+        purgePropaneLine = value;
+        OnPropertyChanged();
+      }
     }
+    private bool purgePropaneLine = false;
+
+    /// <summary>
+    /// Средняя целевая температура реактора при прогреве 
+    /// </summary>
     public double AverageTemperature
     {
-      get;
-      private set;
-    }
+      get => averageTemperature;
+      set
+      {
+        if (averageTemperature == value)
+          return;
 
+        averageTemperature = value;
+        OnPropertyChanged();
+      }
+    }
+    private double averageTemperature = 0.0;
+
+    /// <summary>
+    /// Использовать подогрев газа
+    /// </summary>
     public bool UseGasHeating
     {
-      get;
-      private set;
-    }
+      get => useGasHeating;
+      set
+      {
+        if (useGasHeating == value)
+          return;
 
+        useGasHeating = value;
+        OnPropertyChanged();
+      }
+    }
+    private bool useGasHeating = false;
+
+    /// <summary>
+    /// Проверять уровень воды
+    /// </summary>
     public bool CheckWaterLevel
     {
-      get;
-      private set;
+      get => checkWaterLevel;
+      set
+      {
+        if (checkWaterLevel == value)
+          return;
+
+        checkWaterLevel = value;
+        OnPropertyChanged();
+      }
     }
+    private bool checkWaterLevel = false;
 
 
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    /// <summary>
+    /// Реализация интерфейса INotifiPropertyChanged
+    /// </summary>
+    /// <param name="prop"></param>
+    public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
   }
 }

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using NTCC.NET.Core.Facility;
+using NTCC.NET.Core.Stages;
 using NTCC.NET.Dialogs;
 using NTCC.NET.Properties;
 using NTCC.NET.ViewModels;
@@ -34,7 +35,8 @@ namespace NTCC.NET
         string configDir = Settings.Default.ConfigDirectory;
         ArtMonbatFacility.Instance.Initialize(configDir);
 
-        ArtMonbatFacility.FullCycle.ContinueCycleConfirmation = new DialogUserConfirmation("Перейти на следующий цикл ? ");
+        //устанавливаем обработчик подтверждения действий пользователя из рабочего цикла
+        StageBase.UserConfirmation = new DialogUserConfirmation();
       }
       catch (Exception ex)
       {

@@ -72,6 +72,9 @@ namespace NTCC.NET.Core.Stages
         if (skip.IsCancellationRequested)
           return StageResult.Skipped;
 
+        //обновляем данные о времени если параметры изменены пользователем
+        TotalDuration = TimeSpan.FromMinutes(StageParameters.Duration);
+
         Duration = DateTime.Now - StartTime;
         TimeLeft = TotalDuration - Duration;
       }

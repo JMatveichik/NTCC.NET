@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-  class StageNitro : StageTimeBased
+  public class StageNitro : StageTimeBased
   {
     public StageNitro(string id) : base(id)
     {
@@ -32,20 +32,25 @@ namespace NTCC.NET.Core.Stages
         ArtMonbatFacility.GasHeater.StartControl();
       }
 
-      //открыть клапан подачи азота на расходомер
+      //открыть клапан подачи на расходомер азота\воздуха
       DataPointHelper.SetDiscreteParameter(this, "YA06.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
       //открыть клапан подачи азота/воздуха в камеру синтеза на секунд
       DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
+      //открыть клапан подачи азота в тару
+      DataPointHelper.SetDiscreteParameter(this, "YA15.OPN", true, (int)OperationDelay.TotalMilliseconds);
+
       //задать расход азота в камеру синтеза
       DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", StageParameters.FlowRate);
 
-      Thread.Sleep(TimeSpan.FromSeconds(30.0));
-      DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", false, (int)OperationDelay.TotalMilliseconds);
-
-      //открыть клапан подачи азота в тару
-      DataPointHelper.SetDiscreteParameter(this, "YA15.OPN", true, (int)OperationDelay.TotalMilliseconds);
+      //запускаем задачу ожидания 30 секунд и закрытия клапана подачи азота/воздуха в камеру синтеза
+      Task.Run(() =>
+        {
+          Thread.Sleep(TimeSpan.FromSeconds(30.0));
+          DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", false, (int)OperationDelay.TotalMilliseconds);
+        }
+      );
 
       //ожидаем установление расхода азота
       DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));

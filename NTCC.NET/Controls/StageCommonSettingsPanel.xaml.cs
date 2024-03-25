@@ -15,14 +15,14 @@ using System.Windows.Shapes;
 
 namespace NTCC.NET.Controls
 {
-  /// <summary>
-  /// Interaction logic for StageItemPanel.xaml
-  /// </summary>
-  public partial class StageItemPanel : UserControl
-  {
-    public StageItemPanel()
+    /// <summary>
+    /// Interaction logic for StageCommonSettingsPanel.xaml
+    /// </summary>
+    public partial class StageCommonSettingsPanel : UserControl
     {
-      InitializeComponent();
+        public StageCommonSettingsPanel()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

@@ -11,6 +11,7 @@ namespace NTCC.NET.Core.Facility
   {
     public GasHeater(string id) : base(id)
     {
+      Description = "Подогреватель газа";
     }
 
     public void SetupControl(string gasTemperatureId, string heaterTemperatureId, string heaterStateId)

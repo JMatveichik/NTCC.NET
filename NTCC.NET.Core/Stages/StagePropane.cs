@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NTCC.NET.Core.Stages
 {
-  class StagePropane : StageTimeBased
+  public class StagePropane : StageTimeBased
   {
    
     public StagePropane(string id) : base(id)

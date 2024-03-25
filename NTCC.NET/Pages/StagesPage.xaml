@@ -14,62 +14,62 @@
              mc:Ignorable="d" 
              d:DesignHeight="1080" d:DesignWidth="1920">
 
-    <Grid>
+  <Grid>
 
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="300"/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-      <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
                            Margin="5">
-        
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel.Resources >
-                <Style TargetType="{x:Type Button}"
-               BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
-                    <Setter Property="Margin" Value="5"/>
-                    <Setter Property="Height" Value="40"/>
-                    <Setter Property="Width" Value="40"/>
-                </Style>
-            </StackPanel.Resources>
 
-            <Button ToolTip="Запустить технологический цикл"
+      <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel.Resources >
+          <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="40"/>
+          </Style>
+        </StackPanel.Resources>
+
+        <Button ToolTip="Запустить технологический цикл"
               Command="{x:Static cmds:FacilityCommands.StartFullCycle}">
 
 
-                <iconPacks:PackIconIonicons Kind="PlayiOS"
+          <iconPacks:PackIconIonicons Kind="PlayiOS"
                               Style="{StaticResource MetroToolBoxIconStyle16}"
                               Foreground="White">
-                </iconPacks:PackIconIonicons>
+          </iconPacks:PackIconIonicons>
 
-            </Button>
+        </Button>
 
-            <Button ToolTip="Остановить технологический цикл"
+        <Button ToolTip="Остановить технологический цикл"
               Command="{x:Static cmds:FacilityCommands.StopFullCycle}">
 
-                <iconPacks:PackIconIonicons Kind="SquareiOS"
+          <iconPacks:PackIconIonicons Kind="SquareiOS"
                               Style="{StaticResource MetroToolBoxIconStyle16}"
                               Foreground="White">
-                </iconPacks:PackIconIonicons>
-            </Button>
+          </iconPacks:PackIconIonicons>
+        </Button>
 
-            <Button ToolTip="Пропустить текущую стадию"
+        <Button ToolTip="Пропустить текущую стадию"
               Command="{x:Static cmds:FacilityCommands.SkipCurrentStage}">
 
-                <iconPacks:PackIconIonicons Kind="SkipForwardMD"
+          <iconPacks:PackIconIonicons Kind="SkipForwardMD"
                               Style="{StaticResource MetroToolBoxIconStyle16}"
                               Foreground="White">
-                </iconPacks:PackIconIonicons>
-            </Button>
+          </iconPacks:PackIconIonicons>
+        </Button>
 
-        </StackPanel>
+      </StackPanel>
 
     </materialDesign:Card>
 
@@ -78,463 +78,442 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   Background="#00FFFFFF" BorderBrush="{x:Null}">
 
-            <ItemsControl  ItemsSource="{Binding FullCycle.Stages}" >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ctrls:StageItemPanel DataContext="{Binding UpdateSourceTrigger=PropertyChanged}"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+      <ItemsControl  ItemsSource="{Binding FullCycle.Stages}" >
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ctrls:StageItemPanel DataContext="{Binding UpdateSourceTrigger=PropertyChanged}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
 
-        <Grid Grid.Row="1" Grid.Column="1">
+    <Grid Grid.Row="1" Grid.Column="1">
 
-            <Image
+      <Image
              Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
              Margin='5'
              Stretch="Fill"/>
-            <!--Width="1552" Height="940" -->
+      <!--Width="1552" Height="940" -->
 
-            <Canvas Margin="5">
+      <Canvas Margin="5">
 
-                <Canvas.Resources>
-                    <Style TargetType="TextBlock" BasedOn="{StaticResource ItemDescription}">
-                        <Setter Property="FontSize" Value="12"/>
-                        <Setter Property="Foreground" Value="DarkGray"/>
-                    </Style>
-                </Canvas.Resources>
+        <Canvas.Resources>
+          <Style TargetType="TextBlock" BasedOn="{StaticResource ItemDescription}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="DarkGray"/>
+          </Style>
+        </Canvas.Resources>
 
-                <!-- TEXT MARKS -->
-                <TextBlock Canvas.Top="130" Canvas.Left="5"> 
+        <ctrls:GasHeaterInlineCtrl/>
+
+        <!-- TEXT MARKS -->
+        <TextBlock Canvas.Top="130" Canvas.Left="5"> 
           <Run Text="Сжатый воздух"/>
           <LineBreak/>
           <Run Text="P"/>
           <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 1.0 МПа"/>
-          <LineBreak/>
-          <Run Text="Q"/>
-          <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 20 н.м"/>
-          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
-          <Run Text="/ч"/>
-                </TextBlock>
+          <Run Text="= 10 бар"/>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="450" Canvas.Left="5">
+        <TextBlock Canvas.Top="450" Canvas.Left="5">
           <Run Text="Азот"/>
           <LineBreak/>
           <Run Text="P"/>
           <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 0.6 МПа"/>
-          <LineBreak/>
-          <Run Text="Q"/>
-          <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 10 н.м"/>
-          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
-          <Run Text="/ч"/>
-                </TextBlock>
+          <Run Text="= 6 бар"/>          
+        </TextBlock>
 
-                <TextBlock Canvas.Top="670" Canvas.Left="5">
+        <TextBlock Canvas.Top="670" Canvas.Left="5">
           <Run Text="Вода"/>
           <LineBreak/>
           <Run Text="P"/>
           <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 0.1 МПа"/>
+          <Run Text="= 1 бар"/>
           <LineBreak/>
-          <Run Text="Q"/>
-          <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 1 н.м"/>
-          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
-          <Run Text="/ч"/>
-                </TextBlock>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="780" Canvas.Left="5">
+        <TextBlock Canvas.Top="780" Canvas.Left="5">
           <Run Text="Пропан-бутан"/>
           <LineBreak/>
           <Run Text="P"/>
           <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 0.4 МПа"/>
-          <LineBreak/>
-          <Run Text="Q"/>
-          <Run BaselineAlignment="Subscript" Text="макс."/>
-          <Run Text="= 5 н.м"/>
-          <Run BaselineAlignment="Superscript" FontSize="8" Text="3"/>
-          <Run Text="/ч"/>
-                </TextBlock>
+          <Run Text="= 4 бара"/>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="215" 
+        <TextBlock Canvas.Top="215" 
                    Canvas.Left="130" 
                    Text="Ресивер">
-                    <TextBlock.RenderTransform>
-                        <RotateTransform Angle="-90"/>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
+          <TextBlock.RenderTransform>
+            <RotateTransform Angle="-90"/>
+          </TextBlock.RenderTransform>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="540" 
+        <TextBlock Canvas.Top="540" 
            Canvas.Left="200" 
            Text="Ресивер">
-                    <TextBlock.RenderTransform>
-                        <RotateTransform Angle="-90"/>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
+          <TextBlock.RenderTransform>
+            <RotateTransform Angle="-90"/>
+          </TextBlock.RenderTransform>
+        </TextBlock>
 
 
-                <TextBlock Canvas.Top="10" Canvas.Left="450" Text="Линейный модуль #1 скребка (вверх)"/>
-                <TextBlock Canvas.Top="95" Canvas.Left="450" Text="Линейный модуль #2 скребка (вниз)"/>
-                <TextBlock Canvas.Top="175" Canvas.Left="450" Text="Пневмоцилиндр уплотнения штоков"/>
-                <TextBlock Canvas.Top="255" Canvas.Left="450" Text="Пневмоцилиндр привода заслонки"/>
+        <TextBlock Canvas.Top="10" Canvas.Left="450" Text="Линейный модуль #1 скребка (вверх)"/>
+        <TextBlock Canvas.Top="95" Canvas.Left="450" Text="Линейный модуль #2 скребка (вниз)"/>
+        <TextBlock Canvas.Top="175" Canvas.Left="450" Text="Пневмоцилиндр уплотнения штоков"/>
+        <TextBlock Canvas.Top="255" Canvas.Left="450" Text="Пневмоцилиндр привода заслонки"/>
 
-                <TextBlock Canvas.Top="310" Canvas.Left="430">
+        <TextBlock Canvas.Top="310" Canvas.Left="430">
           <Run Text="Подача воздуха"/>
           <LineBreak/>
           <Run Text="в расходомер"/>
-                </TextBlock>
-                <TextBlock Canvas.Top="390" Canvas.Left="430">
+        </TextBlock>
+        <TextBlock Canvas.Top="390" Canvas.Left="430">
           <Run Text="Подача азота"/>
           <LineBreak/>
           <Run Text="в расходомер"/>
-                </TextBlock>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="415" Canvas.Left="740" Text="Продувка тары"/>
+        <TextBlock Canvas.Top="415" Canvas.Left="740" Text="Продувка тары"/>
 
-                <TextBlock Canvas.Top="320" Canvas.Left="740" >
+        <TextBlock Canvas.Top="320" Canvas.Left="740" >
           <Run Text="Подача воздуха"/>
           <LineBreak/>
           <Run Text="в реактор"/>
-                </TextBlock>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="500" Canvas.Left="450" Text="Подача азота в скребок"/>
-                <TextBlock Canvas.Top="580" Canvas.Left="450" Text="Аварийная продувка"/>
-                <TextBlock Canvas.Top="645" Canvas.Left="450" >
+        <TextBlock Canvas.Top="500" Canvas.Left="450" Text="Подача азота в скребок"/>
+        <TextBlock Canvas.Top="580" Canvas.Left="450" Text="Аварийная продувка"/>
+        <TextBlock Canvas.Top="645" Canvas.Left="450" >
           <Run Text="Продувка линии"/>
           <LineBreak/>
           <Run Text="пропан-бутана"/>
-                </TextBlock>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="600" Canvas.Left="850" >
+        <TextBlock Canvas.Top="600" Canvas.Left="850" >
           <Run Text="Увлажнитель"/>
           <LineBreak/>
           <Run Text="воздуха"/>
-                </TextBlock>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="880" Canvas.Left="500" >
+        <TextBlock Canvas.Top="880" Canvas.Left="500" >
           <Run Text="Подогреватель"/>
           <LineBreak/>
           <Run Text="газа"/>
-                </TextBlock>
+        </TextBlock>
 
-                <TextBlock Canvas.Top="810" Canvas.Left="1100" Text="Шнек"/>
-                <TextBlock Canvas.Top="750" Canvas.Left="1020" Text="Ворошитель"/>
+        <TextBlock Canvas.Top="810" Canvas.Left="1100" Text="Шнек"/>
+        <TextBlock Canvas.Top="750" Canvas.Left="1020" Text="Ворошитель"/>
 
-                <!-- Analog Data Points -->
-                <ctrls:AnalogOutputDataPointInlineCtrl
+        <!-- Analog Data Points -->
+        <ctrls:AnalogOutputDataPointInlineCtrl
           DataContext="{Binding DataPoints[MD400C.SETPOINT.WR]}"
           Canvas.Top="380" 
           Canvas.Left="520"/>
 
-                <ctrls:AnalogOutputDataPointInlineCtrl
+        <ctrls:AnalogOutputDataPointInlineCtrl
           DataContext="{Binding DataPoints[BH.SETPOINT.WR]}"
           Canvas.Top="870" 
           Canvas.Left="600"/>
 
-                <!--Valves-->
-                <!-- Линейный модуль #1-->
-                <ctrls:ValveInlineCtrl
+        <!--Valves-->
+        <!-- Линейный модуль #1-->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA01.1]}"
           Canvas.Top="8" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA01.1]}"
           Canvas.Top="230" 
           Canvas.Left="1182"
           RenderTransformOrigin="0.5,0.5">
-                    <ctrls:ValveStateInlineCtrl.RenderTransform>
-                        <RotateTransform Angle="90"/>
-                    </ctrls:ValveStateInlineCtrl.RenderTransform>
-                </ctrls:ValveStateInlineCtrl>
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
 
-                <!-- Линейный модуль #2-->
-                <ctrls:ValveInlineCtrl
+        <!-- Линейный модуль #2-->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA01.2]}"
           Canvas.Top="90" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA01.2]}"
           Canvas.Top="230" 
           Canvas.Left="1061"
           RenderTransformOrigin="0.5,0.5">
-                    <ctrls:ValveStateInlineCtrl.RenderTransform>
-                        <RotateTransform Angle="90"/>
-                    </ctrls:ValveStateInlineCtrl.RenderTransform>
-                </ctrls:ValveStateInlineCtrl>
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
 
 
-                <!-- Пневмоцилиндр уплотнения штоков-->
-                <ctrls:ValveInlineCtrl
+        <!-- Пневмоцилиндр уплотнения штоков-->
+        <ctrls:ValveInlineCtrl
            DataContext="{Binding DataPoints[YA02]}"
            Canvas.Top="170" 
            Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA02]}"
           Canvas.Top="370" 
           Canvas.Left="1021"
           RenderTransformOrigin="0.5,0.5">
-                    <ctrls:ValveStateInlineCtrl.RenderTransform>
-                        <RotateTransform Angle="90"/>
-                    </ctrls:ValveStateInlineCtrl.RenderTransform>
-                </ctrls:ValveStateInlineCtrl>
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
 
 
-                <!-- Привод заслонки-->
-                <ctrls:ValveInlineCtrl
+        <!-- Привод заслонки-->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
           Canvas.Top="250" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
           Canvas.Top="770" 
           Canvas.Left="1224"
           RenderTransformOrigin="0.5,0.5">
-                    <ctrls:ValveStateInlineCtrl.RenderTransform>
-                        <RotateTransform Angle="-90"/>
-                    </ctrls:ValveStateInlineCtrl.RenderTransform>
-                </ctrls:ValveStateInlineCtrl>
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="-90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
 
-                <!-- Подача воздуха в расходомер -->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача воздуха в расходомер -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA05.OPN]}"
           Canvas.Top="332" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA05.OPN]}"
           Canvas.Top="345" 
           Canvas.Left="460"/>
 
-                <!-- Подача азота в расходомер-->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача азота в расходомер-->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA06.OPN]}"
           Canvas.Top="413" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA06.OPN]}"
           Canvas.Top="425" 
           Canvas.Left="460"/>
 
-                <!-- Подача азота в скребок-->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача азота в скребок-->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA08.OPN]}"
           Canvas.Top="495" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA08.OPN]}"
           Canvas.Top="230" 
           Canvas.Left="1119"
           RenderTransformOrigin="0.5,0.5">
-                    <ctrls:ValveStateInlineCtrl.RenderTransform>
-                        <RotateTransform Angle="90"/>
-                    </ctrls:ValveStateInlineCtrl.RenderTransform>
-                </ctrls:ValveStateInlineCtrl>
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
 
-                <!-- Аварийная продувка -->
-                <ctrls:ValveInvertedInlineCtrl
+        <!-- Аварийная продувка -->
+        <ctrls:ValveInvertedInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
           Canvas.Top="576" 
           Canvas.Left="340"/>
 
-                <ctrls:ValveInvertedStateInlineCtrl
+        <ctrls:ValveInvertedStateInlineCtrl
           DataContext="{Binding DataPoints[YA09.CLS]}"
           Canvas.Top="590" 
           Canvas.Left="600">
-                </ctrls:ValveInvertedStateInlineCtrl>
+        </ctrls:ValveInvertedStateInlineCtrl>
 
-                <!-- Продувка линии пропан бутана-->
-                <ctrls:ValveInlineCtrl
+        <!-- Продувка линии пропан бутана-->
+        <ctrls:ValveInlineCtrl
          DataContext="{Binding DataPoints[YA10.OPN]}"
          Canvas.Top="657" 
          Canvas.Left="340"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
          DataContext="{Binding DataPoints[YA10.OPN]}"
          Canvas.Top="760" 
          Canvas.Left="485"
           RenderTransformOrigin="0.5,0.5">
-                    <ctrls:ValveStateInlineCtrl.RenderTransform>
-                        <RotateTransform Angle="90"/>
-                    </ctrls:ValveStateInlineCtrl.RenderTransform>
-                </ctrls:ValveStateInlineCtrl>
+          <ctrls:ValveStateInlineCtrl.RenderTransform>
+            <RotateTransform Angle="90"/>
+          </ctrls:ValveStateInlineCtrl.RenderTransform>
+        </ctrls:ValveStateInlineCtrl>
 
-                <!-- Подача воды в увлажнитель -->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача воды в увлажнитель -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA11.OPN]}"
           Canvas.Top="705" 
           Canvas.Left="150"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA11.OPN]}"
           Canvas.Top="716" 
           Canvas.Left="855"/>
 
-                <!-- Подача пропан-бутана -->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача пропан-бутана -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA13.OPN]}"
           Canvas.Top="818" 
           Canvas.Left="150"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA13.OPN]}"
           Canvas.Top="832" 
           Canvas.Left="400"/>
 
-                <!-- Подача воздуха в реактор -->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача воздуха в реактор -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA14.OPN]}"
           Canvas.Top="300" 
           Canvas.Left="700"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA14.OPN]}"
           Canvas.Top="659" 
           Canvas.Left="855"/>
 
-                <!-- Продувка тары -->
-                <ctrls:ValveInlineCtrl
+        <!-- Продувка тары -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA15.OPN]}"
           Canvas.Top="385" 
           Canvas.Left="700"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA15.OPN]}"
           Canvas.Top="854" 
           Canvas.Left="1190"/>
 
 
-                <!-- Подача азота в ресивер -->
-                <ctrls:ValveInlineCtrl
+        <!-- Подача азота в ресивер -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA07.OPN]}"
           Canvas.Top="465" 
           Canvas.Left="130"/>
 
-                <ctrls:ValveStateInlineCtrl
+        <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA07.OPN]}"
           Canvas.Top="510" 
           Canvas.Left="175"/>
 
-                <!-- Управление приводом ворошителя -->
-                <ctrls:ValveInlineCtrl
+        <!-- Управление приводом ворошителя -->
+        <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[M01.RUN]}"
           Canvas.Top="750" 
           Canvas.Left="1095"/>
 
-                <!-- Управление приводом шнека -->
-                <ctrls:ValveInlineCtrl
+        <!-- Управление приводом шнека -->
+        <ctrls:ValveInlineCtrl
               DataContext="{Binding DataPoints[M02.RUN]}"
               Canvas.Top="825" 
               Canvas.Left="1100"/>
 
-                <!--Analog input datapoins -->
-                <!--Давление в магистрали воздуха-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Analog input datapoins -->
+        <!--Давление в магистрали воздуха-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[PT01]}"
             Canvas.Top="130" 
             Canvas.Left="195"/>
-                <!--Давление в магистрали азота-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Давление в магистрали азота-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[PT02]}"
             Canvas.Top="455" 
             Canvas.Left="235"/>
 
-                <!--Давление в магистрали скребка-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Давление в магистрали скребка-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[PT03]}"
             Canvas.Top="455" 
             Canvas.Left="550"/>
 
-                <!--Давление в магистрали пропан-бутана-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Давление в магистрали пропан-бутана-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[PT04]}"
             Canvas.Top="780" 
             Canvas.Left="270"/>
 
-                <!--Расход азота/воздуха-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Расход азота/воздуха-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[MD400C.MEASSURE]}"
             Canvas.Top="280" 
             Canvas.Left="565"/>
 
-                <!--Расход пропан-бутана-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Расход пропан-бутана-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[BH.MEASSURE]}"
             Canvas.Top="765" 
             Canvas.Left="650"/>
 
-                <!--Температура стенки реактора (верх)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (верх)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE13]}"
             Canvas.Top="470" 
             Canvas.Left="1000"/>
 
-                <!--Температура стенки реактора (срежний верх)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (срежний верх)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE14]}"
             Canvas.Top="520" 
             Canvas.Left="1000"/>
 
-                <!--Температура стенки реактора (средняя)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (средняя)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE15]}"
             Canvas.Top="570" 
             Canvas.Left="1000"/>
 
-                <!--Температура стенки реактора (средняя низ)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (средняя низ)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE16]}"
             Canvas.Top="620" 
             Canvas.Left="1000"/>
 
-                <!--Температура стенки реактора (низ)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (низ)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE17]}"
             Canvas.Top="670" 
             Canvas.Left="1000"/>
 
-                <!--Температура стенки реактора (внутренний верх)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (внутренний верх)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE18]}"
             Canvas.Top="470" 
             Canvas.Left="1100"/>
 
-                <!--Температура стенки реактора (внутренний низ)-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура стенки реактора (внутренний низ)-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE19]}"
             Canvas.Top="670" 
             Canvas.Left="1100"/>
 
-                <!--Температура газа-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура газа-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE20]}"
             Canvas.Top="800" 
             Canvas.Left="580"/>
 
-                <!--Температура газа-->
-                <ctrls:AnalogInputDataPointInlineCtrl 
+        <!--Температура газа-->
+        <ctrls:AnalogInputDataPointInlineCtrl 
             DataContext="{Binding DataPoints[TE21]}"
             Canvas.Top="760 " 
             Canvas.Left="540"/>
 
-                <!--Внутренняя верхняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Внутренняя верхняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="20"
             Canvas.Left="1250"
             DataContext="{Binding ReactorZones[HT06.IN.TOP]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl" 
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="510"
@@ -542,21 +521,21 @@
                                      DataContext="{Binding ReactorZones[HT06.IN.TOP]}"
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
-                <!--Наружная верхняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Наружная верхняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="105"
             Canvas.Left="1250"
             DataContext="{Binding ReactorZones[HT01.TOP]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl" 
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="460"
                                      Canvas.Left="1170"
                                      DataContext="{Binding ReactorZones[HT01.TOP]}"
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
-                <!--       
+        <!--       
         <Ellipse Canvas.Top="510"
                  Canvas.Left="1220" 
                  Stroke="OrangeRed" 
@@ -574,14 +553,14 @@
              Height="7" Width="7"/>   
           -->
 
-                <!--Наружная средняя-верхняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Наружная средняя-верхняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
             Canvas.Top="190"
             Canvas.Left="1250"
             DataContext="{Binding ReactorZones[HT02.MID.TOP]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl" 
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="510"
@@ -589,14 +568,14 @@
                                      DataContext="{Binding ReactorZones[HT02.MID.TOP]}"
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
-                <!--Наружная средняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Наружная средняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
            Canvas.Top="275"
            Canvas.Left="1250"
            DataContext="{Binding ReactorZones[HT03.MID]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl" 
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="560"
@@ -604,14 +583,14 @@
                                      DataContext="{Binding ReactorZones[HT03.MID]}"
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
-                <!--Наружная средне-нижняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Наружная средне-нижняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
            Canvas.Top="360"
            Canvas.Left="1250"
            DataContext="{Binding ReactorZones[HT04.MID.BOT]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl" 
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="610"
@@ -619,14 +598,14 @@
                                      DataContext="{Binding ReactorZones[HT04.MID.BOT]}"
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
-                <!--Наружная нижняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Наружная нижняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
           Canvas.Top="445"
           Canvas.Left="1250"
           DataContext="{Binding ReactorZones[HT05.BOT]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl" 
+        <iconPacks:PackIconFileIcons Kind="Cwl" 
                                      Height="48" 
                                      Width="48"
                                      Canvas.Top="660"
@@ -634,14 +613,14 @@
                                      DataContext="{Binding ReactorZones[HT05.BOT]}"
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
-                <!--Внутренняя нижняя зона-->
-                <ctrls:HeatingZoneInlineCtrl 
+        <!--Внутренняя нижняя зона-->
+        <ctrls:HeatingZoneInlineCtrl 
           Canvas.Top="530"
           Canvas.Left="1250"
           DataContext="{Binding ReactorZones[HT07.IN.BOT]}">
-                </ctrls:HeatingZoneInlineCtrl>
+        </ctrls:HeatingZoneInlineCtrl>
 
-                <iconPacks:PackIconFileIcons Kind="Cwl"
+        <iconPacks:PackIconFileIcons Kind="Cwl"
                                      Height="48"
                                      Width="48"
                                      Canvas.Top="630"
@@ -650,7 +629,7 @@
                                      Foreground="{Binding IsPowerPresent, Converter={StaticResource HeaterPWM}}"/>
 
 
-                <iconPacks:PackIconMaterial Kind="WaterCheck" 
+        <iconPacks:PackIconMaterial Kind="WaterCheck" 
                                     Canvas.Top="680"
                                     Canvas.Left="892"
                                     DataContext="{Binding DataPoints[M06.1]}"
@@ -658,7 +637,7 @@
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
                                     Foreground="ForestGreen"/>
 
-                <iconPacks:PackIconMaterial Kind="WaterMinus"
+        <iconPacks:PackIconMaterial Kind="WaterMinus"
                                     DataContext="{Binding DataPoints[M06.1]}"
                                     Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
@@ -666,7 +645,7 @@
                                     Canvas.Top="680"
                                     Canvas.Left="892"/>
 
-                <iconPacks:PackIconMaterial Kind="FlaskEmptyPlusOutline"
+        <iconPacks:PackIconMaterial Kind="FlaskEmptyPlusOutline"
                             DataContext="{Binding DataPoints[LE01]}"
                             Visibility="{cb:Binding State, FalseToVisibility=Hidden}"
                             Style="{StaticResource MetroToolBoxIconStyle24}"
@@ -674,38 +653,38 @@
                             Canvas.Top="855"
                             Canvas.Left="1222"/>
 
-                <iconPacks:PackIconMaterial Kind="FlaskEmptyRemoveOutline"
+        <iconPacks:PackIconMaterial Kind="FlaskEmptyRemoveOutline"
                                     DataContext="{Binding DataPoints[LE01]}"
                                     Visibility="{cb:Binding !State, FalseToVisibility=Hidden}"
                                     Style="{StaticResource MetroToolBoxIconStyle24}"
                                     Foreground="DarkRed"
                                     Canvas.Top="855"
                                     Canvas.Left="1222"/>
-            </Canvas>
-        </Grid>
+      </Canvas>
+    </Grid>
 
 
-        <Grid Grid.Row="0" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+    <Grid Grid.Row="0" Grid.Column="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
 
-          <ctrls:CurrentStagePanel Grid.Column="1"/>
+      <ctrls:CurrentStagePanel Grid.Column="1"/>
 
-        
-                               
-        <ctrls:AverageReactorTemperatureCtrl Grid.Column="2"
+
+
+      <ctrls:AverageReactorTemperatureCtrl Grid.Column="2"
                                                 HorizontalAlignment="Right" />
 
-          <ctrls:CurrentDateTimeCtrl Grid.Column="3"
+      <ctrls:CurrentDateTimeCtrl Grid.Column="3"
                                      HorizontalAlignment="Right" />
 
-        </Grid>
-
     </Grid>
+
+  </Grid>
 
 
 </UserControl>

@@ -17,25 +17,19 @@ using System.Windows.Shapes;
 namespace NTCC.NET.Dialogs
 {
   /// <summary>
-  /// Interaction logic for HeatingZoneParametersDialog.xaml
+  /// Interaction logic for GasHeaterParametersDialog.xaml
   /// </summary>
-  public partial class HeatingZoneParametersDialog : Window
+  public partial class GasHeaterParametersDialog : Window
   {
-    public HeatingZoneParametersDialog(ReactorHeatingZone zone)
+    public GasHeaterParametersDialog()
     {
       InitializeComponent();
-      DataContext = zone;
+      DataContext = ArtMonbatFacility.GasHeater;
 
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchHeatingZonePower, SwitchHeatingZonePowerExecuted, SwitchHeatingZonePowerCanExecute));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchHeatingZoneControl, SwitchHeatingZoneControlExecuted, SwitchHeatingZoneControlCanExecute));
-    }
 
-    private void btnCloseClick(object sender, RoutedEventArgs e)
-    {
-      this.DialogResult = false;
-      this.Close();
     }
-
     private void SwitchHeatingZonePowerCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
       e.CanExecute = true;
@@ -49,13 +43,13 @@ namespace NTCC.NET.Dialogs
     /// <exception cref="NotImplementedException"></exception>
     private void SwitchHeatingZonePowerExecuted(object sender, ExecutedRoutedEventArgs e)
     {
-      ReactorHeatingZone zone = e.Parameter as ReactorHeatingZone;
+      GasHeater heater = e.Parameter as GasHeater;
 
-      if (zone != null)
+      if (heater != null)
       {
-        bool curState = zone.PowerState.State;
-        string message = curState ? $"Вы уверены, что хотите выключить питание {zone.Description}?" :
-                                    $"Вы уверены, что хотите включить питание {zone.Description}?";
+        bool curState = heater.HeaterState.State;
+        string message = curState ? $"Вы уверены, что хотите выключить питание {heater.Description}?" :
+                                    $"Вы уверены, что хотите включить питание {heater.Description}?";
 
         bool? Result = new CustomMessageBox(message, Dialogs.MessageType.Confirmation, MessageButtons.YesNo).ShowDialog();
 
@@ -63,8 +57,7 @@ namespace NTCC.NET.Dialogs
         ///задаем нулевую мощность и включаем/выключаем зону
         if (Result.Value)
         {
-          zone.DutyWrite.WriteValue(0.0);
-          zone.Run.SetState(!curState);
+          heater.HeaterState.SetState(!curState);
         }
       }
     }
@@ -76,13 +69,13 @@ namespace NTCC.NET.Dialogs
 
     private void SwitchHeatingZoneControlExecuted(object sender, ExecutedRoutedEventArgs e)
     {
-      ReactorHeatingZone zone = e.Parameter as ReactorHeatingZone;
+      GasHeater heater = e.Parameter as GasHeater;
 
-      if (zone != null)
+      if (heater != null)
       {
-        if (zone.IsControlStarted)
+        if (heater.IsControlStarted)
         {
-          string message = $"Вы уверены, что хотите прекратить автоматический контроль температуры  {zone.Description}?";
+          string message = $"Вы уверены, что хотите прекратить автоматический контроль температуры  {heater.Description}?";
 
           bool? Result = new CustomMessageBox(message, Dialogs.MessageType.Confirmation, MessageButtons.YesNo)
             .ShowDialog();
@@ -90,15 +83,32 @@ namespace NTCC.NET.Dialogs
           ///если пользователь подтвердил действие выключаем контроль зоны
           if (Result.Value)
           {
-            zone.StopControl();
+            heater.StopControl();
           }
         }
         else
         {
-          zone.StartControl();
+          heater.StartControl();
         }
       }
     }
 
+    private void btnCloseClick(object sender, RoutedEventArgs e)
+    {
+      this.DialogResult = false;
+      this.Close();
+    }
+
+    private void btnApplyClick(object sender, RoutedEventArgs e)
+    {
+      this.DialogResult = false;
+      this.Close();
+    }
+
+    private void btnSaveClick(object sender, RoutedEventArgs e)
+    {
+      this.DialogResult = false;
+      this.Close();
+    }
   }
 }

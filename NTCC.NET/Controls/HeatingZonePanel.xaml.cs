@@ -16,33 +16,33 @@ using System.Windows.Shapes;
 
 namespace NTCC.NET.Controls
 {
-    /// <summary>
-    /// Interaction logic for HeatingZonePanel.xaml
-    /// </summary>
-    public partial class HeatingZonePanel : UserControl
+  /// <summary>
+  /// Interaction logic for HeatingZonePanel.xaml
+  /// </summary>
+  public partial class HeatingZonePanel : UserControl
+  {
+    public HeatingZonePanel()
     {
-        public HeatingZonePanel()
-        {
-            InitializeComponent();
-        }
-
-        private void SwitchHeaterPower(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            DiscreteOutputDataPoint powerSwitchDataPoint = (DiscreteOutputDataPoint)button.Tag;
-
-            powerSwitchDataPoint.SetState(!powerSwitchDataPoint.State);
-        }
-
-        private void SwitchHeatingControl(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            ReactorHeatingZone heatingZone = (ReactorHeatingZone)button.Tag;
-
-            if (heatingZone.IsControlStarted)
-                heatingZone.StopControl();
-            else
-                heatingZone.StartControl();
-        }
+      InitializeComponent();
     }
+
+    private void SwitchHeaterPower(object sender, RoutedEventArgs e)
+    {
+      Button button = (Button)sender;
+      DiscreteOutputDataPoint powerSwitchDataPoint = (DiscreteOutputDataPoint)button.Tag;
+
+      powerSwitchDataPoint.SetState(!powerSwitchDataPoint.State);
+    }
+
+    private void SwitchHeatingControl(object sender, RoutedEventArgs e)
+    {
+      Button button = (Button)sender;
+      ReactorHeatingZone heatingZone = (ReactorHeatingZone)button.Tag;
+
+      if (heatingZone.IsControlStarted)
+        heatingZone.StopControl();
+      else
+        heatingZone.StartControl();
+    }
+  }
 }

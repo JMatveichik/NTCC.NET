@@ -54,6 +54,23 @@ namespace NTCC.NET.Commands
       get;
     } = new RoutedUICommand("Setup heating zone parameter", "HeatingZoneParameters", typeof(FacilityCommands), null);
 
+
+    /// <summary>
+    /// Команда задания параметоров зоны реактора
+    /// </summary>
+    public static RoutedUICommand StageParameters
+    {
+      get;
+    } = new RoutedUICommand("Setup stage parameters", "StageParameters", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда задания параметоров подогревателя газа
+    /// </summary>
+    public static RoutedUICommand GasHeaterParameters
+    {
+      get;
+    } = new RoutedUICommand("Setup gas heater parameters", "GasHeaterParameters", typeof(FacilityCommands), null);
+
     /// <summary>
     /// Команда включения\выключения питания зоны
     /// </summary>

@@ -224,7 +224,7 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
-    public IUserConfirmation ContinueCycleConfirmation = null;
+    
     protected override StageResult Main(CancellationToken cancel, CancellationToken skip)
     {
       StageResult result = StageResult.Successful;
@@ -258,9 +258,9 @@ namespace NTCC.NET.Core.Stages
           break;
 
         //запрашиваем переход на новый цикл 
-        if (ContinueCycleConfirmation != null)
+        if (UserConfirmation != null)
         {
-          if (!ContinueCycleConfirmation.Confirm())
+          if (!UserConfirmation.Confirm("Для перехода на следующий цикл нажмите (Yes). Иначе нажмите (No) - технологический цикл будет остановлен"))
             break;
         }
       }

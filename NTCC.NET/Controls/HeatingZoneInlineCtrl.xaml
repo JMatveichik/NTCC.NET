@@ -119,6 +119,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
+      
       <!--Heating Zone Card Header -->
       <Border Grid.Row="0"
               Style="{StaticResource BorderUnderline}">
@@ -250,6 +251,7 @@
                     Grid.Column="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
+          
           <Button Width="30"
                   Height="30"
                   Margin="5"

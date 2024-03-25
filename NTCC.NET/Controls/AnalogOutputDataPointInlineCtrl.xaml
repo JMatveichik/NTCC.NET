@@ -6,6 +6,7 @@
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             
              xmlns:local="clr-namespace:NTCC.NET.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="200">
@@ -35,12 +36,12 @@
                Grid.ColumnSpan="2"
                Grid.Row="0"
                Text="{Binding Description}"/>
-    
+
     <mah:NumericUpDown Grid.Column="0"
                        Grid.Row="1"
                        Style="{StaticResource InlineAnalogValueUpDownStyle}"
                        Minimum="{Binding MinValue}"
-                       Maximum="{Binding MaxValue}"                       
+                       Maximum="{Binding MaxValue}"
                        Value="{Binding ValueToSet}"/>
 
     <Button Grid.Column="1"

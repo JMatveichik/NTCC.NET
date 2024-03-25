@@ -31,10 +31,28 @@
     <Compile Update="Controls\DiscreteDataPointState.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\GasHeaterInlineCtrl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\GasHeaterSettingPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\HeatingZoneInlineCtrl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\StageCommonSettingsPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\StageHeatingSettingsPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\StageHeatingZoneSettingsItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\StageDurationCtrl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Controls\StageTechnolgicalSettingPanel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\ValveInlineCtrl.xaml.cs">
@@ -61,7 +79,13 @@
     <Compile Update="Dialogs\CustomMessageBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Dialogs\GasHeaterParametersDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Dialogs\HeatingZoneParametersDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Dialogs\StageParametersDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\ChartsPage.xaml.cs">
@@ -105,10 +129,28 @@
     <Page Update="Controls\DiscreteDataPointState.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\GasHeaterInlineCtrl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\GasHeaterSettingPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\HeatingZoneInlineCtrl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\StageCommonSettingsPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StageHeatingSettingsPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StageHeatingZoneSettingsItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\StageDurationCtrl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\StageTechnolgicalSettingPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ValveInlineCtrl.xaml">
@@ -135,7 +177,13 @@
     <Page Update="Dialogs\CustomMessageBox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Dialogs\GasHeaterParametersDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Dialogs\HeatingZoneParametersDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Dialogs\StageParametersDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
