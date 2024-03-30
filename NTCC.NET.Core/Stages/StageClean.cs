@@ -267,6 +267,7 @@ namespace NTCC.NET.Core.Stages
         {
           MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
           OnTick(toex.Message, MessageType.Error);
+          
           return StageResult.Failed;
         }
         catch (Exception ex)

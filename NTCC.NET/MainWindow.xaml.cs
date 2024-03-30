@@ -66,7 +66,13 @@ namespace NTCC.NET
 
     private void StopFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
     {
-      ArtMonbatFacility.FullCycle.CurrentStage.Stop();
+      string message = $"Вы уверены, что хотите остановить технологический цикл ?";
+
+      bool? Result = new CustomMessageBox(message, Dialogs.MessageType.Confirmation, MessageButtons.YesNo).ShowDialog();
+      if (Result.Value)
+      {
+        ArtMonbatFacility.FullCycle.CurrentStage.Stop();
+      }
     }
 
     private void StartFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -107,7 +113,14 @@ namespace NTCC.NET
 
     private void SkipCurrentStageExecuted(object sender, ExecutedRoutedEventArgs e)
     {
-      ArtMonbatFacility.FullCycle.CurrentStage.Skip();
+      StageBase currentStage = ArtMonbatFacility.FullCycle.CurrentStage;
+      string message = $"Вы уверены, что хотите пропустить стадию {currentStage.Description} технологический цикл ?";
+
+      bool? Result = new CustomMessageBox(message, Dialogs.MessageType.Confirmation, MessageButtons.YesNo).ShowDialog();
+      if (Result.Value)
+      {
+        currentStage.Skip();
+      }
     }
 
    
