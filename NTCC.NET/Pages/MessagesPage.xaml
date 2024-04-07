@@ -4,15 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NTCC.NET.Pages"
+             xmlns:appconverters="clr-namespace:NTCC.NET.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Border Style="{StaticResource BorderBox}">
-            <DataGrid 
+  <Grid>
+    <Border Style="{StaticResource BorderBox}">
+      
+      <DataGrid 
                 FontFamily="{StaticResource RCRegularLight}"
-                AutoGenerateColumns="True"
-                ItemsSource ="{Binding MessagesList}">
-        </DataGrid>
-        </Border>
-    </Grid>
+                ItemsSource ="{Binding MessagesList}"
+                AutoGenerateColumns="False">
+        
+        <DataGrid.Resources>
+
+          <SolidColorBrush x:Key="InfoMessageBrush" Color="LightBlue" Opacity="0.9"/>
+          <SolidColorBrush x:Key="ErrorMessageBrush" Color="DarkOrange" Opacity="0.5"/>
+          <SolidColorBrush x:Key="WarningMessageBrush" Color="LightYellow"/>
+          <SolidColorBrush x:Key="SuccessMessageBrush" Color="LightGreen" Opacity="0.5"/>
+          <SolidColorBrush x:Key="DebugMessageBrush" Color="Gray" Opacity="0.5"/>
+          <SolidColorBrush x:Key="ExceptionMessageBrush" Color="Violet" Opacity="0.5"/>
+          <SolidColorBrush x:Key="TraceMessageBrush" Color="LightGray" Opacity="0.5"/>
+
+          <appconverters:MessageTypeToColorConverter x:Key="MessageBackGroundColors"
+                          InfoMessageBrush="{StaticResource InfoMessageBrush}"
+                          ErrorMessageBrush="{StaticResource ErrorMessageBrush}"
+                          WarningMessageBrush="{StaticResource WarningMessageBrush}"
+                          SuccessMessageBrush="{StaticResource SuccessMessageBrush}"
+                          DebugMessageBrush="{StaticResource DebugMessageBrush}"
+                          ExceptionMessageBrush="{StaticResource ExceptionMessageBrush}"
+                          TraceMessageBrush="{StaticResource TraceMessageBrush}"/>
+
+          <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+            <Setter Property="Background" Value="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"/>
+            <Setter Property="Margin" Value="0"/>
+          </Style>
+          
+        </DataGrid.Resources>
+        
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="" Binding="{Binding MessageType, Mode=OneWay}"/>
+          <DataGridTextColumn Header="Время" Binding="{Binding Time, StringFormat={}{0:hh\\:mm\\:ss}, Mode=OneWay}"/>
+          <DataGridTextColumn Header="ID" Binding="{Binding SenderID, Mode=OneWay}" />
+          <DataGridTextColumn Header="Отправитель" Binding="{Binding SenderTitle, Mode=OneWay}" />
+          <DataGridTextColumn Header="Описание" Binding="{Binding SenderDescription, Mode=OneWay}" />
+          <DataGridTextColumn Header="Сообщение" Binding="{Binding Message, Mode=OneWay}" />
+        </DataGrid.Columns>
+        
+      </DataGrid>
+    </Border>
+  </Grid>
 </UserControl>

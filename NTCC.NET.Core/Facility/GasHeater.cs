@@ -120,14 +120,20 @@ namespace NTCC.NET.Core.Facility
       if (GasTemperature.Value > TargetGasTemperature ||
           WaterTemperature.Value > MaxWaterTemperature)
       {
-        HeaterState.SetState(false);
+        if (HeaterState.State != false)
+          HeaterState.SetState(false);
+
         return;
       }
 
       //если температура газа меньше заданной
       //включаем нагревательный элемент
       if (GasTemperature.Value < TargetGasTemperature)
-        HeaterState.SetState(true);
+      {
+        if (HeaterState.State != true)
+          HeaterState.SetState(true);
+      }
+        
     }
   }
 }

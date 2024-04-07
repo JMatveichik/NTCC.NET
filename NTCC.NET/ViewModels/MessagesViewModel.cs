@@ -13,6 +13,7 @@ namespace NTCC.NET.ViewModels
   {
 
     private readonly object Sync = new object();
+
     public MessagesViewModel()
     {
       ArtMonbatFacility facility = ArtMonbatFacility.Instance;
@@ -38,7 +39,7 @@ namespace NTCC.NET.ViewModels
 
         App.Current.Dispatcher.Invoke((Action)delegate
         {
-          MessagesList.Add(message);
+          MessagesList.Insert(0, message);
         });
       }
     }

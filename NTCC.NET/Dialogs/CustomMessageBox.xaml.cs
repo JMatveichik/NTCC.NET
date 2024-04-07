@@ -13,35 +13,40 @@ namespace NTCC.NET.Dialogs
     public CustomMessageBox(string Message, MessageType Type, MessageButtons Buttons)
     {
       InitializeComponent();
+      DataContext = this;
+
       txtMessage.Text = Message;
+      MessageType = Type;
 
       switch (Type)
       {
         case MessageType.Info:
-          txtTitle.Text = "Info";
-          MessageIcon = new PackIconMaterial() { Kind = PackIconMaterialKind.Information, Width = 48, Height = 48, Foreground = Brushes.DarkBlue };
+          txtTitle.Text = "ИНФОРМАЦИЯ";
+          MessageIcon = new PackIcon() { Kind = PackIconKind.InfoOutline, Width= 32, Height=32};
           break;
 
         case MessageType.Confirmation:
-          txtTitle.Text = "Confirmation";
-          MessageIcon = new PackIconMaterial() { Kind = PackIconMaterialKind.HelpCircleOutline, Width = 48, Height = 48, Foreground = Brushes.DarkBlue };
+          txtTitle.Text = "ПОДТВЕРЖДЕНИЕ";
+          MessageIcon = new PackIcon() { Kind = PackIconKind.HelpOutline, Width = 32, Height = 32 };
           break;
 
         case MessageType.Success:
-          txtTitle.Text = "Success";
-          MessageIcon = new PackIconMaterial() { Kind = PackIconMaterialKind.CheckboxMarkedCircleOutline, Width = 48, Height = 48, Foreground = Brushes.DarkBlue };
+          txtTitle.Text = "УСПЕШНО";
+          MessageIcon = new PackIcon() { Kind = PackIconKind.CheckboxMarkedCircleOutline, Width = 32, Height = 32 };
           break;
 
         case MessageType.Warning:
-          txtTitle.Text = "Warning";
-          MessageIcon = new PackIconMaterial() { Kind = PackIconMaterialKind.AlertOutline, Width = 48, Height = 48, Foreground = Brushes.DarkBlue };
+          txtTitle.Text = "ВНИМАНИЕ";
+          MessageIcon = new PackIcon() { Kind = PackIconKind.WarningOutline, Width = 32, Height = 32 };
           break;
 
         case MessageType.Error:
-          txtTitle.Text = "Error";
-          MessageIcon = new PackIconMaterial() { Kind = PackIconMaterialKind.CloseCircleOutline, Width = 48, Height = 48, Foreground = Brushes.DarkBlue };
+          txtTitle.Text = "ОШИБКА";
+          MessageIcon = new PackIcon() { Kind = PackIconKind.AlertCircleOutline, Width = 32, Height = 32 };
           break;
       }
+
+      IconContent.Content = MessageIcon;
 
       switch (Buttons)
       {
@@ -61,7 +66,13 @@ namespace NTCC.NET.Dialogs
           break;
       }
     }
-    public PackIconBase MessageIcon = null;
+    public PackIcon MessageIcon = null;
+
+    public MessageType MessageType 
+    { 
+      get; 
+      set; 
+    }
 
     private void btnYes_Click(object sender, RoutedEventArgs e)
     {

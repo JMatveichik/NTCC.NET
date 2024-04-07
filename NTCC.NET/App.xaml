@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:NTCC.NET.UI.Converters;assembly=NTCC.NET.UI"
+             xmlns:appconverters="clr-namespace:NTCC.NET.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:NTCC.NET">
   
@@ -148,6 +149,23 @@
       </Style>
 
 
+      <SolidColorBrush x:Key="InfoMessageBrush" Color="LightBlue"/>
+      <SolidColorBrush x:Key="ErrorMessageBrush" Color="DarkRed"/>
+      <SolidColorBrush x:Key="WarningMessageBrush" Color="Orange"/>
+      <SolidColorBrush x:Key="SuccessMessageBrush" Color="LightGreen"/>
+      <SolidColorBrush x:Key="DebugMessageBrush" Color="Gray"/>
+      <SolidColorBrush x:Key="ExceptionMessageBrush" Color="Violet"/>
+      <SolidColorBrush x:Key="TraceMessageBrush" Color="LightGray"/>
+
+      <appconverters:MessageTypeToColorConverter x:Key="MessageBackGroundColors"
+            InfoMessageBrush="{StaticResource InfoMessageBrush}"
+            ErrorMessageBrush="{StaticResource ErrorMessageBrush}"
+            WarningMessageBrush="{StaticResource WarningMessageBrush}"
+            SuccessMessageBrush="{StaticResource SuccessMessageBrush}"
+            DebugMessageBrush="{StaticResource DebugMessageBrush}"
+            ExceptionMessageBrush="{StaticResource ExceptionMessageBrush}"
+            TraceMessageBrush="{StaticResource TraceMessageBrush}"/>
+      
     </ResourceDictionary>
   </Application.Resources>
 </Application>

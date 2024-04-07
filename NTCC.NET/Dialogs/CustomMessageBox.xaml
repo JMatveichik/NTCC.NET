@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:NTCC.NET.Dialogs"
         WindowStartupLocation="CenterScreen"
-        BorderBrush="{StaticResource MahApps.Brushes.Accent}"
+        BorderBrush="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"
         BorderThickness="1"
         WindowStyle="None"
         Background="White"
@@ -21,15 +21,10 @@
         Width="500">
   <Grid>
 
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-
-
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
       <RowDefinition Height="*"/>
+      <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
 
     <materialDesign:Card x:Name="cardHeader"
@@ -37,131 +32,95 @@
                          Padding="10"
                          Margin="0"
                          materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                         Background="{DynamicResource PrimaryHueDarkBrush}"
+                         Background="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"
                          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
-                         Visibility="Visible"
-                         Grid.ColumnSpan="2">
-      <StackPanel>
-        <TextBlock x:Name="txtTitle"
+                         Visibility="Visible">
+
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+      
+      <TextBlock Grid.Column="1" x:Name="txtTitle"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Stretch"
+                   VerticalAlignment="Center"
                    Style="{DynamicResource MaterialDesignTitleTextBlock}"
                    FontSize="20">Message Title</TextBlock>
-      </StackPanel>
+        
+      <ContentControl x:Name="IconContent" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center" 
+                Foreground="White"/>
+
+      </Grid>
     </materialDesign:Card>
 
-    <StackPanel HorizontalAlignment="Right"
-                Margin="0,5,5,0"
-                VerticalAlignment="Top"
-                Grid.Column="1">
+    <Grid Grid.Row="1">
 
-      <Button x:Name="btnClose"
-              Click="btnClose_Click"
-              Width="35"
-              Height="35"
-              Background="White"
-              Foreground="{DynamicResource PrimaryHueDarkBrush}"
-              Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-        
-        <materialDesign:PackIcon Kind="Close"/>
+      <materialDesign:TransitioningContent>
 
-      </Button>
+        <materialDesign:TransitioningContent.OpeningEffects>
+          <materialDesign:TransitionEffect Kind="FadeIn"/>
+        </materialDesign:TransitioningContent.OpeningEffects>
 
+                 
+
+          <TextBlock Grid.Column="1" 
+                     x:Name="txtMessage"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     TextWrapping="Wrap"
+                     Margin="10"
+                     Style="{StaticResource Value}"/>
+       
+
+      </materialDesign:TransitioningContent>
+
+    </Grid>
+
+    <StackPanel Grid.Row="2" Margin="0,10,10,10" Orientation="Horizontal" HorizontalAlignment="Right">
+
+      <Button x:Name="btnOk"
+          Click="btnOk_Click"
+          Grid.Column="1"
+          Style="{StaticResource MaterialDesignRaisedButton}"
+          Background="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"
+          Margin="5"
+          Width="100"
+          Content="OK"
+          ToolTip="Ok"/>
+
+      <Button x:Name="btnCancel"
+          Click="btnCancel_Click"
+          Grid.Column="2"
+          Style="{StaticResource MaterialDesignRaisedButton}"
+          Background="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"
+          Margin="5"
+          Width="100"
+          Content="Cancel"
+          ToolTip="Cancel"/>
+
+      <Button x:Name="btnYes"
+          Click="btnYes_Click"
+          Grid.Column="1"
+          Style="{StaticResource MaterialDesignRaisedButton}"
+          Background="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"
+          Margin="5"
+          Width="100"
+          Content="Yes"
+          ToolTip="Yes"/>
+
+      <Button x:Name="btnNo"
+          Click="btnNo_Click"
+          Grid.Column="2"
+          Style="{StaticResource MaterialDesignRaisedButton}"
+          Background="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"
+          Margin="5"
+          Width="100"
+          Content="No"
+          ToolTip="No"/>
     </StackPanel>
 
-    <Grid Grid.Row="1" Grid.ColumnSpan="2">
-
-      <Grid Margin="20">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="auto"/>
-          <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="0">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-          </Grid.RowDefinitions>
-
-          <materialDesign:TransitioningContent>
-
-            <materialDesign:TransitioningContent.OpeningEffects>
-              <materialDesign:TransitionEffect Kind="FadeIn"/>
-              <materialDesign:TransitionEffect Kind="SlideInFromBottom"/>
-            </materialDesign:TransitioningContent.OpeningEffects>
-
-            <Grid>
-              
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-              </Grid.ColumnDefinitions>
-
-              <ContentControl Grid.Column="0" Content="{Binding MessageIcon}" Width="48" Height="48"/>
-
-              <TextBox x:Name="txtMessage"
-                 HorizontalAlignment="Left"
-                 TextWrapping="Wrap"
-                 IsReadOnly="True"
-                 Grid.Column="1"
-                 Margin="0,5,0,5"
-                 materialDesign:HintAssist.Hint=""
-                 FontSize="18"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-            </Grid>
-
-
-          </materialDesign:TransitioningContent>
-        </Grid>
-
-        <Grid Grid.Row="1"
-              Margin="0,20,0,5">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-          </Grid.ColumnDefinitions>
-
-          <Button x:Name="btnOk"
-                  Click="btnOk_Click"
-                  Grid.Column="1"
-                  Style="{StaticResource MaterialDesignRaisedButton}"
-                  Margin="5"
-                  Width="100"
-                  Content="OK"
-                  ToolTip="Ok"/>
-
-          <Button x:Name="btnCancel"
-                  Click="btnCancel_Click"
-                  Grid.Column="2"
-                  Style="{StaticResource MaterialDesignRaisedButton}"
-                  Margin="5"
-                  Width="100"
-                  Content="Cancel"
-                  ToolTip="Cancel"/>
-
-          <Button x:Name="btnYes"
-                  Click="btnYes_Click"
-                  Grid.Column="1"
-                  Style="{StaticResource MaterialDesignRaisedButton}"
-                  Margin="5"
-                  Width="100"
-                  Content="Yes"
-                  ToolTip="Yes"/>
-
-          <Button x:Name="btnNo"
-                  Click="btnNo_Click"
-                  Grid.Column="2"
-                  Style="{StaticResource MaterialDesignRaisedButton}"
-                  Margin="5"
-                  Width="100"
-                  Content="No"
-                  ToolTip="No"/>
-        </Grid>
-      </Grid>
-    </Grid>
   </Grid>
 </Window>
