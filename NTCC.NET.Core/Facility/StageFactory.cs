@@ -29,7 +29,7 @@ namespace NTCC.NET.Core.Facility
       }
       catch (Exception ex)
       {
-
+        throw new Exception($"Ошибка загрузки параметров стадии {id}.", ex);
       }
 
       StageBase stage = null;

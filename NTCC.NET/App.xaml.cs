@@ -22,6 +22,7 @@ namespace NTCC.NET
     protected override void OnStartup(StartupEventArgs e)
     {
       AppLogger.Info("Запуск приложения...");
+      //new CustomMessageBox("Запуск приложения ...", Dialogs.MessageType.Info, MessageButtons.Ok).ShowDialog();
 
       Duplicate  = new Mutex(true, ResourceAssembly.GetName().Name);
 
