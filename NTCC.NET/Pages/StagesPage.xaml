@@ -89,11 +89,7 @@
 
     <Grid Grid.Row="1" Grid.Column="1">
 
-      <Image
-             Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
-             Margin='5'
-             Stretch="Fill"/>
-      <!--Width="1552" Height="940" -->
+      
 
       <Canvas Margin="5">
 
@@ -104,9 +100,16 @@
           </Style>
         </Canvas.Resources>
 
-        <ctrls:GasHeaterInlineCtrl/>
+        
 
-        <!-- TEXT MARKS -->
+
+        <Image
+            Source="/NTCC.NET;component/Resources/facility.shcema.background.png" 
+            Stretch="Fill"
+            Width="1552" Height="940"/>
+                
+
+                <!-- TEXT MARKS -->
         <TextBlock Canvas.Top="130" Canvas.Left="5"> 
           <Run Text="Сжатый воздух"/>
           <LineBreak/>
@@ -620,7 +623,12 @@
           DataContext="{Binding ReactorZones[HT07.IN.BOT]}">
         </ctrls:HeatingZoneInlineCtrl>
 
-        <iconPacks:PackIconFileIcons Kind="Cwl"
+
+        <ctrls:GasHeaterInlineCtrl
+          Canvas.Top="650"
+          Canvas.Left="1250"/>
+
+                <iconPacks:PackIconFileIcons Kind="Cwl"
                                      Height="48"
                                      Width="48"
                                      Canvas.Top="630"
