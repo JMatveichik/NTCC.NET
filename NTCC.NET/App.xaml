@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:NTCC.NET.UI.Converters;assembly=NTCC.NET.UI"
              xmlns:appconverters="clr-namespace:NTCC.NET.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:NTCC.NET">
   
   <!--StartupUri="MainWindow.xaml"-->
@@ -165,7 +166,61 @@
             DebugMessageBrush="{StaticResource DebugMessageBrush}"
             ExceptionMessageBrush="{StaticResource ExceptionMessageBrush}"
             TraceMessageBrush="{StaticResource TraceMessageBrush}"/>
-      
-    </ResourceDictionary>
+
+      <Style x:Key="ValveButtonStyle"
+            TargetType="Button" 
+            BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+
+        <Style.Triggers>
+
+          <DataTrigger Binding="{Binding State}" Value="True">
+            <Setter  Property="Background" Value="DarkGreen"/>
+            <Setter Property ="BorderBrush" Value="DarkSeaGreen"></Setter>
+
+            <Setter Property="Content">
+              <Setter.Value>
+
+                <iconPacks:PackIconMaterial Kind="ValveOpen" 
+                              Foreground="White"
+                              HorizontalAlignment="Center"
+                              Style="{StaticResource MetroToolBoxIconStyle16}"
+                              RenderTransformOrigin="0.5, 0.5">
+
+                  <iconPacks:PackIconMaterial.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                  </iconPacks:PackIconMaterial.RenderTransform>
+                </iconPacks:PackIconMaterial>
+
+              </Setter.Value>
+            </Setter>
+          </DataTrigger>
+
+          <DataTrigger Binding="{Binding State}" Value="False">
+            <Setter  Property="Background" Value="DarkRed"/>
+            <Setter Property="BorderBrush" Value="IndianRed"></Setter>
+            <Setter Property="Content">
+              <Setter.Value>
+
+                <iconPacks:PackIconMaterial Kind="ValveClosed" 
+                              Foreground="White"
+                              HorizontalAlignment="Center"
+                              Style="{StaticResource MetroToolBoxIconStyle16}"
+                              RenderTransformOrigin="0.5, 0.5">
+
+                  <iconPacks:PackIconMaterial.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                  </iconPacks:PackIconMaterial.RenderTransform>
+                </iconPacks:PackIconMaterial>
+
+              </Setter.Value>
+            </Setter>
+          </DataTrigger>
+
+        </Style.Triggers>
+      </Style>
+
+    </ResourceDictionary>    
   </Application.Resources>
 </Application>

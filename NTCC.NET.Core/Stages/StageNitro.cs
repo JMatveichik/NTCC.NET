@@ -14,7 +14,10 @@ namespace NTCC.NET.Core.Stages
     public StageNitro(string id) : base(id)
     {
     }
-
+    /// <summary>
+    /// Подготовка к стадии использующей расход азота
+    /// </summary>
+    /// <returns></returns>
     public override StageResult Prepare()
     {
       //задание параметров прогрева
@@ -68,6 +71,10 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
+    /// <summary>
+    /// Метод вызываемый для стадии с протоком азота при ее завершении
+    /// </summary>
+    /// <returns></returns>
     protected override StageResult Finalization()
     {
       //сбросить расход азота в камеру синтеза
@@ -104,5 +111,12 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
+    /// <summary>
+    /// При каждом тике стадии с расходом азота вызываемый метод 
+    /// </summary>
+    /// <remarks>На данном этапе ничего не делаем</remarks>
+    protected override void OnMainTick()
+    {      
+    }
   }
 }

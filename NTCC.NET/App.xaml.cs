@@ -131,10 +131,15 @@ namespace NTCC.NET
       //регистрируем обработчик логирования для подогревателя газа
       RegisterLogSource(ArtMonbatFacility.GasHeater);
 
-      AppLogger.Debug($"Регистрация обработчиков для логирования раобты заслонки выгрузки ...");
+      AppLogger.Debug($"Регистрация обработчиков для логирования работы заслонки выгрузки ...");
 
       //регистрируем обработчик логирования для управления заслонкой
       RegisterLogSource(ArtMonbatFacility.Damper);
+
+      AppLogger.Debug($"Регистрация обработчиков для логирования работы скребка ...");
+
+      //регистрируем обработчик логирования для управления скребком
+      RegisterLogSource(ArtMonbatFacility.Scrapper);
 
     }
     /// <summary>

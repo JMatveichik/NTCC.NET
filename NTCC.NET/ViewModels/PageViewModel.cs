@@ -22,5 +22,16 @@ namespace NTCC.NET.ViewModels
         OnPropertyChanged();
       }
     }
+
+    public int BadgeValue
+    {
+      get => _badgeValue;
+      set
+      {
+        _badgeValue = value;
+        OnPropertyChanged();
+      }
+    }
+    public int _badgeValue = 0;
   }
 }

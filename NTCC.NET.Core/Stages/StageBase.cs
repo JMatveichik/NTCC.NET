@@ -162,61 +162,61 @@ namespace NTCC.NET.Core.Stages
         case StageState.Wait:
           {
             messageType = MessageType.Info;
-            return $"Ожидание выполнения стадии {stage.Title}.";
+            return $"Ожидание выполнения стадии «{stage.Title}».";
           }
         case StageState.Prepeared:
           {
-            messageType = MessageType.Info; 
-            return $"Стадия {stage.Title} подготовлена к выполнению.";
+            messageType = MessageType.Success; 
+            return $"Стадия «{stage.Title}» подготовлена к выполнению.";
           }
           
         case StageState.Started:
           {
-            messageType = MessageType.Success;
-            return $"Начато выполнения основного алгоритма стадии {stage.Title}.";
+            messageType = MessageType.Warning;
+            return $"Начато выполнения основного алгоритма стадии «{stage.Title}».";
           }
           
         case StageState.Completed:
           {
             messageType = MessageType.Success;
-            return $"Выполнения основного алготиритма стадии {stage.Title} завершено.";
+            return $"Выполнения основного алготиритма стадии «{stage.Title}» завершено.";
           }
           
         case StageState.Failed:
           {
             messageType = MessageType.Error;
-            return $"Техническая ошибка во время выполнения стадии {stage.Title}.";
+            return $"Техническая ошибка во время выполнения стадии «{stage.Title}».";
           }
           
         case StageState.Stopped:
           {  
             messageType = MessageType.Warning;
-            return $"Стадия {stage.Title} остановлена пользователем.";
+            return $"Стадия «{stage.Title}» остановлена пользователем.";
           }
           
         case StageState.Skipped:
           { 
             messageType = MessageType.Warning;
-            return $"Стадия {stage.Title} пропущена пользователем.";
+            return $"Стадия «{stage.Title}» пропущена пользователем.";
             
           }
           
         case StageState.Finalized:
           {
-            messageType = MessageType.Success;
-            return $"Cтадия {stage.Title} завершена";
+            messageType = MessageType.Warning;
+            return $"Cтадия «{stage.Title}» завершена";
           }
           
         case StageState.Excepted:
           {
             messageType = MessageType.Exception;
-            return $"Программная ошибка при выполнении стадии {stage.Title}";
+            return $"Программная ошибка при выполнении стадии «{stage.Title}»";
           }
 
         default:
           {              
             messageType = MessageType.Error;
-            return $"Неизвестное состояние стадии {stage.Title}";
+            return $"Неизвестное состояние стадии «{stage.Title}»";
           }
       }
     }

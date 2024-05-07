@@ -17,6 +17,10 @@ namespace NTCC.NET.Core.Stages
 
     }
 
+    /// <summary>
+    /// Подготовка к стадии использующей расход пропан-бутана
+    /// </summary>
+    /// <returns></returns>
     public override StageResult Prepare()
     {
       //задание параметров прогрева
@@ -43,6 +47,10 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
+    /// <summary>
+    /// Метод вызываемый для стадии с протоком пропан-бутана при ее завершении
+    /// </summary>
+    /// <returns></returns>
     protected override StageResult Finalization()
     {
       //закрыть клапан подачи пропан-бутана на расходомер
@@ -60,6 +68,13 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
-    
+    /// <summary>
+    /// При каждом тике стадии с расходом пропан-бутана вызываемый метод 
+    /// </summary>
+    /// <remarks>На данном этапе ничего не делаем</remarks>
+    protected override void OnMainTick()
+    {
+    }
+
   }
 }

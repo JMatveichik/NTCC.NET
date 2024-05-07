@@ -3,17 +3,74 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              xmlns:local="clr-namespace:NTCC.NET.Pages"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:appconverters="clr-namespace:NTCC.NET.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
   <Grid>
-    <Border Style="{StaticResource BorderBox}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <StackPanel Orientation="Horizontal">
+    <ComboBox Grid.Row="0" Width="200"
+              FontFamily="{StaticResource RCRegularLight}"
+              FontSize="16"
+              ItemsSource="{Binding ShowMessgeType}" 
+              HorizontalContentAlignment="Stretch"
+              HorizontalAlignment="Left"
+              Margin="20,5">
       
-      <DataGrid 
+      
+      <materialDesign:HintAssist.Hint>
+        
+        <StackPanel Orientation="Horizontal" Margin="3 0 0 0">
+          <materialDesign:PackIcon Kind="Filter" />
+          <TextBlock> Фильтрация по типу</TextBlock>
+        </StackPanel>
+      </materialDesign:HintAssist.Hint>
+      
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <CheckBox Content="{Binding Type}"
+                    IsChecked="{Binding IsVisible, Mode=TwoWay}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <materialDesign:Badged Badge="{Binding BadgeValue}" 
+                           BadgePlacementMode="TopRight" 
+                           Margin="30,10"
+                           BadgeBackground="DarkOrange">
+        <Button Command="{x:Static cmds:FacilityCommands.MarkAllMessagesAsReaded}" 
+                Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                ToolTip="Пометить все сообщения как прочитанные.">
+        <Button.Content>
+          <materialDesign:PackIcon Kind="EmailAlert" />
+        </Button.Content>
+      </Button>
+    </materialDesign:Badged>
+
+      <Button Command="{x:Static cmds:FacilityCommands.ClearMessageList}" 
+          Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+          ToolTip="Очистить список сообщений.">
+        <Button.Content>
+          <materialDesign:PackIcon Kind="Clear" />
+        </Button.Content>
+      </Button>
+
+    </StackPanel>
+  
+    <Border Grid.Row="1" Style="{StaticResource BorderBox}">
+      
+      <DataGrid x:Name="messagesDataGrid"
                 FontFamily="{StaticResource RCRegularLight}"
                 ItemsSource ="{Binding MessagesList}"
-                AutoGenerateColumns="False">
+                AutoGenerateColumns="False"
+                MouseMove="MessagesDataGridMouseMove">
         
         <DataGrid.Resources>
 

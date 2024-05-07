@@ -107,7 +107,7 @@ namespace NTCC.NET.Core.Facility
 
       //сообщаем об остановке потока переключения 
       string message = $"Процедура процедура подогрева пропан-бутана остановлена";
-      OnTick(message, MessageType.Info);
+      OnTick(message, MessageType.Warning);
     }
     
     /// <summary>

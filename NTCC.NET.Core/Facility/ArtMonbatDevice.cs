@@ -75,7 +75,7 @@ namespace NTCC.NET.Core.Facility
     {
       string[] addr = connection.Split(':');
 
-      string ip = "192.168.100.54";
+      string ip = "127.0.0.1";
       ushort port = 502;
       byte unitID = 1;
 
@@ -102,28 +102,43 @@ namespace NTCC.NET.Core.Facility
       Port = port;
       UnitID = unitID;
 
+      //закрываем предыдущее соединение если оно было
+      if (client != null)
+      {
+        client.Close();
+        client = null;
+      }
+
       client = new TcpClient();
       IPEndPoint ep = new IPEndPoint(IPAddress.Parse(IP), port);
 
       try
       {
         client.Connect(ep);
-        master = ModbusIpMaster.CreateIp(client);
 
+        //закрываем предыдущее modbus соединение если оно было
+        if(master != null)
+        {
+          master.Dispose();
+          master = null;
+        }
+
+        master = ModbusIpMaster.CreateIp(client);
 
         //master.Transport.ReadTimeout  = 1000;
         //master.Transport.WriteTimeout = 1000;
       }
       catch (Exception ex)
       {
+        string message = $"Ошибка подключения к устройству «{Title}» => Детали : {ex.Message}";
+        OnTick(message, MessageType.Exception); 
+
         return false;
       }
 
       return true;
     }
 
-
-    //private List<ushort> registers = new List<ushort>();
 
     ushort[] registers = null;
 
@@ -138,6 +153,7 @@ namespace NTCC.NET.Core.Facility
         ushort iStartRegister = 0;
         ushort iRegisterToRead = iMaxRegisterPerRequest;
         ushort iRegistersToReadLeft = TotalRegisters;
+
         try
         {
           while (iRegistersToReadLeft != 0)
@@ -152,13 +168,16 @@ namespace NTCC.NET.Core.Facility
 
           }
         }
-        catch (Modbus.SlaveException mbex)
-        {
-          Debug.WriteLine(mbex.Message);
-        }
         catch (Exception ex)
         {
-          Debug.WriteLine(ex.Message);
+          string message = $"Ошибка чтения данных с устройства «{Title}» => Детали : {ex.Message}";
+          OnTick(message, MessageType.Exception);
+
+          //если возникла ошибка, то пытаемся переподключиться
+          if (!Reconnect())
+          {
+            throw new Exception($"Связь с устройством «{Title}» была потеряна.", ex);
+          }
         }
 
         base.UpdateData();
@@ -169,11 +188,25 @@ namespace NTCC.NET.Core.Facility
     {
       lock (lockModbus)
       {
-        ArtMonbatChannelsMapper mapper = ArtMonbatChannelsMapper.Instance;
-        ArtMonbatRegisterInfo regInfo = mapper.DiscreteOutputsMap[ch];
+        try
+        {
+          ArtMonbatChannelsMapper mapper = ArtMonbatChannelsMapper.Instance;
+          ArtMonbatRegisterInfo regInfo = mapper.DiscreteOutputsMap[ch];
 
-        ushort stateValue = (ushort)(state ? 1 : 0);
-        master.WriteSingleRegister((ushort)regInfo.RegisterAddress, stateValue);
+          ushort stateValue = (ushort)(state ? 1 : 0);
+          master.WriteSingleRegister((ushort)regInfo.RegisterAddress, stateValue);
+        }
+        catch (Exception ex)
+        {
+          string message = $"Ошибка записи данных в дискретный канал устройства «{Title}» => Канал : {ch} => Состояние : {state} => Детали : {ex.Message}";
+          OnTick(message, MessageType.Exception);
+
+          //если возникла ошибка, то пытаемся переподключиться
+          if (!Reconnect())
+          {
+            throw new Exception($"Связь с устройством «{Title}» была потеряна.", ex);
+          }
+        }
       }
     }
 
@@ -181,20 +214,34 @@ namespace NTCC.NET.Core.Facility
     {
       lock (lockModbus)
       {
-        ArtMonbatChannelsMapper mapper = ArtMonbatChannelsMapper.Instance;
-        ArtMonbatRegisterInfo regInfo = mapper.AnalogOutputsMap[ch];
-
-        float newVal = (float)value;
-
-        if (regInfo.Size == 2)
+        try
         {
-          ushort[] resultRegisters = FloatToModbusRegisters((float)value);
-          master.WriteMultipleRegisters((ushort)regInfo.RegisterAddress, resultRegisters);
+          ArtMonbatChannelsMapper mapper = ArtMonbatChannelsMapper.Instance;
+          ArtMonbatRegisterInfo regInfo = mapper.AnalogOutputsMap[ch];
+
+          float newVal = (float)value;
+
+          if (regInfo.Size == 2)
+          {
+            ushort[] resultRegisters = FloatToModbusRegisters((float)value);
+            master.WriteMultipleRegisters((ushort)regInfo.RegisterAddress, resultRegisters);
+          }
+          else if (regInfo.Size == 1)
+          {
+            ushort resultRegisters = (ushort)(value);
+            master.WriteSingleRegister((ushort)regInfo.RegisterAddress, resultRegisters);
+          }
         }
-        else if (regInfo.Size == 1)
+        catch (Exception ex)
         {
-          ushort resultRegisters = (ushort)(value);
-          master.WriteSingleRegister((ushort)regInfo.RegisterAddress, resultRegisters);
+          string message = $"Ошибка записи данных в аналоговый канал устройства «{Title}» => Канал : {ch} => Значение : {value} => Детали : {ex.Message}";
+          OnTick(message, MessageType.Exception);
+          
+          //если возникла ошибка, то пытаемся переподключиться
+          if (!Reconnect())
+          {
+            throw new Exception($"Связь с устройством «{Title}» была потеряна.", ex);
+          }
         }
       }
     }

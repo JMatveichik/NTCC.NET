@@ -46,6 +46,16 @@ namespace NTCC.NET.Core.Tools
       Thread.Sleep(delayAfter);
     }
 
+    /// <summary>
+    /// Ожидание установки аналогового параметра
+    /// </summary>
+    /// <param name="element"></param>
+    /// <param name="id"></param>
+    /// <param name="val"></param>
+    /// <param name="timeout"></param>
+    /// <param name="precition"></param>
+    /// <param name="delayBeetwenCheck"></param>
+    /// <exception cref="Exception"></exception>
     public static void WaitAnalogParameterSet(FacilityElement element, string id, double val, TimeSpan timeout, double precition = 0.1, int delayBeetwenCheck = 100)
     {
       //TODO : need to understand how to check setup parameters 
@@ -78,6 +88,11 @@ namespace NTCC.NET.Core.Tools
       if (discreteDataPoint == null)
         throw new ArgumentException($"Не найдена дискретная точка данных <{id}>", "Data point ID");
 
+      WaitDiscreteParameterSet(element, discreteDataPoint, state, timeout, delayBeetwenCheck);
+    }
+
+    public static void WaitDiscreteParameterSet(FacilityElement element, DiscreteDataPoint discreteDataPoint, bool state, TimeSpan timeout, int delayBeetwenCheck = 100)
+    {
       DateTime startTime = DateTime.Now;
       element.OnTick($"Ожидание установки параметра {discreteDataPoint.ID}  ({state})", MessageType.Info);
 

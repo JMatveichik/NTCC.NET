@@ -269,11 +269,18 @@
         </ctrls:ValveStateInlineCtrl>
 
 
-        <!-- Привод заслонки-->
+        <!-- Привод заслонки
         <ctrls:ValveInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
           Canvas.Top="250" 
-          Canvas.Left="340"/>
+          Canvas.Left="340"/>-->
+
+        <Button Style="{StaticResource ValveButtonStyle}"
+                Command="{x:Static cmds:FacilityCommands.SwitchDamperState}"
+                DataContext="{Binding DataPoints[YA03]}"
+                Canvas.Top="250" 
+                Canvas.Left="340">
+        </Button>
 
         <ctrls:ValveStateInlineCtrl
           DataContext="{Binding DataPoints[YA03]}"
@@ -284,6 +291,7 @@
             <RotateTransform Angle="-90"/>
           </ctrls:ValveStateInlineCtrl.RenderTransform>
         </ctrls:ValveStateInlineCtrl>
+        
 
         <!-- Подача воздуха в расходомер -->
         <ctrls:ValveInlineCtrl

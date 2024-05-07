@@ -92,6 +92,18 @@ namespace NTCC.NET.Core.Facility
       private set;
     } = null;
 
+    /// <summary>
+    /// Управление скребком
+    /// </summary>
+    public static Scrapper Scrapper
+    {
+      get;
+      private set;
+    } = null;
+
+    /// <summary>
+    /// Предоставление информации о средней температуре стенок реактора
+    /// </summary>
     public static ReactorAverageTemperature AverageTemperatureProvider
     {
       get;
@@ -277,16 +289,24 @@ namespace NTCC.NET.Core.Facility
     private void initializeElements(string xmlConfigPath, string xsdSchemaPath = "")
     {
       //TODO: Move setup elements to XML
+
+      //инициализация подержания связи со шкафом управления
       Ping = new PeriodicalSwitcher("ELEM.PING");
       Ping.SetupControl("UNIT.PING", TimeSpan.FromSeconds(3.0), TimeSpan.FromSeconds(0.0));
       Ping.StartControl();
 
+      Scrapper = new Scrapper("ELEM.SCRAPPER");
+      Scrapper.SetupControl("YA01.2", "YA01.1", "CS02", "CS01", "YA02", "YA08.OPN");
+  
+      //инициализация управления заслонкой
       Damper = new PeriodicalSwitcher("ELEM.DAMPER");
       Damper.SetupControl("YA03", TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000));
 
+      //инициализация управления подогревателем газа
       GasHeater = new GasHeater("ELEM.GAS.HEATER");
       GasHeater.SetupControl("TE20", "TE21", "EK08.RUN");
 
+      //инициализация получения средней температуры стенок реактора
       AverageTemperatureProvider = new ReactorAverageTemperature("ELEM.AVERAGE.TEMPERATURE");
       AverageTemperatureProvider.StartControl();
     }

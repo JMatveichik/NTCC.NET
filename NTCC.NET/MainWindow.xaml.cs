@@ -36,11 +36,6 @@ namespace NTCC.NET
 
       this.Closing += OnClosing;
 
-      this.CommandBindings.Add(new CommandBinding(FacilityCommands.StartFullCycle, StartFullCycleExecuted, StartFullCycleCanExecuted));
-      this.CommandBindings.Add(new CommandBinding(FacilityCommands.StopFullCycle, StopFullCycleExecuted, StopFullCycleCanExecuted));
-      this.CommandBindings.Add(new CommandBinding(FacilityCommands.SkipCurrentStage, SkipCurrentStageExecuted, SkipCurrentStageCanExecuted));
-      
-
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SetAnalogOutputValue, SetAnalogOutputValueExecuted, SetAnalogOutputValueCanExecuted));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchDiscreteOutputValue, SwitchDiscreteOutputExecuted, SwitchDiscreteOutputCanExecuted));
 
@@ -48,7 +43,7 @@ namespace NTCC.NET
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.StageParameters, StageParametersExecuted, StageParametersCanExecute));
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.GasHeaterParameters, GasHeaterParametersExecuted, GasHeaterParametersCanExecute));
 
-      
+
     }
 
 
@@ -75,29 +70,7 @@ namespace NTCC.NET
       }
     }
 
-    private void StartFullCycleCanExecuted(object sender, CanExecuteRoutedEventArgs e)
-    {
-      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
-      if (fullCycleStage == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
 
-      if (fullCycleStage.State == StageState.Wait || fullCycleStage.State == StageState.Completed)
-      {
-        e.CanExecute = true;
-        return;
-      }
-
-      e.CanExecute = true;
-    }
-
-    private void StartFullCycleExecuted(object sender, ExecutedRoutedEventArgs e)
-    {
-      StageMain fullCycleStage = ArtMonbatFacility.FullCycle;
-      Task.Factory.StartNew<StageResult>(() => fullCycleStage.Do());
-    }
 
 
     private void SkipCurrentStageCanExecuted(object sender, CanExecuteRoutedEventArgs e)
@@ -105,7 +78,7 @@ namespace NTCC.NET
       if (ArtMonbatFacility.FullCycle.CurrentStage == null ||
           ArtMonbatFacility.FullCycle.CurrentStage == ArtMonbatFacility.FullCycle)
       {
-         e.CanExecute = false;
+        e.CanExecute = false;
         return;
       }
       e.CanExecute = true;
@@ -123,7 +96,7 @@ namespace NTCC.NET
       }
     }
 
-   
+
 
     private void HeatingZoneParametersCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
@@ -138,9 +111,9 @@ namespace NTCC.NET
       {
         HeatingZoneParametersDialog dialog = new HeatingZoneParametersDialog(zone);
         dialog.ShowDialog();
-      } 
+      }
     }
-    
+
     private void StageParametersCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
       e.CanExecute = true;
@@ -197,8 +170,8 @@ namespace NTCC.NET
         e.CanExecute = false;
         return;
       }
-      
-      if (datapoint.Value == datapoint.ValueToSet || 
+
+      if (datapoint.Value == datapoint.ValueToSet ||
           datapoint.Value < datapoint.MinValue ||
           datapoint.Value > datapoint.MaxValue)
       {
@@ -237,9 +210,6 @@ namespace NTCC.NET
 
       //останваливаем установку
       ArtMonbatFacility.Instance.Stop();
-
-      
-      
     }
 
   }
