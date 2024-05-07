@@ -64,8 +64,9 @@ namespace NTCC.NET.Pages
     private void StopFullCycleCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
       StageBase currentStage = ArtMonbatFacility.FullCycle.CurrentStage;
-      
-      if (currentStage.State != StageState.Wait ||
+
+      if (currentStage == null ||
+          currentStage.State != StageState.Wait ||
           currentStage.State != StageState.Completed)
       {
         e.CanExecute = false;
@@ -90,13 +91,8 @@ namespace NTCC.NET.Pages
     {
       StageBase fullCycleStage = ArtMonbatFacility.FullCycle;
 
-      if (fullCycleStage == null)
-      {
-        e.CanExecute = false;
-        return;
-      }
-
-      if (fullCycleStage.State == StageState.Wait || 
+      if (fullCycleStage == null ||
+          fullCycleStage.State == StageState.Wait ||
           fullCycleStage.State == StageState.Completed)
       {
         e.CanExecute = true;
