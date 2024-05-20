@@ -66,8 +66,8 @@ namespace NTCC.NET.Pages
       StageBase currentStage = ArtMonbatFacility.FullCycle.CurrentStage;
 
       if (currentStage == null ||
-          currentStage.State != StageState.Wait ||
-          currentStage.State != StageState.Completed)
+          currentStage.State == StageState.Wait ||
+          currentStage.State == StageState.Completed)
       {
         e.CanExecute = false;
         return;

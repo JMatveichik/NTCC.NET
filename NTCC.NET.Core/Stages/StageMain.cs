@@ -75,6 +75,7 @@ namespace NTCC.NET.Core.Stages
       OnTick($"Подготовка стадии  : {Title} ...", MessageType.Info);
 
       #region Подготовка клапанов
+
       //Открыть клапан YA4 продувки шкафа электрического
       DataPointHelper.SetDiscreteParameter(this, "YA04.OPN", true, (int)OperationDelay.TotalMilliseconds);
 

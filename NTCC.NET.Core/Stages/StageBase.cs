@@ -50,6 +50,7 @@ namespace NTCC.NET.Core.Stages
         if (value == state)
           return;
 
+        state = value;
         OnPropertyChanged();
       }
     }

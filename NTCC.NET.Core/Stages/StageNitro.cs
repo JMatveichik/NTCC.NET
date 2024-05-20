@@ -38,25 +38,27 @@ namespace NTCC.NET.Core.Stages
       //открыть клапан подачи на расходомер азота\воздуха
       DataPointHelper.SetDiscreteParameter(this, "YA06.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
-      //открыть клапан подачи азота/воздуха в камеру синтеза на секунд
-      DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", true, (int)OperationDelay.TotalMilliseconds);
-
-      //открыть клапан подачи азота в тару
-      DataPointHelper.SetDiscreteParameter(this, "YA15.OPN", true, (int)OperationDelay.TotalMilliseconds);
-
       //задать расход азота в камеру синтеза
       DataPointHelper.SetAnalogParameter(this, "MD400C.SETPOINT.WR", StageParameters.FlowRate);
+
+      //ожидаем установление расхода азота
+      DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));
 
       //запускаем задачу ожидания 30 секунд и закрытия клапана подачи азота/воздуха в камеру синтеза
       Task.Run(() =>
         {
+          //открыть клапан подачи азота/воздуха в камеру синтеза на секунд
+          DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", true, (int)OperationDelay.TotalMilliseconds);
+
           Thread.Sleep(TimeSpan.FromSeconds(30.0));
+
+          //закрыть клапан подачи азота/воздуха в камеру синтеза на секунд
           DataPointHelper.SetDiscreteParameter(this, "YA14.OPN", false, (int)OperationDelay.TotalMilliseconds);
         }
-      );
+      ).Wait();
 
-      //ожидаем установление расхода азота
-      DataPointHelper.WaitAnalogParameterSet(this, "MD400C.MEASSURE", StageParameters.FlowRate, TimeSpan.FromSeconds(5.0));
+      //открыть клапан подачи азота в тару
+      DataPointHelper.SetDiscreteParameter(this, "YA15.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
       //если предусмотрена продувка линии пропан бутана
       if (StageParameters.PurgePropaneLine)

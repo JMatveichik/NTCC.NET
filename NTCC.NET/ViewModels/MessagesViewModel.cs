@@ -217,9 +217,15 @@ namespace NTCC.NET.ViewModels
         FacilityElement element = (FacilityElement)sender;
         FacilityMessage message = new FacilityMessage(element, args);
 
+        if (element == null || message == null)
+          return;
+
+        if (App.Current == null)
+          return;
+
         App.Current.Dispatcher.Invoke((Action)delegate
         {
-          MessagesList.Insert(0, message);
+          MessagesList?.Insert(0, message);
         });
       }
     }

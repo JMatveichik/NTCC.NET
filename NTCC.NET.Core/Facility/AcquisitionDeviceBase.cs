@@ -427,7 +427,6 @@ namespace NTCC.NET.Core.Facility
       }
     }
 
-
     private int interval = BaseDelay;
 
     /// <summary>
