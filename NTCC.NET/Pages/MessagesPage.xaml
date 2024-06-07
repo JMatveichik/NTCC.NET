@@ -49,7 +49,7 @@
                 Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
                 ToolTip="Пометить все сообщения как прочитанные.">
         <Button.Content>
-          <materialDesign:PackIcon Kind="EmailAlert" />
+          <materialDesign:PackIcon Kind="EmailAlert" Width="24" Height="24"/>
         </Button.Content>
       </Button>
     </materialDesign:Badged>
@@ -58,7 +58,7 @@
           Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
           ToolTip="Очистить список сообщений.">
         <Button.Content>
-          <materialDesign:PackIcon Kind="Clear" />
+          <materialDesign:PackIcon Kind="Clear" Width="24" Height="24"/>
         </Button.Content>
       </Button>
 

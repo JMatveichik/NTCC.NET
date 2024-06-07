@@ -18,6 +18,20 @@ namespace NTCC.NET.Core.Stages
       
     }
 
+    /// <summary>
+    /// Проверка необходимости запуска стадии.
+    /// Если прогрев стенок реактора достиг заданной, нет необходимости выполнять стадию 
+    /// </summary>
+    /// <returns></returns>
+    public override bool StageNotNeedToStart()
+    {
+      return HeatingIsComplete();
+    }
+
+    /// <summary>
+    /// Подготовка стадии прогрева
+    /// </summary>
+    /// <returns></returns>
     public override StageResult Prepare()
     {
       //задание параметров прогрева
@@ -74,10 +88,9 @@ namespace NTCC.NET.Core.Stages
     {
       StartTime = DateTime.Now;
 
-      double averageTemperature = GetAverageTemperature();
       //ожидаем пока средняя температура стенок реактора по заданным зонам
       //превысит заданную в параметрах стадии прогрева
-      while (averageTemperature < StageParameters.AverageTemperature)
+      while (!HeatingIsComplete())
       {
         Thread.Sleep((int)ThreadDelay.TotalMilliseconds);
 
@@ -89,14 +102,26 @@ namespace NTCC.NET.Core.Stages
         if (skip.IsCancellationRequested)
           return StageResult.Skipped;
 
-        //получаем среднюю температуру стенок реактора
-        averageTemperature = GetAverageTemperature();
-
         //обновляем продолжительность выполнения стадии
         Duration = DateTime.Now - StartTime;
       }
 
       return StageResult.Successful;
+    }
+
+    /// <summary>
+    /// Получить среднюю температуру стенок реактора
+    /// </summary>
+    /// <returns></returns>
+    private bool HeatingIsComplete()
+    {
+      //получаем среднюю температуру стенок реактора
+      double averageTemperature = GetAverageTemperature();
+      
+      if (averageTemperature < StageParameters.AverageTemperature)
+        return false;
+
+      return true;
     }
   }
 }

@@ -242,6 +242,14 @@ namespace NTCC.NET.Core.Stages
           //текущая стадия
           CurrentStage = stage;
 
+          //если стадия может быть пропущена
+          if(stage.StageNotNeedToStart())
+          {
+            OnTick($"Стадия {stage.Title} пропущена.", MessageType.Warning);
+            Thread.Sleep(OperationDelay);
+            continue;
+          }
+
           //запускаем стадию
           result = stage.Do(this);
 

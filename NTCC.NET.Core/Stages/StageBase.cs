@@ -331,6 +331,15 @@ namespace NTCC.NET.Core.Stages
 
 
     /// <summary>
+    /// Проверка необходимости запуска стадии
+    /// </summary>
+    /// <returns></returns>
+    public virtual bool StageNotNeedToStart()
+    {
+      return false;
+    }
+
+    /// <summary>
     /// Запуск стадиии на выполнение
     /// </summary>
     /// <param name="owner">Cтадия инициализировавшая выполнение данной</param>
