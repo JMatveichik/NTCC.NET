@@ -106,8 +106,8 @@ namespace NTCC.NET.Core.Stages
       {
         HeatingParameters stageHeatingParams = StageParameters.StageHeatingParameters[zone.ID];
 
-        zone.SetupControl(stageHeatingParams.MaxWallTemperature,
-                            stageHeatingParams.MinWallTemperature,
+        zone.SetupControl(  stageHeatingParams.MinWallTemperature,
+                            stageHeatingParams.MaxWallTemperature,
                             stageHeatingParams.HeaterPower,
                             stageHeatingParams.MaxHeaterTemperature);
       }

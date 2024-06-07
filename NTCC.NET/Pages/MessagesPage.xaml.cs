@@ -30,6 +30,7 @@ namespace NTCC.NET.Pages
 
     }
 
+    //TODO : вызвать отписку от получения сообщений для модели данных
     private void ClearMessageListCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
       MessagesViewModel messagesViewModel = DataContext as MessagesViewModel;

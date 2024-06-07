@@ -81,17 +81,8 @@ namespace NTCC.NET.ViewModels
 
     public MessagesViewModel()
     {
-      //Подписка на сообщения от устройств
-      RegisterDeviceMessages();
 
-      //Подписка на сообщения от зон нагрева
-      RegisterHeatingZonesMessages();
-
-      //Подписка на сообщения от стадий
-      RegisterStageMessages();
-
-      //Подписка на сообщения от элементов установки
-      RegisterFacilityElementsMessages();
+      RegisterAllMessageSources();
 
       // Подписываемся на событие изменения коллекции для обновления фильтра
       ShowMessgeType.CollectionItemChanged += MessgeTypeVisibilityChanged;
@@ -104,61 +95,95 @@ namespace NTCC.NET.ViewModels
     /// Регистрация обработчика информационных сообщений для элементов установки
     /// </summary>
     /// <param name="facilityElement">Элемент установки</param>
-    public void RegisterMessageSource(FacilityElement facilityElement)
+    public void RegisterMessageSource(FacilityElement facilityElement, bool isRegister)
     {
-      facilityElement.Tick += OnFacilityElementMessage;
+      if (isRegister)
+        facilityElement.Tick += OnFacilityElementMessage;
+      else
+        facilityElement.Tick -= OnFacilityElementMessage;
+    }
+
+
+    private void RegisterAllMessageSources()
+    {
+      //Подписка на сообщения от устройств
+      RegisterDeviceMessages(true);
+
+      //Подписка на сообщения от зон нагрева
+      RegisterHeatingZonesMessages(true);
+
+      //Подписка на сообщения от стадий
+      RegisterStageMessages(true);
+
+      //Подписка на сообщения от элементов установки
+      RegisterFacilityElementsMessages(true);
+    }
+
+    public void UnregisterAllMessageSources()
+    {
+      //Подписка на сообщения от устройств
+      RegisterDeviceMessages(false);
+
+      //Подписка на сообщения от зон нагрева
+      RegisterHeatingZonesMessages(false);
+
+      //Подписка на сообщения от стадий
+      RegisterStageMessages(false);
+
+      //Подписка на сообщения от элементов установки
+      RegisterFacilityElementsMessages(false);
     }
 
     /// <summary>
     /// Регистрация обработчика информационных сообщений для устройств
     /// </summary>
-    private void RegisterHeatingZonesMessages()
+    private void RegisterHeatingZonesMessages(bool isRegister)
     {
       foreach (ReactorHeatingZone zone in ArtMonbatFacility.ReactorZones.Items.Values)
       {
-        RegisterMessageSource(zone);
+        RegisterMessageSource(zone, isRegister);
       }
     }
 
     /// <summary>
     /// Регистрация обработчика информационных сообщений для устройств
     /// </summary>
-    private void RegisterDeviceMessages()
+    private void RegisterDeviceMessages(bool isRegister)
     {
       foreach (AcquisitionDeviceBase device in ArtMonbatFacility.Devices.Items.Values)
       {
-        RegisterMessageSource(device);
+        RegisterMessageSource(device, isRegister);
       }
     }
 
     /// <summary>
     /// Регистрация обработчика информационных сообщений для стадий
     /// </summary>
-    private void RegisterStageMessages()
+    private void RegisterStageMessages(bool isRegister)
     {
       //регистрируем обработчик логирования для основной стадий
-      RegisterMessageSource(ArtMonbatFacility.FullCycle);
+      RegisterMessageSource(ArtMonbatFacility.FullCycle, isRegister);
 
       //регистрируем обработчик логирования для стадий
       foreach (StageBase stage in ArtMonbatFacility.FullCycle.Stages)
       {
-        RegisterMessageSource(stage);
+        RegisterMessageSource(stage, isRegister);
       }
     }
 
     /// <summary>
     /// Регистрация обработчика информационных сообщений для элементов установки
     /// </summary>
-    private void RegisterFacilityElementsMessages()
+    private void RegisterFacilityElementsMessages(bool isRegister)
     {
       //регистрируем обработчик логирования для подогревателя газа
-      RegisterMessageSource(ArtMonbatFacility.GasHeater);
+      RegisterMessageSource(ArtMonbatFacility.GasHeater, isRegister);
 
       //регистрируем обработчик логирования для управления заслонкой
-      RegisterMessageSource(ArtMonbatFacility.Damper);
+      RegisterMessageSource(ArtMonbatFacility.Damper, isRegister);
 
       //регистрируем обработчик логирования для управления скребком
-      RegisterMessageSource(ArtMonbatFacility.Scrapper);
+      RegisterMessageSource(ArtMonbatFacility.Scrapper, isRegister);
 
     }
 
