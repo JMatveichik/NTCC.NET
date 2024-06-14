@@ -266,7 +266,7 @@ namespace NTCC.NET.Core.Facility
         //перемещение скребка в нижнее положение
         if (!MoveScraperDown())
         {
-          throw new TimeoutException("Скребок не достиг нижнего положения!");          
+          throw new TimeoutException("Скребок не достиг нижнего положения!");
         }
         else
         {
@@ -343,7 +343,11 @@ namespace NTCC.NET.Core.Facility
         return false;
       }
 
-      //отключаем пневмоцилиндр уплотнения штоков скребка
+      //включаем линейный модуль скребка #1 - движение вверх
+      OnTick("Выключаем цилиндр перемещения скребка вверх", MessageType.Debug);
+      ValveMoveUp.SetState(false);
+
+      //включить пневмоцилиндр уплотнения штоков скребка
       OnTick("Включаем пневмоцилиндр уплотнения штоков скребка...", MessageType.Debug);
       ScrapperSealsValve.SetState(true);
 
