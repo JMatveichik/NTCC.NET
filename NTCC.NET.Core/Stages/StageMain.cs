@@ -75,6 +75,7 @@ namespace NTCC.NET.Core.Stages
       OnTick($"Подготовка стадии  : {Title} ...", MessageType.Info);
 
       #region Подготовка клапанов
+
       //Открыть клапан YA4 продувки шкафа электрического
       DataPointHelper.SetDiscreteParameter(this, "YA04.OPN", true, (int)OperationDelay.TotalMilliseconds);
 
@@ -224,7 +225,7 @@ namespace NTCC.NET.Core.Stages
       return StageResult.Successful;
     }
 
-    public IUserConfirmation ContinueCycleConfirmation = null;
+    
     protected override StageResult Main(CancellationToken cancel, CancellationToken skip)
     {
       StageResult result = StageResult.Successful;
@@ -240,6 +241,14 @@ namespace NTCC.NET.Core.Stages
         {
           //текущая стадия
           CurrentStage = stage;
+
+          //если стадия может быть пропущена
+          if(stage.StageNotNeedToStart())
+          {
+            OnTick($"Стадия {stage.Title} пропущена.", MessageType.Warning);
+            Thread.Sleep(OperationDelay);
+            continue;
+          }
 
           //запускаем стадию
           result = stage.Do(this);
@@ -258,9 +267,9 @@ namespace NTCC.NET.Core.Stages
           break;
 
         //запрашиваем переход на новый цикл 
-        if (ContinueCycleConfirmation != null)
+        if (UserConfirmation != null)
         {
-          if (!ContinueCycleConfirmation.Confirm())
+          if (!UserConfirmation.Confirm("Для перехода на следующий цикл нажмите (Yes). Иначе нажмите (No) - технологический цикл будет остановлен"))
             break;
         }
       }

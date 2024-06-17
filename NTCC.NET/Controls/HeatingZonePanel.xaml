@@ -18,20 +18,6 @@
     <converters:BooleanToBrushConverter x:Key="BoolToColor"
                                         TrueBrush="ForestGreen"
                                         FalseBrush="OrangeRed" />
-
-    <Style TargetType="{x:Type materialDesign:Card}">
-      <Setter Property="Margin"
-              Value="3" />
-    </Style>
-
-    <Style TargetType="{x:Type GroupBox}"
-           BasedOn="{StaticResource MahApps.Styles.GroupBox}">
-      <Setter Property="FontFamily"
-              Value="{StaticResource RCRegularLight}" />
-      <Setter Property="Margin"
-              Value="3" />
-    </Style>
-
   </UserControl.Resources>
 
   <Grid>
@@ -48,10 +34,11 @@
     </Grid.RowDefinitions>
 
     <!--Текущее состояние зоны нагрева-->
-    <materialDesign:Card Grid.Row="0"
-                         Grid.Column="0">
+    
 
-      <GroupBox Header="Текушее состояние">
+      <GroupBox Grid.Row="0" Grid.Column="0" Header="ТЕКУЩЕЕ СОСТОЯНИЕ" 
+                Style="{StaticResource AppGroupBoxStyle}">
+        
         <Grid Margin="5">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -138,13 +125,11 @@
         </Grid>
       </GroupBox>
 
-    </materialDesign:Card>
-
+    
     <!--Информация о наргревательных элементах-->
-    <materialDesign:Card Grid.Row="1"
-                         Grid.Column="0">
-
-      <GroupBox Header="Нагревательные элементы">
+     <GroupBox Grid.Row="1" Grid.Column="0" 
+                Header="НАГРЕВАТЕЛЬНЫЕ ЭЛЕМЕНТЫ"
+                Style="{StaticResource AppGroupBoxStyle}">
 
         <Grid>
           <Grid.RowDefinitions>
@@ -205,76 +190,74 @@
           </ItemsControl>
         </Grid>
       </GroupBox>
-    </materialDesign:Card>
+  
 
     <!--Задание параметров работы зоны нагрева-->
-    <materialDesign:Card Grid.Row="0"
-                         Grid.Column="1">
-      <GroupBox Header="Параметры работы">
-        <Grid>
+    <GroupBox Grid.Row="0" Grid.Column="1" 
+                Header="ПАРАМЕТРЫ РАБОТЫ"
+                Style="{StaticResource AppGroupBoxStyle}">
+      <Grid>
 
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-          </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-          <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="0"
                      Grid.Row="0"
                      Style="{StaticResource ValueSmall}"
                      TextWrapping="Wrap"
                      VerticalAlignment="Center"
                      Text="Минимальная температура поддержания, °C" />
 
-          <mah:NumericUpDown  Grid.Column="1"
+        <mah:NumericUpDown  Grid.Column="1"
                               Grid.Row="0"
                               Style="{StaticResource StageEditorValueUpDownStyle}"
                               Value="{Binding MinTargetWallTemperature}"
                               Width="120"
                               Margin="5" />
 
-          <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="0"
                      Grid.Row="1"
                      Style="{StaticResource ValueSmall}"
                      TextWrapping="Wrap"
                      VerticalAlignment="Center"
                      Text="Максимальная температура поддержания, °C " />
 
-          <mah:NumericUpDown  Grid.Column="1"
+        <mah:NumericUpDown  Grid.Column="1"
                               Grid.Row="1"
                               Style="{StaticResource StageEditorValueUpDownStyle}"
                               Value="{Binding MaxTargetWallTemperature}"
                               Width="120"
                               Margin="5" />
 
-          <TextBlock Grid.Column="0"
+        <TextBlock Grid.Column="0"
                      Grid.Row="2"
                      Style="{StaticResource ValueSmall}"
                      TextWrapping="Wrap"
                      VerticalAlignment="Center"
                      Text="Мощность нагревательного элемента, %" />
 
-          <mah:NumericUpDown  Grid.Column="1"
+        <mah:NumericUpDown  Grid.Column="1"
                               Grid.Row="2"
                               Style="{StaticResource StageEditorValueUpDownStyle}"
                               Value="{Binding MaxPowerLevel}"
                               Width="120"
                               Margin="5" />
 
-        </Grid>
-      </GroupBox>
-
-    </materialDesign:Card>
-
+      </Grid>
+    </GroupBox>
+  
     <!--Контроль питания и автоматического контроля зоны реактора-->
-    <materialDesign:Card Grid.Row="1"
-                         Grid.Column="1">
-      <GroupBox Header="Контроль">
+    <GroupBox Grid.Row="1" Grid.Column="1" 
+              Header="КОНТРОЛЬ"
+              Style="{StaticResource AppGroupBoxStyle}">
 
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Left">
@@ -314,8 +297,6 @@
 
         </StackPanel>
       </GroupBox>
-    </materialDesign:Card>
-
   </Grid>
 
 </UserControl>

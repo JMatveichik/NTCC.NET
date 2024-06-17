@@ -3,16 +3,111 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              xmlns:local="clr-namespace:NTCC.NET.Pages"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:appconverters="clr-namespace:NTCC.NET.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Border Style="{StaticResource BorderBox}">
-            <DataGrid 
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+
+    <StackPanel Orientation="Horizontal">
+    <ComboBox Grid.Row="0" Width="200"
+              FontFamily="{StaticResource RCRegularLight}"
+              FontSize="16"
+              ItemsSource="{Binding ShowMessgeType}" 
+              HorizontalContentAlignment="Stretch"
+              HorizontalAlignment="Left"
+              Margin="20,5">
+      
+      
+      <materialDesign:HintAssist.Hint>
+        
+        <StackPanel Orientation="Horizontal" Margin="3 0 0 0">
+          <materialDesign:PackIcon Kind="Filter" />
+          <TextBlock> Фильтрация по типу</TextBlock>
+        </StackPanel>
+      </materialDesign:HintAssist.Hint>
+      
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <CheckBox Content="{Binding Type}"
+                    IsChecked="{Binding IsVisible, Mode=TwoWay}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <materialDesign:Badged Badge="{Binding BadgeValue}" 
+                           BadgePlacementMode="TopRight" 
+                           Margin="30,10"
+                           BadgeBackground="DarkOrange">
+        <Button Command="{x:Static cmds:FacilityCommands.MarkAllMessagesAsReaded}" 
+                Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                ToolTip="Пометить все сообщения как прочитанные.">
+        <Button.Content>
+          <materialDesign:PackIcon Kind="EmailAlert" Width="24" Height="24"/>
+        </Button.Content>
+      </Button>
+    </materialDesign:Badged>
+
+      <Button Command="{x:Static cmds:FacilityCommands.ClearMessageList}" 
+          Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+          ToolTip="Очистить список сообщений.">
+        <Button.Content>
+          <materialDesign:PackIcon Kind="Clear" Width="24" Height="24"/>
+        </Button.Content>
+      </Button>
+
+    </StackPanel>
+  
+    <Border Grid.Row="1" Style="{StaticResource BorderBox}">
+      
+      <DataGrid x:Name="messagesDataGrid"
                 FontFamily="{StaticResource RCRegularLight}"
-                AutoGenerateColumns="True"
-                ItemsSource ="{Binding MessagesList}">
-        </DataGrid>
-        </Border>
-    </Grid>
+                ItemsSource ="{Binding MessagesList}"
+                AutoGenerateColumns="False"
+                MouseMove="MessagesDataGridMouseMove">
+        
+        <DataGrid.Resources>
+
+          <SolidColorBrush x:Key="InfoMessageBrush" Color="LightBlue" Opacity="0.9"/>
+          <SolidColorBrush x:Key="ErrorMessageBrush" Color="DarkOrange" Opacity="0.5"/>
+          <SolidColorBrush x:Key="WarningMessageBrush" Color="LightYellow"/>
+          <SolidColorBrush x:Key="SuccessMessageBrush" Color="LightGreen" Opacity="0.5"/>
+          <SolidColorBrush x:Key="DebugMessageBrush" Color="Gray" Opacity="0.5"/>
+          <SolidColorBrush x:Key="ExceptionMessageBrush" Color="Violet" Opacity="0.5"/>
+          <SolidColorBrush x:Key="TraceMessageBrush" Color="LightGray" Opacity="0.5"/>
+
+          <appconverters:MessageTypeToColorConverter x:Key="MessageBackGroundColors"
+                          InfoMessageBrush="{StaticResource InfoMessageBrush}"
+                          ErrorMessageBrush="{StaticResource ErrorMessageBrush}"
+                          WarningMessageBrush="{StaticResource WarningMessageBrush}"
+                          SuccessMessageBrush="{StaticResource SuccessMessageBrush}"
+                          DebugMessageBrush="{StaticResource DebugMessageBrush}"
+                          ExceptionMessageBrush="{StaticResource ExceptionMessageBrush}"
+                          TraceMessageBrush="{StaticResource TraceMessageBrush}"/>
+
+          <Style TargetType="DataGridCell" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+            <Setter Property="Background" Value="{Binding MessageType, Converter={StaticResource MessageBackGroundColors}}"/>
+            <Setter Property="Margin" Value="0"/>
+          </Style>
+          
+        </DataGrid.Resources>
+        
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="" Binding="{Binding MessageType, Mode=OneWay}"/>
+          <DataGridTextColumn Header="Время" Binding="{Binding Time, StringFormat={}{0:hh\\:mm\\:ss}, Mode=OneWay}"/>
+          <DataGridTextColumn Header="ID" Binding="{Binding SenderID, Mode=OneWay}" />
+          <DataGridTextColumn Header="Отправитель" Binding="{Binding SenderTitle, Mode=OneWay}" />
+          <DataGridTextColumn Header="Описание" Binding="{Binding SenderDescription, Mode=OneWay}" />
+          <DataGridTextColumn Header="Сообщение" Binding="{Binding Message, Mode=OneWay}" />
+        </DataGrid.Columns>
+        
+      </DataGrid>
+    </Border>
+  </Grid>
 </UserControl>

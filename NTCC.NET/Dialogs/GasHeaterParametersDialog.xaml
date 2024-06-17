@@ -1,0 +1,114 @@
+﻿<Window x:Class="NTCC.NET.Dialogs.GasHeaterParametersDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NTCC.NET.Dialogs"
+        xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="{StaticResource MahApps.Brushes.Accent}"
+        BorderThickness="1"
+        WindowStyle="None"
+        Background="White"
+        ResizeMode="NoResize"
+        Topmost="True"
+        ShowInTaskbar="False"
+        FontFamily="{StaticResource RCRegularLight}"
+        Title="HeatingZoneParametersDialog" Height="450" Width="500">
+    
+  <Grid>
+    
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+
+      <!--Dialog Header-->
+      <materialDesign:Card 
+                  Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Padding="10"
+                  Margin="0"
+                  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                  Background="{DynamicResource PrimaryHueDarkBrush}"
+                  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}">
+
+        <StackPanel Orientation="Horizontal">
+          <TextBlock 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Text="{Binding Description}"
+            Style="{DynamicResource Header2}"
+            FontSize="20"/>
+        </StackPanel>
+
+      </materialDesign:Card>
+
+      <StackPanel HorizontalAlignment="Right"
+         Margin="0,5,5,0"
+         VerticalAlignment="Top"
+         Grid.Column="1">
+
+        <Button x:Name="btnClose"
+                   Click="btnCloseClick"
+                   Width="35"
+                   Height="35"
+                   Background="White"
+                   Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                   Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
+
+          <materialDesign:PackIcon Kind="Close"/>
+
+        </Button>
+      </StackPanel>
+
+      <!--Dialog Content-->
+    <ctrls:GasHeaterSettingPanel
+          Grid.Row="1"
+          Margin="10"/>
+
+    <!--Dialog Footer-->
+    <StackPanel Grid.Row="2"
+      Orientation="Horizontal" 
+      Margin="10" 
+      HorizontalAlignment ="Right">
+      <StackPanel.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+          <Setter Property="Margin" Value="5"/>
+        </Style>
+      </StackPanel.Resources>
+
+      <Button Click="btnSaveClick">
+        <Button.Content>
+          <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="ContentSave" Margin="0,0,5,0"/>
+            <TextBlock Text="Сохранить"/>
+          </StackPanel>
+        </Button.Content>
+      </Button>
+
+      <Button Click="btnApplyClick">
+        <Button.Content>
+          <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="CheckAll" Margin="0,0,5,0"/>
+            <TextBlock Text="Применить"/>
+          </StackPanel>
+        </Button.Content>
+      </Button>
+
+      <Button Click="btnCloseClick">
+        <Button.Content>
+          <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="Close" Margin="0,0,5,0"/>
+            <TextBlock Text="Выйти"/>
+          </StackPanel>
+        </Button.Content>
+      </Button>
+
+    </StackPanel>
+  </Grid>
+</Window>

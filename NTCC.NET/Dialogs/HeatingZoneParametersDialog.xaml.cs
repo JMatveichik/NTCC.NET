@@ -30,7 +30,7 @@ namespace NTCC.NET.Dialogs
       this.CommandBindings.Add(new CommandBinding(FacilityCommands.SwitchHeatingZoneControl, SwitchHeatingZoneControlExecuted, SwitchHeatingZoneControlCanExecute));
     }
 
-    private void btnClose_Click(object sender, RoutedEventArgs e)
+    private void btnCloseClick(object sender, RoutedEventArgs e)
     {
       this.DialogResult = false;
       this.Close();

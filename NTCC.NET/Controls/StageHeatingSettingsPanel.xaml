@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="NTCC.NET.Controls.StageHeatingSettingsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ctrls="clr-namespace:NTCC.NET.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+ 
+  
+  <GroupBox Header="Параметры зон прогрева"
+            Style="{StaticResource AppGroupBoxStyle}">
+    
+    <GroupBox.HeaderTemplate>
+      <DataTemplate>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          
+          <TextBlock Text="Зона нагрева" Grid.Column="0" 
+                     Style="{StaticResource ValueSmall}"/>
+          
+          <TextBlock Text="T.сред" Grid.Column="1" 
+                     Style="{StaticResource ValueSmall}"
+                     HorizontalAlignment="Center"/>
+          
+          <TextBlock Text="T.Стенок.мин, °C" Grid.Column="2" 
+                     Style="{StaticResource ValueSmall}"
+                     HorizontalAlignment="Left"/>
+
+          <TextBlock Text="T.Стенок.макс, °C" Grid.Column="3"
+                     Style="{StaticResource ValueSmall}"
+                     HorizontalAlignment="Left"/>
+
+          <TextBlock Text="P.ТЭН, %" Grid.Column="4"
+                     Style="{StaticResource ValueSmall}"
+                     HorizontalAlignment="Left"/>
+          
+          <TextBlock Text="Т.ТЭН.макс, °C" Grid.Column="5"
+                     Style="{StaticResource ValueSmall}"
+                     HorizontalAlignment="Left"/>
+        </Grid>
+        
+      </DataTemplate>
+      </GroupBox.HeaderTemplate>
+
+      <Grid>
+      
+      <ItemsControl ItemsSource="{Binding StageParameters.StageHeatingParameters.Values}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ctrls:StageHeatingZoneSettingsItem 
+                DataContext="{Binding UpdateSourceTrigger=PropertyChanged}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Grid>
+
+  </GroupBox>
+  
+  
+</UserControl>

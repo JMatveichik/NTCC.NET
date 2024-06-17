@@ -5,21 +5,14 @@ namespace NTCC.NET.Dialogs
   public class DialogUserConfirmation : IUserConfirmation
   {
 
-    public DialogUserConfirmation(string confirmationMessage)
-    {
-      message = confirmationMessage;
-    }
-
-    private string message = null;
-
-    public bool Confirm()
+    public bool Confirm(string confirmationMessage)
     {
 
       bool? Result = null;
 
       System.Windows.Application.Current.Dispatcher.Invoke(() =>
       {
-        CustomMessageBox dialog = new CustomMessageBox(message, MessageType.Confirmation, MessageButtons.YesNo);
+        CustomMessageBox dialog = new CustomMessageBox(confirmationMessage, MessageType.Confirmation, MessageButtons.YesNo);
         Result = dialog.ShowDialog();
       });
 

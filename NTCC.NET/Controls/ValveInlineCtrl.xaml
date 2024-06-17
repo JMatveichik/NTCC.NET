@@ -18,29 +18,27 @@
             </StackPanel>
         </Grid.ToolTip>
     <Grid.Resources>
-
-
         <!-- Если "IsOpen" равно "True", измените содержимое кнопки -->
-            
-      <Style TargetType="Button" 
-             BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
+      <Style 
+        TargetType="Button" 
+        BasedOn="{StaticResource MaterialDesignFloatingActionButton}">
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
-      
+
         <Style.Triggers>
 
           <DataTrigger Binding="{Binding State}" Value="True">
             <Setter  Property="Background" Value="DarkGreen"/>
             <Setter Property ="BorderBrush" Value="DarkSeaGreen"></Setter>
-            
+
             <Setter Property="Content">
               <Setter.Value>
 
                 <iconPacks:PackIconMaterial Kind="ValveOpen" 
-                                        Foreground="White"
-                                        HorizontalAlignment="Center"
-                                        Style="{StaticResource MetroToolBoxIconStyle16}"
-                                        RenderTransformOrigin="0.5, 0.5">
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MetroToolBoxIconStyle16}"
+                        RenderTransformOrigin="0.5, 0.5">
 
                   <iconPacks:PackIconMaterial.RenderTransform>
                     <RotateTransform Angle="90"/>
@@ -58,10 +56,10 @@
               <Setter.Value>
 
                 <iconPacks:PackIconMaterial Kind="ValveClosed" 
-                                        Foreground="White"
-                                        HorizontalAlignment="Center"
-                                        Style="{StaticResource MetroToolBoxIconStyle16}"
-                                        RenderTransformOrigin="0.5, 0.5">
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MetroToolBoxIconStyle16}"
+                        RenderTransformOrigin="0.5, 0.5">
 
                   <iconPacks:PackIconMaterial.RenderTransform>
                     <RotateTransform Angle="90"/>
@@ -74,15 +72,13 @@
 
         </Style.Triggers>
       </Style>
+
     </Grid.Resources>
-      
-      <Button 
+
+    <Button 
         Command="{x:Static cmds:FacilityCommands.SwitchDiscreteOutputValue}"
         CommandParameter="{Binding}">
-    </Button>
-      
-
-      
+    </Button> 
 
     </Grid>
 </UserControl>

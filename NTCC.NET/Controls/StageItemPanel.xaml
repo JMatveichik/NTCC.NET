@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
              xmlns:local="clr-namespace:NTCC.NET.Controls"
+             xmlns:cmds="clr-namespace:NTCC.NET.Commands"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -15,9 +16,20 @@
 
   <UserControl.Resources>
 
-    <DataTemplate DataType="{x:Type stages:StageTimeBased}">
 
-      <Grid Margin="5">
+    <Style x:Key="MouseOver" TargetType="Grid">
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Tag" Value="Visible"/>
+        </Trigger>
+        <Trigger Property="IsMouseOver" Value="False">
+          <Setter Property="Tag" Value="Collapsed"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+
+    <DataTemplate DataType="{x:Type stages:StageTimeBased}">
+      <Grid Margin="5" Style="{StaticResource MouseOver}">
 
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="60" />
@@ -74,6 +86,26 @@
 
         </Grid>
 
+        <StackPanel Grid.Column="0"
+                    Visibility= "{Binding Tag, RelativeSource={RelativeSource AncestorType=Grid}}"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+          <Button Width="30"
+                  Height="30"
+                  Margin="5"
+                  ToolTip="Изменить параметры стадии"
+                  Style="{StaticResource MaterialDesignFloatingActionButton}"
+                  Command="{x:Static cmds:FacilityCommands.StageParameters}"
+                  CommandParameter="{Binding}">
+
+            <iconPacks:PackIconMaterialDesign Kind="Settings"
+                              Style="{StaticResource MetroToolBoxIconStyle16}"
+                              Foreground="White">
+            </iconPacks:PackIconMaterialDesign>
+          </Button>
+        </StackPanel>
+
         <Grid Grid.Column="1">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -113,8 +145,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type stages:StageHeating}">
-
-      <Grid Margin="5">
+      <Grid Margin="5"  Style="{StaticResource MouseOver}">
 
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="60" />
@@ -161,6 +192,26 @@
 
         </Grid>
 
+        <StackPanel Grid.Column="0"
+            Visibility= "{Binding Tag, RelativeSource={RelativeSource AncestorType=Grid}}"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center">
+
+          <Button Width="30"
+                  Height="30"
+                  Margin="5"
+                  ToolTip="Изменить параметры стадии"
+                  Style="{StaticResource MaterialDesignFloatingActionButton}"
+                  Command="{x:Static cmds:FacilityCommands.StageParameters}"
+                  CommandParameter="{Binding}">
+
+            <iconPacks:PackIconMaterialDesign Kind="Settings"
+                      Style="{StaticResource MetroToolBoxIconStyle16}"
+                      Foreground="White">
+            </iconPacks:PackIconMaterialDesign>
+          </Button>
+        </StackPanel>
+
         <Grid Grid.Column="1">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -197,8 +248,7 @@
     </DataTemplate>
 
     <DataTemplate DataType="{x:Type stages:StageClean}">
-
-      <Grid Margin="5">
+      <Grid Margin="5"  Style="{StaticResource MouseOver}">
 
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="60" />
@@ -253,6 +303,26 @@
                      Margin="5" />
 
         </Grid>
+
+        <StackPanel Grid.Column="0"
+            Visibility= "{Binding Tag, RelativeSource={RelativeSource AncestorType=Grid}}"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center">
+
+          <Button Width="30"
+                  Height="30"
+                  Margin="5"
+                  ToolTip="Изменить параметры стадии"
+                  Style="{StaticResource MaterialDesignFloatingActionButton}"
+                  Command="{x:Static cmds:FacilityCommands.StageParameters}"
+                  CommandParameter="{Binding}">
+
+            <iconPacks:PackIconMaterialDesign Kind="Settings"
+                      Style="{StaticResource MetroToolBoxIconStyle16}"
+                      Foreground="White">
+            </iconPacks:PackIconMaterialDesign>
+          </Button>
+        </StackPanel>
 
         <Grid Grid.Column="1">
           <Grid.RowDefinitions>

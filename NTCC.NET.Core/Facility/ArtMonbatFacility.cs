@@ -92,6 +92,18 @@ namespace NTCC.NET.Core.Facility
       private set;
     } = null;
 
+    /// <summary>
+    /// Управление скребком
+    /// </summary>
+    public static Scrapper Scrapper
+    {
+      get;
+      private set;
+    } = null;
+
+    /// <summary>
+    /// Предоставление информации о средней температуре стенок реактора
+    /// </summary>
     public static ReactorAverageTemperature AverageTemperatureProvider
     {
       get;
@@ -145,28 +157,28 @@ namespace NTCC.NET.Core.Facility
       try
       {
         //инициализация устройств управления/измерения
-        string xmlDevicesPath = Path.Combine(configDir, "Devices.v1.xml");
-        string xsdDevicesPath = Path.Combine(configDir, "Devices.v1.xsd");
+        string xmlDevicesPath = Path.Combine(configDir, "Devices.xml");
+        string xsdDevicesPath = Path.Combine(configDir, "Devices.xsd");
         initializeDevices(xmlDevicesPath, xsdDevicesPath);
 
         //инициализация точек данных
-        string xmlDataPointPath = Path.Combine(configDir, "DataPoints.v5.xml");
-        string xsdDataPointPath = Path.Combine(configDir, "DataPoints.v5.xsd");
+        string xmlDataPointPath = Path.Combine(configDir, "DataPoints.xml");
+        string xsdDataPointPath = Path.Combine(configDir, "DataPoints.xsd");
         initializeDataPoints(xmlDataPointPath, xsdDataPointPath);
 
         //инициализация нагревателей
-        string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xml");
-        string xsdHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xsd");
+        string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.xml");
+        string xsdHeatingPath = Path.Combine(configDir, "HeatingGroups.xsd");
         initializeHeaters(xmlHeatingPath, xsdHeatingPath);
 
         //инициализация компонентов установки
-        string xmlFacilityComponent = Path.Combine(configDir, "FacilityComponents.v2.xml");
-        string xsdFacilityComponent = Path.Combine(configDir, "FacilityComponents.v2.xsd");
+        string xmlFacilityComponent = Path.Combine(configDir, "FacilityComponents.xml");
+        string xsdFacilityComponent = Path.Combine(configDir, "FacilityComponents.xsd");
         initializeElements(xmlFacilityComponent, xsdFacilityComponent);
 
         //инициализация стадий выполнения техпроцесса
-        string xmlStages = Path.Combine(configDir, "Stages.v2.xml");
-        string xsdStages = Path.Combine(configDir, "Stages.v2.xsd");
+        string xmlStages = Path.Combine(configDir, "Stages.xml");
+        string xsdStages = Path.Combine(configDir, "Stages.xsd");
         initializeStages(xmlStages, xsdStages);
       }
       catch (Exception ex)
@@ -277,16 +289,24 @@ namespace NTCC.NET.Core.Facility
     private void initializeElements(string xmlConfigPath, string xsdSchemaPath = "")
     {
       //TODO: Move setup elements to XML
+
+      //инициализация подержания связи со шкафом управления
       Ping = new PeriodicalSwitcher("ELEM.PING");
       Ping.SetupControl("UNIT.PING", TimeSpan.FromSeconds(3.0), TimeSpan.FromSeconds(0.0));
       Ping.StartControl();
 
+      Scrapper = new Scrapper("ELEM.SCRAPPER");
+      Scrapper.SetupControl("YA01.2", "YA01.1", "CS02", "CS01", "YA02", "YA08.OPN");
+  
+      //инициализация управления заслонкой
       Damper = new PeriodicalSwitcher("ELEM.DAMPER");
       Damper.SetupControl("YA03", TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000));
 
+      //инициализация управления подогревателем газа
       GasHeater = new GasHeater("ELEM.GAS.HEATER");
       GasHeater.SetupControl("TE20", "TE21", "EK08.RUN");
 
+      //инициализация получения средней температуры стенок реактора
       AverageTemperatureProvider = new ReactorAverageTemperature("ELEM.AVERAGE.TEMPERATURE");
       AverageTemperatureProvider.StartControl();
     }

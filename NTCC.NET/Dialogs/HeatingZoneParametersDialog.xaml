@@ -55,7 +55,7 @@
             Grid.Column="1">
 
       <Button x:Name="btnClose"
-          Click="btnClose_Click"
+          Click="btnCloseClick"
           Width="35"
           Height="35"
           Background="White"
@@ -74,12 +74,26 @@
    
     <!--Dialog Footer-->
     <StackPanel Grid.Row="2"
-                Orientation="Horizontal" 
-                Margin="10" 
-                HorizontalAlignment ="Right">
-      <Button Content="Закрыть"
-              Click="btnClose_Click"/>
+          Orientation="Horizontal" 
+          Margin="10" 
+          HorizontalAlignment ="Right">
+     
+      <StackPanel.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+          <Setter Property="Margin" Value="5"/>
+        </Style>
+      </StackPanel.Resources>
+
+      <Button Click="btnCloseClick">
+        <Button.Content>
+          <StackPanel Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="Close" Margin="0,0,5,0"/>
+            <TextBlock Text="Выйти"/>
+          </StackPanel>
+        </Button.Content>
+      </Button>
+
     </StackPanel>
-      
+
   </Grid>
 </Window>

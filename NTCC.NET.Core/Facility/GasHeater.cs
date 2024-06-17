@@ -11,6 +11,7 @@ namespace NTCC.NET.Core.Facility
   {
     public GasHeater(string id) : base(id)
     {
+      Description = "Подогреватель газа";
     }
 
     public void SetupControl(string gasTemperatureId, string heaterTemperatureId, string heaterStateId)
@@ -106,7 +107,7 @@ namespace NTCC.NET.Core.Facility
 
       //сообщаем об остановке потока переключения 
       string message = $"Процедура процедура подогрева пропан-бутана остановлена";
-      OnTick(message, MessageType.Info);
+      OnTick(message, MessageType.Warning);
     }
     
     /// <summary>
@@ -119,14 +120,20 @@ namespace NTCC.NET.Core.Facility
       if (GasTemperature.Value > TargetGasTemperature ||
           WaterTemperature.Value > MaxWaterTemperature)
       {
-        HeaterState.SetState(false);
+        if (HeaterState.State != false)
+          HeaterState.SetState(false);
+
         return;
       }
 
       //если температура газа меньше заданной
       //включаем нагревательный элемент
       if (GasTemperature.Value < TargetGasTemperature)
-        HeaterState.SetState(true);
+      {
+        if (HeaterState.State != true)
+          HeaterState.SetState(true);
+      }
+        
     }
   }
 }

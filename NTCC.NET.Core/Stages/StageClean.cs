@@ -16,7 +16,7 @@ namespace NTCC.NET.Core.Stages
     }
 
     /// <summary>
-    /// Текущий проход скребка
+    /// Текущий (успешный) проход скребка
     /// </summary>
     public int CurrentPass
     {
@@ -32,7 +32,7 @@ namespace NTCC.NET.Core.Stages
     private int currentPass = 0;
 
     /// <summary>
-    /// Максимальное число проходов скребка
+    /// Максимальное число проходов скребка до окончания удаления депозита (15 - раз по умолчанию)
     /// </summary>
     public int MaxPassCount
     {
@@ -41,6 +41,7 @@ namespace NTCC.NET.Core.Stages
       {
         if (value == maxPassCount)
           return;
+
         maxPassCount = value;
         OnPropertyChanged();
       }
@@ -49,134 +50,39 @@ namespace NTCC.NET.Core.Stages
 
 
     /// <summary>
-    /// Время ожидания охлождения штоков скребка
+    /// Максимальное число попыток перемещения скребка (5 раз по умолчанию)
     /// </summary>
-    private TimeSpan CollingTime
+    public int MaxPassAttempts
     {
-      get => collingTime;
-      set
+      get => maxPassAttempts;
+      private set
       {
-        if (value == collingTime)
+        if (value == maxPassAttempts)
           return;
 
-        collingTime = value;
+        maxPassAttempts = value;
+        OnPropertyChanged();
+      }
+    }    
+    private int maxPassAttempts = 5;
+
+
+    /// <summary>
+    /// Время ожидания охлождения штоков скребка
+    /// </summary>
+    private TimeSpan CoolingTime
+    {
+      get => coolingTime;
+      set
+      {
+        if (value == coolingTime)
+          return;
+
+        coolingTime = value;
         OnPropertyChanged();
       }
     }
-    private TimeSpan collingTime = TimeSpan.FromSeconds(5);
-
-    /// <summary>
-    /// Oжидания прохода скребка в одном напровлении
-    /// </summary>
-    /// <param name="positionDataPoint">Датчик положения скребка, который будет проверяться для подтверждения завершения перемещения </param>
-    /// <param name="moveTimeOut">Максимальное время перемещения скребка к выбранной позиции</param>
-    /// <returns>true - если скребок достиг заданной точки , false - если скребок застрял</returns>
-    private bool WaitScraperPosition(DiscreteDataPoint positionDataPoint, TimeSpan moveTimeOut)
-    {
-      DateTime moveStart = DateTime.Now;
-      TimeSpan moveTime = TimeSpan.FromMilliseconds(0);
-
-      //ожидаем положения скребка или таймаута
-      while (true)
-      {
-        Thread.Sleep(50);
-
-        //обновляем время движения скребка
-        moveTime = DateTime.Now - moveStart;
-
-        //если превышено время ожидания положения скребка
-        if (moveTime > moveTimeOut)
-          return false;
-
-        if (positionDataPoint.State)
-          return true;
-      }
-    }
-
-    /// <summary>
-    /// Перемещение скребка в заданное положение
-    /// </summary>
-    /// <param name="moveDown"> Направление перемещения (true - вниз, false - вверх)</param>
-    /// <param name="moveTimeOut">Максимальное время перемещения скребка к выбранной позиции</param>
-    /// <returns>true - если скребок достиг заданной точки , false - если скребок застрял</returns>
-    private bool MoveScraperTo(bool moveDown, TimeSpan moveTimeOut)
-    {
-      var dataPoints = ArtMonbatFacility.DataPoints;
-
-      DiscreteOutputDataPoint moveTopDataPoint = dataPoints["YA01.1"] as DiscreteOutputDataPoint;
-      DiscreteOutputDataPoint moveDownDataPoint = dataPoints["YA01.2"] as DiscreteOutputDataPoint;
-
-      DiscreteDataPoint isScaperOnTop = dataPoints["CS01"] as DiscreteDataPoint;
-      DiscreteDataPoint isScaperOnDown = dataPoints["CS02"] as DiscreteDataPoint;
-
-      DiscreteOutputDataPoint nitroToScraper = dataPoints["YA08.OPN"] as DiscreteOutputDataPoint;
-
-      if (moveDown)
-      {
-        //отключаем линейный модуль скребка #1
-        moveTopDataPoint.SetState(false);
-
-        //технологическая задержка
-        Thread.Sleep(100);
-
-        //включаем линейный модуль скребка #2
-        moveDownDataPoint.SetState(true);
-
-        //технологическая задержка
-        Thread.Sleep(100);
-
-        //подача азота в сребок
-        nitroToScraper.SetState(true);
-
-        //если не достигли нижнего положения ошибка
-        if (!WaitScraperPosition(isScaperOnDown, moveTimeOut))
-          return false;
-
-      }
-      else
-      {
-        //снятие подачи азота в сребок
-        nitroToScraper.SetState(false);
-
-        //технологическая задержка
-        Thread.Sleep(100);
-
-        //выключаем линейный модуль скребка #2
-        moveDownDataPoint.SetState(false);
-
-        //технологическая задержка
-        Thread.Sleep(100);
-
-        //включаем линейный модуль скребка #1
-        moveTopDataPoint.SetState(true);
-
-        //если не достигли верхнего положения ошибка
-        if (!WaitScraperPosition(isScaperOnTop, moveTimeOut))
-          return false;
-      }
-
-      return true;
-    }
-
-    /// <summary>
-    /// Перемещение скребка вниз
-    /// </summary>
-    /// <param name="moveTimeOut">Максимальное время перемещения скребка</param>
-    /// <returns>true - если скребок достиг нижнего положения в пределах заданного времени, false - если скребок застрял</returns>
-    private bool MoveScraperDown(TimeSpan moveTimeOut)
-    {
-      return MoveScraperTo(true, moveTimeOut);
-    }
-
-    /// <summary>
-    /// Перемещение скребка вверх
-    /// </summary>
-    /// <param name="moveTimeOut">Максимальное время перемещения скребка</param>
-    /// <returns>True - если скребок достиг верхнего положения в пределах заданного времени, false - если скребок застрял</returns>
-    private bool MoveScraperUp(TimeSpan moveTimeOut)
-    {
-      return MoveScraperTo(false, moveTimeOut);
-    }
+    private TimeSpan coolingTime = TimeSpan.FromSeconds(5);
 
     public override StageResult Prepare()
     {
@@ -201,8 +107,9 @@ namespace NTCC.NET.Core.Stages
     protected override StageResult Finalization()
     {
       //отправляем команду на перемещение скребка вверх
-      MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
-
+      Scrapper scrapper = ArtMonbatFacility.Scrapper;
+      scrapper.MoveScraperUp();
+      
       //выключаем шнек
       DataPointHelper.SetDiscreteParameter(this, "M02.RUN", false, (int)OperationDelay.TotalMilliseconds);
 
@@ -230,15 +137,16 @@ namespace NTCC.NET.Core.Stages
     protected override StageResult Main(CancellationToken stop, CancellationToken skip)
     {
       StartTime = DateTime.Now;
-
-      CurrentPass = 0;
       MaxPassCount = StageParameters.PassCount;
-      CollingTime = TimeSpan.FromSeconds(StageParameters.CoolingTime);
+      CoolingTime = TimeSpan.FromSeconds(StageParameters.CoolingTime);
+      CurrentPass = 1;
+      
+      //локальный счетчик попыток перемещения скребка
+      //счетчик обнуляется при успешном проходе скребка
+      int currentAttempt = 0;
 
       while (CurrentPass < MaxPassCount)
       {
-        CurrentPass++;
-
         //проверяем на прерывание стадии пользователем
         if (stop.IsCancellationRequested)
           return StageResult.Stopped;
@@ -247,39 +155,56 @@ namespace NTCC.NET.Core.Stages
         if (skip.IsCancellationRequested)
           return StageResult.Skipped;
 
+        //получаем экземпляр скребка и настраиваем время перемещения вверх и вниз
+        Scrapper scrapper = ArtMonbatFacility.Scrapper;
+        scrapper.MoveDownTimeOut = TimeSpan.FromSeconds(StageParameters.OneWayTimeout);
+        scrapper.MoveUpTimeOut = TimeSpan.FromSeconds(StageParameters.OneWayTimeout);
+
         try
         {
-          if (!MoveScraperDown(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
+          //попытка сделать полный проход скребка
+          if (scrapper.MakePass())
           {
-            //TODO:если застрял при движении вниз
-            OnTick($"Скребок не достиг нижнего положения.", MessageType.Error);
-            DataPointHelper.WaitDiscreteParameterSet(this, "CS02", true, TimeSpan.FromSeconds(5.0));
-          }
+            OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков {CoolingTime}...", MessageType.Info);
 
-          if (!MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout)))
+            //ожидаем охлождение штоков
+            Thread.Sleep(CoolingTime);
+
+            //сбрасываем число попыток перемещения скребка и увеличиваем число успешных проходов
+            currentAttempt = 0;
+            CurrentPass++;
+          }
+          else
           {
-            //TODO:если застрял при движении вверх
-            OnTick($"Скребок не достиг верхнего положения.", MessageType.Error);
-            DataPointHelper.WaitDiscreteParameterSet(this, "CS01", true, TimeSpan.FromSeconds(5.0));
+            //увеличиваем число попыток перемещения скребка
+            if (++currentAttempt > MaxPassAttempts)
+            {
+              throw new IndexOutOfRangeException($"Превышено максимальное число попыток перемещения скребка [{MaxPassAttempts}]");
+            }
           }
         }
-        catch (TimeoutException toex)
+        catch (IndexOutOfRangeException ex)
         {
-          MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
-          OnTick(toex.Message, MessageType.Error);
+          string message = $"Проход [{CurrentPass}] скребка не завершен {ex.Message}. Закончите удаление депозита вручную и нажмите [Да] для продолжения технологического цикла.";
+          OnTick(message, MessageType.Exception);
+          
+          //выдаем сообщение пользователю и ожидаем подтверждения
+          if (UserConfirmation.Confirm(message))
+            return StageResult.Successful;
+
+          //если пользователь не подтвердил продолжение технологического цикла завершаем стадию с неудачей
           return StageResult.Failed;
         }
+
         catch (Exception ex)
         {
-          MoveScraperUp(TimeSpan.FromSeconds(StageParameters.OneWayTimeout));
-          OnTick(ex.Message, MessageType.Exception);
-          return StageResult.Excepted;
+          //увеличиваем число попыток перемещения скребка
+          currentAttempt++;
+          OnTick($"Проход [{CurrentPass}] скребка не завершен, попытка [{currentAttempt}] : {ex.Message}", MessageType.Exception);
+
+          //ожидаем охлождение штоков
+          Thread.Sleep(CoolingTime);
         }
-
-        OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков", MessageType.Info);
-
-        //ожидаем охлождение штоков
-        Thread.Sleep(TimeSpan.FromSeconds(StageParameters.CoolingTime));
       }
 
       return StageResult.Successful;

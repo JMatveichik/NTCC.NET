@@ -59,10 +59,15 @@ namespace NTCC.NET.Core.Facility
     /// </summary>
     public bool Connect()
     {
+      
+      OnTick($"Попытка подключения к устройству «{Title}»", MessageType.Info);
       var connected = Connect(ConnectionString, (int)ResponseTimeout.TotalMilliseconds);
 
       if (connected)
+      {
+        OnTick($"Связь с утройством «{Title}» установлена. Начат сбор данных.", MessageType.Success);
         Start();
+      }
 
       return connected;
     }
@@ -74,6 +79,45 @@ namespace NTCC.NET.Core.Facility
     /// <param name="timeout"></param>
     /// <returns></returns>
     public abstract bool Connect(string connection, int timeout);
+
+    /// <summary>
+    /// Переподключение к устройству
+    /// </summary>
+    /// <returns>true - если получилось подключиться к устройству; false - если переподключение не удалось</returns>
+    public bool Reconnect(int totalAttempts = 5)
+    {
+      //останавливаем поток обновления данных
+      Stop();
+
+      //сбрасываем текущую попытку подключения
+      int currentAttempt = 0;
+      
+      //пытаемся переподключиться к устройству
+      while (currentAttempt < totalAttempts)
+      {
+        //ожидаем 2 секунды перед следующей попыткой
+        Thread.Sleep(2000);
+
+        if (!Connect())
+        {
+          CurrentAttempt = ++currentAttempt;
+
+          string message = $"Попытка {currentAttempt} восстановления связи с устройством «{Title}» .";
+          OnTick(message, MessageType.Warning);
+          continue;
+        }
+        else
+        {
+          CurrentAttempt = 0;
+
+          string message = $"Связь с устройством «{Title}» восстановлена.";
+          OnTick(message, MessageType.Success);
+          return true;
+        }
+      }
+
+      return false;
+    }
     #endregion
 
 
@@ -199,6 +243,22 @@ namespace NTCC.NET.Core.Facility
 
     #endregion
 
+    /// <summary>
+    /// Текущая попытка получения данных от устройства или установления регистра для устройства 
+    /// </summary>
+    public int CurrentAttempt
+    {       
+      get => currentAttempt;
+      set
+      {
+        if (currentAttempt == value)
+          return;
+
+        currentAttempt = value;
+        OnPropertyChanged();
+      }
+    }
+    private int currentAttempt = 0;
 
     /// <summary>
     /// Запуск потока обновления данных
@@ -212,28 +272,27 @@ namespace NTCC.NET.Core.Facility
       controlThread = new Thread(ControlThreadFunction);
       controlThread.Start();
 
+      //отправляем сообщение о запуске устройства
+      string message = $"Устройство «{Title}» запущено!";
+      OnTick(message, MessageType.Success);
+
       return true;
     }
 
+    /// <summary>
+    /// Остановка потока обновления данных
+    /// </summary>
     public void Stop()
     {
       stopEvent.Set();
     }
-
-    public bool IsAlive
-    {
-      get
-      {
-        if (controlThread == null)
-          return false;
-
-        return controlThread.IsAlive;
-      }
-    }
+   
 
     protected virtual void OnExit()
     {
-      Debug.WriteLine($"Device {Title} was stopped !");
+      //отправляем сообщение о запуске устройства
+      string message = $"Устройство «{Title}» остановлено! Сбор информации от устройства прекращен!";
+      OnTick(message, MessageType.Warning);
     }
 
 
@@ -316,7 +375,9 @@ namespace NTCC.NET.Core.Facility
       }
       catch (Exception e)
       {
-        Debug.WriteLine(e.Message);
+        //отправляем сообщение о запуске устройства
+        string message = $"Ошибка обновления текущего состояния устройства «{Title}» : {e.Message}";
+        OnTick(message, MessageType.Warning);
       }
 
     }
@@ -339,14 +400,15 @@ namespace NTCC.NET.Core.Facility
     {
       while (true)
       {
+        if (stopEvent.WaitOne(TimeSpan.FromMilliseconds(0)))
+        {
+          OnExit();
+          break;
+        }
+
         Thread.Sleep(Interval);
         UpdateData();
 
-        if (!stopEvent.WaitOne(TimeSpan.FromMilliseconds(10)))
-          continue;
-
-        OnExit();
-        break;
       }
     }
 
@@ -364,7 +426,6 @@ namespace NTCC.NET.Core.Facility
         interval = (value < MinDelay) ? value : BaseDelay;
       }
     }
-
 
     private int interval = BaseDelay;
 

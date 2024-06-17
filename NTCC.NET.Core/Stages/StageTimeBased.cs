@@ -15,7 +15,6 @@ namespace NTCC.NET.Core.Stages
     {
     }
 
-
     /// <summary>
     /// Заданная (общая) продолжительность стадии
     /// </summary>
@@ -72,11 +71,22 @@ namespace NTCC.NET.Core.Stages
         if (skip.IsCancellationRequested)
           return StageResult.Skipped;
 
+        //обновляем данные о времени если параметры изменены пользователем
+        TotalDuration = TimeSpan.FromMinutes(StageParameters.Duration);
+
         Duration = DateTime.Now - StartTime;
         TimeLeft = TotalDuration - Duration;
+
+        //вызываем метод специфичный для данной стадии
+        OnMainTick();
       }
 
       return StageResult.Successful;
     }
+
+    /// <summary>
+    /// Абстрактный метод, который вызывается в основном цикле стадии
+    /// </summary>
+    protected abstract void OnMainTick();
   }
 }

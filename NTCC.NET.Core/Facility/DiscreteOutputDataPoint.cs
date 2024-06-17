@@ -58,7 +58,7 @@ namespace NTCC.NET.Core.Facility
     public void SetState(bool state)
     {
       Device.SetDiscreteOutput(ListenedChannel, state);
-      OnTick($"Переключение  {ID} в состояние {GetStateString(state)}", MessageType.Debug);
+      OnTick($"Переключение  {ID} в состояние {GetStateString(state)}", MessageType.Trace);
     }
   }
 }

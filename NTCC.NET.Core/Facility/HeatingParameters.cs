@@ -13,6 +13,9 @@ namespace NTCC.NET.Core.Facility
     public static HeatingParameters FromXml(XElement xmlZone)
     {
       HeatingParameters heatingParameters = new HeatingParameters();
+      string zoneID = xmlZone.Attribute("ID")?.Value;
+      
+      heatingParameters.Zone = ArtMonbatFacility.ReactorZones[zoneID];
 
       double minWallTemperature = XmlHelper.ParseDoubleAttribute(xmlZone, "MinWallTemperature");
       double maxWallTemperature = XmlHelper.ParseDoubleAttribute(xmlZone, "MaxWallTemperature");
@@ -32,6 +35,12 @@ namespace NTCC.NET.Core.Facility
     public HeatingParameters()
     {
 
+    }
+
+    public ReactorHeatingZone Zone
+    {
+      get; 
+      private set;
     }
 
     public bool UseWhenAverageTemperatureCalc

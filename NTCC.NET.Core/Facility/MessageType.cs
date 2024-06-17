@@ -9,28 +9,32 @@ namespace NTCC.NET.Core.Facility
     public enum MessageType
     {
         /// <summary>
-        /// Информационные сообщения
+        /// Трассировочное сообщение
         /// </summary>
-        Info        = 0,
-        /// <summary>
-        ////Сообщения об удачном дейтсвии
-        /// </summary>
-        Success     = 1,
+        Trace = 0,
         /// <summary>
         /// Отладочные  сообщения
         /// </summary>
-        Debug       = 1,
+        Debug = 1,
+        /// <summary>
+        /// Информационные сообщения
+        /// </summary>
+        Info = 2,
+        /// <summary>
+        ////Сообщения об удачном дейтсвии
+        /// </summary>
+        Success     = 3,
         /// <summary>
         /// Предупредительные сообщения
         /// </summary>
-        Warning     = 2,
+        Warning     = 4,
         /// <summary>
         /// Сообщения об ошибках процесса
         /// </summary>
-        Error       = 3,
+        Error       = 5,
         /// <summary>
         /// Исключительны ситуации
         /// </summary>
-        Exception   = 4,
+        Exception   = 6,
     }
 }

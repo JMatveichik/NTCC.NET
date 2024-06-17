@@ -4,9 +4,12 @@
 			Type="ART-MONBAT-01" 
 			Name="ART-MONBAT-01" 
 			Description="Контроллер в шкафу управления" 
-			RegistersMappingFile="ArtMonbatUnitMap.v5.xml"
+			RegistersMappingFile="ArtMonbatUnitMap.xml"
 			Connection="127.0.0.1:502">		
 	</Device>
 </Devices>
 
+<!--Connection="192.168.10.10:502"-->
+<!--Connection="192.168.10.40:502"-->
+<!--Connection="192.168.10.10:502"-->
 <!--Connection="192.168.10.10:502"-->

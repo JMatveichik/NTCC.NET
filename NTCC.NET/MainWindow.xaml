@@ -7,6 +7,8 @@
         xmlns:models="clr-namespace:NTCC.NET.ViewModels"
         xmlns:pages="clr-namespace:NTCC.NET.Pages"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:cb="clr-namespace:CalcBinding;assembly=CalcBinding"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="{Binding AssemblyTitle }" Height="450" Width="800"
@@ -34,7 +36,9 @@
                 </DataTemplate>-->
 
         <DataTemplate DataType="{x:Type models:MessagesViewModel}">
-          <pages:MessagesPage/>
+          
+            <pages:MessagesPage/>
+          
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type models:TablesViewModel}">
@@ -51,12 +55,24 @@
 
       </mah:MetroTabControl.Resources>
 
-      <mah:MetroTabControl.ItemContainerStyle>
-        <Style TargetType="{x:Type mah:MetroTabItem}">
-          <Setter Property="Header" Value="{Binding PageIcon}" />
+      
+        <mah:MetroTabControl.ItemContainerStyle>
+          <Style TargetType="{x:Type mah:MetroTabItem}">
+          <Setter Property="HeaderTemplate">
+            <Setter.Value>
+              <DataTemplate>
+                <materialDesign:Badged Badge="{Binding BadgeValue}" 
+                                       BadgePlacementMode="TopLeft">
+                  <ContentPresenter Content="{Binding PageIcon}"/>
+                </materialDesign:Badged>
+              </DataTemplate>
+            </Setter.Value>
+          </Setter>
+            
           <Setter Property="Padding" Value="8, 20"/>
-        </Style>
-      </mah:MetroTabControl.ItemContainerStyle>
+          </Style>
+        </mah:MetroTabControl.ItemContainerStyle>
+      
 
     </mah:MetroTabControl>
 

@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.1.2403.11</AssemblyVersion>
+    <AssemblyVersion>1.1.2405.07</AssemblyVersion>
     <ApplicationIcon>SimpleIcons-Moleculer.ico</ApplicationIcon>
     <IncrementVersionOnBuild>1.1.yyMM.dd</IncrementVersionOnBuild>
-    <Version>1.1.2403.11</Version>
+    <Version>1.1.2406.17</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +30,8 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="MaterialDesignExtensions" Version="3.3.0" />
+    <PackageReference Include="NLog" Version="5.2.8" />
+    <PackageReference Include="NLog.Config" Version="4.7.15" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

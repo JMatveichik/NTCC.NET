@@ -53,6 +53,7 @@
     <Compile Include="Facility\IUserConfirmation.cs" />
     <Compile Include="Facility\PeriodicalSwitcher.cs" />
     <Compile Include="Facility\ReactorAverageTemperature.cs" />
+    <Compile Include="Facility\Scrapper.cs" />
     <Compile Include="Facility\StageFactory.cs" />
     <Compile Include="Facility\StageParameters.cs" />
     <Compile Include="Stages\StageAir.cs" />

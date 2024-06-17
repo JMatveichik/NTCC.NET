@@ -30,13 +30,9 @@
         <TextBlock Grid.Column="0" Grid.Row="0"
                    Style="{StaticResource Value}"
                    HorizontalAlignment="Right"
-                   Text="{cb:Binding Math.Abs(Value), StringFormat={}{0:F1}}"/>
+                   Text="{Binding DisplayValue}"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="0"
-                   HorizontalAlignment="Left"
-                   Style="{StaticResource Value}"
-                   Text="{Binding Units}"/>
-
+      
         <!--
         <iconPacks:PackIconMaterial Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
                                           Kind="Gauge"

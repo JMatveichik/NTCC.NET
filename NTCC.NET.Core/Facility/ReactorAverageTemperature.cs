@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTCC.NET.Core.Stages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,10 @@ namespace NTCC.NET.Core.Facility
     protected override void ControlFunction()
     {
       AverageTemperatureAllZones      = ArtMonbatFacility.Instance.GetAverageTemperature();
-      AverageTemperatureSelectedZones = ArtMonbatFacility.FullCycle.CurrentStage.GetAverageTemperature();
+      StageBase current = ArtMonbatFacility.FullCycle.CurrentStage;
+      
+      if (current != null)
+        AverageTemperatureSelectedZones = current.GetAverageTemperature();
     }
 
     protected override void OnControlStarted()

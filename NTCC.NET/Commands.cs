@@ -54,6 +54,23 @@ namespace NTCC.NET.Commands
       get;
     } = new RoutedUICommand("Setup heating zone parameter", "HeatingZoneParameters", typeof(FacilityCommands), null);
 
+
+    /// <summary>
+    /// Команда задания параметоров зоны реактора
+    /// </summary>
+    public static RoutedUICommand StageParameters
+    {
+      get;
+    } = new RoutedUICommand("Setup stage parameters", "StageParameters", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда задания параметоров подогревателя газа
+    /// </summary>
+    public static RoutedUICommand GasHeaterParameters
+    {
+      get;
+    } = new RoutedUICommand("Setup gas heater parameters", "GasHeaterParameters", typeof(FacilityCommands), null);
+
     /// <summary>
     /// Команда включения\выключения питания зоны
     /// </summary>
@@ -69,6 +86,30 @@ namespace NTCC.NET.Commands
     {
       get;
     } = new RoutedUICommand("Switch heating zone control state", "SwitchHeatingZoneControl", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда очиски непрочитанных сообщений
+    /// </summary>
+    public static RoutedUICommand MarkAllMessagesAsReaded
+    {
+      get;
+    } = new RoutedUICommand("Mark all messages as readed", "MarkAllMessagesAsReaded", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда очистки списка сообщений
+    /// </summary>
+    public static RoutedUICommand ClearMessageList
+    {
+      get;
+    } = new RoutedUICommand("Remove messages list", "ClearMessageList", typeof(FacilityCommands), null);
+
+    /// <summary>
+    /// Команда включения\выключения управление заслонкой
+    /// </summary>
+    public static RoutedUICommand SwitchDamperState
+    {
+      get;
+    } = new RoutedUICommand("On/off damper", "SwitchDamperState", typeof(FacilityCommands), null);
 
   }
 }
