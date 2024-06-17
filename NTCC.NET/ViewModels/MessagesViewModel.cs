@@ -91,6 +91,7 @@ namespace NTCC.NET.ViewModels
       MessagesList.CollectionChanged += MessageListChanged;
     }
 
+   
     /// <summary>
     /// Регистрация обработчика информационных сообщений для элементов установки
     /// </summary>
@@ -245,13 +246,21 @@ namespace NTCC.NET.ViewModels
         if (element == null || message == null)
           return;
 
-        if (App.Current == null)
-          return;
-
-        App.Current.Dispatcher.Invoke((Action)delegate
+        try
         {
-          MessagesList?.Insert(0, message);
-        });
+          if (App.Current != null && !App.Current.Dispatcher.HasShutdownStarted)
+          {
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+              MessagesList?.Insert(0, message);
+            });
+          }
+        }
+        catch (TaskCanceledException ex)
+        {
+          // Handle the exception here
+          return;
+        }
       }
     }
 
@@ -265,6 +274,7 @@ namespace NTCC.NET.ViewModels
 
     public override void Stop()
     {
+      //UnregisterAllMessageSources();
     }
 
     /// <summary>

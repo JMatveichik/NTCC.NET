@@ -7,7 +7,7 @@
     <AssemblyVersion>1.1.2405.07</AssemblyVersion>
     <ApplicationIcon>SimpleIcons-Moleculer.ico</ApplicationIcon>
     <IncrementVersionOnBuild>1.1.yyMM.dd</IncrementVersionOnBuild>
-    <Version>1.1.2406.2</Version>
+    <Version>1.1.2406.7</Version>
   </PropertyGroup>
 
   <ItemGroup>
