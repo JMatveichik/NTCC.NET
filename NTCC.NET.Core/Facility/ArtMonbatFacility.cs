@@ -157,28 +157,28 @@ namespace NTCC.NET.Core.Facility
       try
       {
         //инициализация устройств управления/измерения
-        string xmlDevicesPath = Path.Combine(configDir, "Devices.v1.xml");
-        string xsdDevicesPath = Path.Combine(configDir, "Devices.v1.xsd");
+        string xmlDevicesPath = Path.Combine(configDir, "Devices.xml");
+        string xsdDevicesPath = Path.Combine(configDir, "Devices.xsd");
         initializeDevices(xmlDevicesPath, xsdDevicesPath);
 
         //инициализация точек данных
-        string xmlDataPointPath = Path.Combine(configDir, "DataPoints.v5.xml");
-        string xsdDataPointPath = Path.Combine(configDir, "DataPoints.v5.xsd");
+        string xmlDataPointPath = Path.Combine(configDir, "DataPoints.xml");
+        string xsdDataPointPath = Path.Combine(configDir, "DataPoints.xsd");
         initializeDataPoints(xmlDataPointPath, xsdDataPointPath);
 
         //инициализация нагревателей
-        string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xml");
-        string xsdHeatingPath = Path.Combine(configDir, "HeatingGroups.v2.xsd");
+        string xmlHeatingPath = Path.Combine(configDir, "HeatingGroups.xml");
+        string xsdHeatingPath = Path.Combine(configDir, "HeatingGroups.xsd");
         initializeHeaters(xmlHeatingPath, xsdHeatingPath);
 
         //инициализация компонентов установки
-        string xmlFacilityComponent = Path.Combine(configDir, "FacilityComponents.v2.xml");
-        string xsdFacilityComponent = Path.Combine(configDir, "FacilityComponents.v2.xsd");
+        string xmlFacilityComponent = Path.Combine(configDir, "FacilityComponents.xml");
+        string xsdFacilityComponent = Path.Combine(configDir, "FacilityComponents.xsd");
         initializeElements(xmlFacilityComponent, xsdFacilityComponent);
 
         //инициализация стадий выполнения техпроцесса
-        string xmlStages = Path.Combine(configDir, "Stages.v2.xml");
-        string xsdStages = Path.Combine(configDir, "Stages.v2.xsd");
+        string xmlStages = Path.Combine(configDir, "Stages.xml");
+        string xsdStages = Path.Combine(configDir, "Stages.xsd");
         initializeStages(xmlStages, xsdStages);
       }
       catch (Exception ex)
