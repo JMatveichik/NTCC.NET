@@ -169,18 +169,21 @@ namespace NTCC.NET.Core.Facility
       if (moveDown)
       {
         //отключаем линейный модуль скребка #1
+        OnTick("Отключаем цилиндр перемещения скребка вверх", MessageType.Debug);
         ValveMoveUp.SetState(false);
 
         //технологическая задержка
-        Thread.Sleep(100);
+        Thread.Sleep(50);
 
         //включаем линейный модуль скребка #2 - движение вниз
+        OnTick("Включаем цилиндр перемещения скребка вниз", MessageType.Debug);
         ValveMoveDown.SetState(true);
 
         //технологическая задержка
-        Thread.Sleep(100);
+        Thread.Sleep(50);
 
         //подача азота в сребок если движемся вниз
+        OnTick("Включаем пневмоцилиндр подачи азота в скребок...", MessageType.Debug);
         ScrapperNitroValve.SetState(true);
 
         //если не достигли нижнего положения ошибка
@@ -241,6 +244,8 @@ namespace NTCC.NET.Core.Facility
     /// <returns>True - если скребок достиг верхнего положения в пределах заданного времени, false - если скребок застрял</returns>
     public bool MoveScraperUp(TimeSpan moveTimeOut)
     {
+      //Оповещение о перемещении скребка в верхнее
+      OnTick($"Попытка перемещения скребка в нижнее положение...", MessageType.Info);
       return MoveScraperTo(false, moveTimeOut);
     }
 
@@ -262,7 +267,7 @@ namespace NTCC.NET.Core.Facility
     public bool MakePass()
     {
       try
-      {        
+      {
         //перемещение скребка в нижнее положение
         if (!MoveScraperDown())
         {
@@ -304,7 +309,7 @@ namespace NTCC.NET.Core.Facility
 
       //отключаем пневмоцилиндр уплотнения штоков скребка
       OnTick("Отключаем пневмоцилиндр уплотнения штоков скребка...", MessageType.Debug);
-      ScrapperSealsValve.SetState(false);
+      ScrapperSealsValve.SetState(true);
 
       //отжиг без подачи  азота в сребок 
       OnTick("Отключаем пневмоцилиндр подачи азота в скребок...", MessageType.Debug);
@@ -349,10 +354,10 @@ namespace NTCC.NET.Core.Facility
 
       //включить пневмоцилиндр уплотнения штоков скребка
       OnTick("Включаем пневмоцилиндр уплотнения штоков скребка...", MessageType.Debug);
-      ScrapperSealsValve.SetState(true);
+      ScrapperSealsValve.SetState(false);
 
       //оповещение об окончании отжига скребка
-      OnTick("Проход для отжига скребка завершен ...", MessageType.Success);
+      OnTick("Проход для отжига скребка завершен ...", MessageType.Info);
       return true;
     }
 

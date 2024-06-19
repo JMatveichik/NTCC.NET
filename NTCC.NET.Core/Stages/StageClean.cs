@@ -96,7 +96,7 @@ namespace NTCC.NET.Core.Stages
       DataPointHelper.SetDiscreteParameter(this, "M02.RUN", true, (int)OperationDelay.TotalMilliseconds);
 
       //отжимаем уплотнения
-      DataPointHelper.SetDiscreteParameter(this, "YA02", false, (int)OperationDelay.TotalMilliseconds);
+      DataPointHelper.SetDiscreteParameter(this, "YA02", true, (int)OperationDelay.TotalMilliseconds);
 
       //запускаем управление заслонкой
       ArtMonbatFacility.Damper.StartControl();
@@ -126,7 +126,7 @@ namespace NTCC.NET.Core.Stages
       DataPointHelper.SetDiscreteParameter(this, "YA01.1", true, (int)OperationDelay.TotalMilliseconds);
 
       //зажимаем уплотнения
-      DataPointHelper.SetDiscreteParameter(this, "YA02", true, (int)OperationDelay.TotalMilliseconds);
+      DataPointHelper.SetDiscreteParameter(this, "YA02", false, (int)OperationDelay.TotalMilliseconds);
 
       //останавливаем управление заслонкой
       ArtMonbatFacility.Damper.StopControl();
