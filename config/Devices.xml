@@ -5,7 +5,7 @@
 			Name="ART-MONBAT-01" 
 			Description="Контроллер в шкафу управления #1" 
 			RegistersMappingFile="ArtMonbatUnitMap.xml"
-			Connection="192.168.10.10:502">		
+			Connection="127.0.0.1:502">		
 	</Device>
 </Devices>
 

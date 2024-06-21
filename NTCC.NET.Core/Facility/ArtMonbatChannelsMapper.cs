@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NTCC.NET.Core.Tools;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,11 +43,12 @@ namespace NTCC.NET.Core.Facility
             analogOutputsMap.Clear();
         }
 
-        public void Initialize(string xmlFilePath) 
+        public void Initialize(string xmlConfigPath) 
         {
             Clear();
-           
-            XDocument xmlDocument = XDocument.Load(xmlFilePath);
+
+            ConfigFileProcessor configFileProcessor = new ConfigFileProcessor();
+            XDocument xmlDocument = configFileProcessor.GetXDocument(xmlConfigPath);
 
             foreach (var registersRange in xmlDocument.Descendants("RegistersRange"))
             {
