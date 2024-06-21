@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using NTCC.NET.Core.Tools;
+using System.Xml;
 
 namespace NTCC.NET.Core.Facility
 {
@@ -195,7 +197,8 @@ namespace NTCC.NET.Core.Facility
     /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
     private void initializeDevices(string xmlConfigPath, string xsdSchemaPath = "")
     {
-      XDocument xmlDocument = XDocument.Load(xmlConfigPath);
+      ConfigFileProcessor configFileProcessor = new ConfigFileProcessor();
+      XDocument xmlDocument = configFileProcessor.GetXDocument(xmlConfigPath);
 
       foreach (var xmlElement in xmlDocument.Descendants("Device"))
       {
@@ -215,13 +218,15 @@ namespace NTCC.NET.Core.Facility
       }
     }
 
+    
+   
     /// <summary>
     /// Загружаем точки данных из конфигурации XML
     /// </summary>
     private void initializeDataPoints(string xmlConfigPath, string xsdSchemaPath = "")
     {
-
-      XDocument xmlDocument = XDocument.Load(xmlConfigPath);
+      ConfigFileProcessor configFileProcessor = new ConfigFileProcessor();
+      XDocument xmlDocument = configFileProcessor.GetXDocument(xmlConfigPath);
 
       foreach (var xmlElement in xmlDocument.Descendants("DataPoint"))
       {
@@ -243,7 +248,8 @@ namespace NTCC.NET.Core.Facility
     /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
     private void initializeHeaters(string xmlConfigPath, string xsdSchemaPath = "")
     {
-      XDocument xmlDocument = XDocument.Load(xmlConfigPath);
+      ConfigFileProcessor configFileProcessor = new ConfigFileProcessor();
+      XDocument xmlDocument = configFileProcessor.GetXDocument(xmlConfigPath);
 
       foreach (var xmlElement in xmlDocument.Descendants("ReactorZone"))
       {
@@ -263,7 +269,8 @@ namespace NTCC.NET.Core.Facility
     /// <param name="xsdSchemaPath">Путь к схеме XSD</param>
     private void initializeStages(string xmlConfigPath, string xsdSchemaPath = "")
     {
-      XDocument xmlDocument = XDocument.Load(xmlConfigPath);
+      ConfigFileProcessor configFileProcessor = new ConfigFileProcessor();
+      XDocument xmlDocument = configFileProcessor.GetXDocument(xmlConfigPath);
 
       foreach (var xmlElement in xmlDocument.Descendants("Stage"))
       {
