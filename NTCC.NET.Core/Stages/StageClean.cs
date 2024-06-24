@@ -165,10 +165,7 @@ namespace NTCC.NET.Core.Stages
           //попытка сделать полный проход скребка
           if (scrapper.MakePass())
           {
-            OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков {CoolingTime}...", MessageType.Info);
-
-            //ожидаем охлождение штоков
-            Thread.Sleep(CoolingTime);
+            OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков {CoolingTime} ...", MessageType.Info);
 
             //сбрасываем число попыток перемещения скребка и увеличиваем число успешных проходов
             currentAttempt = 0;
@@ -182,6 +179,9 @@ namespace NTCC.NET.Core.Stages
               throw new IndexOutOfRangeException($"Превышено максимальное число попыток перемещения скребка [{MaxPassAttempts}]");
             }
           }
+
+          //ожидаем охлождение штоков
+          Thread.Sleep(CoolingTime);
         }
         catch (IndexOutOfRangeException ex)
         {

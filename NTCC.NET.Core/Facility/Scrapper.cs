@@ -183,34 +183,40 @@ namespace NTCC.NET.Core.Facility
         Thread.Sleep(50);
 
         //подача азота в сребок если движемся вниз
-        OnTick("Включаем пневмоцилиндр подачи азота в скребок...", MessageType.Debug);
+        OnTick("Включаем пневмоцилиндр подачи азота в скребок", MessageType.Debug);
         ScrapperNitroValve.SetState(true);
 
         //если не достигли нижнего положения ошибка
         if (!WaitScraperPosition(BottomPositionSensor, moveTimeOut))
           return false;
 
+        OnTick("Скребок достиг нижнего положения", MessageType.Debug);
       }
       else
       {
         //снятие подачи азота в сребок если движемся вверх
+        OnTick("Отключаем пневмоцилиндр подачи азота в скребок", MessageType.Debug);
         ScrapperNitroValve.SetState(false);
 
         //технологическая задержка
-        Thread.Sleep(100);
+        Thread.Sleep(50);
 
         //выключаем линейный модуль скребка #2
+        OnTick("Выключаем цилиндр перемещения скребка вниз", MessageType.Debug);
         ValveMoveDown.SetState(false);
 
         //технологическая задержка
-        Thread.Sleep(100);
+        Thread.Sleep(50);
 
         //включаем линейный модуль скребка #1 - движение вверх
+        OnTick("Включаем цилиндр перемещения скребка вверх", MessageType.Debug);
         ValveMoveUp.SetState(true);
 
-        //если не достигли верхнего положения ошибка
+        //если не достигли верхнего положения - ошибка
         if (!WaitScraperPosition(TopPositionSensor, moveTimeOut))
           return false;
+
+        OnTick("Скребок достиг верхнего положения", MessageType.Debug);
       }
 
       return true;
@@ -285,7 +291,7 @@ namespace NTCC.NET.Core.Facility
         else 
         {
           OnTick($"Скребок вернулся в верхнее положение.", MessageType.Success);
-        }        
+        }
 
         return true; 
       }
@@ -348,9 +354,9 @@ namespace NTCC.NET.Core.Facility
         return false;
       }
 
-      //включаем линейный модуль скребка #1 - движение вверх
-      OnTick("Выключаем цилиндр перемещения скребка вверх", MessageType.Debug);
-      ValveMoveUp.SetState(false);
+      //выключаем линейный модуль скребка #1 - движение вверх
+      //OnTick("Выключаем цилиндр перемещения скребка вверх", MessageType.Debug);
+      //ValveMoveUp.SetState(false);
 
       //включить пневмоцилиндр уплотнения штоков скребка
       OnTick("Включаем пневмоцилиндр уплотнения штоков скребка...", MessageType.Debug);
