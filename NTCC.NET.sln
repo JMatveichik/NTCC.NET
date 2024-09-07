@@ -15,6 +15,44 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastNotifications", "Toast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToastNotifications.Messages", "ToastNotifications\Src\ToastNotifications.Messages\ToastNotifications.Messages.csproj", "{4DE2F314-B19F-423E-92D8-7D3A7D9ACEA2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config Files", "Config Files", "{97C5D5D4-EB23-4131-90EE-6F3479419AA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 1", "Module 1", "{54EDC30D-CAE5-4104-A00B-C47CF3C111C0}"
+	ProjectSection(SolutionItems) = preProject
+		Config Files\Module 1\ArtMonbatUnitMap.xml = Config Files\Module 1\ArtMonbatUnitMap.xml
+		Config Files\Module 1\DataPoints.xml = Config Files\Module 1\DataPoints.xml
+		Config Files\Module 1\Devices.xml = Config Files\Module 1\Devices.xml
+		Config Files\Module 1\HeatingGroups.xml = Config Files\Module 1\HeatingGroups.xml
+		Config Files\Module 1\Stages.xml = Config Files\Module 1\Stages.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 2", "Module 2", "{0ED62B9C-7676-4596-A3A0-7636D549CE2F}"
+	ProjectSection(SolutionItems) = preProject
+		Config Files\Module 2\ArtMonbatUnitMap.xml = Config Files\Module 2\ArtMonbatUnitMap.xml
+		Config Files\Module 2\DataPoints.xml = Config Files\Module 2\DataPoints.xml
+		Config Files\Module 2\Devices.xml = Config Files\Module 2\Devices.xml
+		Config Files\Module 2\HeatingGroups.xml = Config Files\Module 2\HeatingGroups.xml
+		Config Files\Module 2\Stages.xml = Config Files\Module 2\Stages.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 3", "Module 3", "{4E4E788C-49E7-40E1-B29B-D6446B4C5F26}"
+	ProjectSection(SolutionItems) = preProject
+		Config Files\Module 3\ArtMonbatUnitMap.xml = Config Files\Module 3\ArtMonbatUnitMap.xml
+		Config Files\Module 3\DataPoints.xml = Config Files\Module 3\DataPoints.xml
+		Config Files\Module 3\Devices.xml = Config Files\Module 3\Devices.xml
+		Config Files\Module 3\HeatingGroups.xml = Config Files\Module 3\HeatingGroups.xml
+		Config Files\Module 3\Stages.xml = Config Files\Module 3\Stages.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 4", "Module 4", "{0EA6CF33-EA0B-40C3-965D-78CBA4F9E1E4}"
+	ProjectSection(SolutionItems) = preProject
+		Config Files\Module 4\ArtMonbatUnitMap.xml = Config Files\Module 4\ArtMonbatUnitMap.xml
+		Config Files\Module 4\DataPoints.xml = Config Files\Module 4\DataPoints.xml
+		Config Files\Module 4\Devices.xml = Config Files\Module 4\Devices.xml
+		Config Files\Module 4\HeatingGroups.xml = Config Files\Module 4\HeatingGroups.xml
+		Config Files\Module 4\Stages.xml = Config Files\Module 4\Stages.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +86,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54EDC30D-CAE5-4104-A00B-C47CF3C111C0} = {97C5D5D4-EB23-4131-90EE-6F3479419AA5}
+		{0ED62B9C-7676-4596-A3A0-7636D549CE2F} = {97C5D5D4-EB23-4131-90EE-6F3479419AA5}
+		{4E4E788C-49E7-40E1-B29B-D6446B4C5F26} = {97C5D5D4-EB23-4131-90EE-6F3479419AA5}
+		{0EA6CF33-EA0B-40C3-965D-78CBA4F9E1E4} = {97C5D5D4-EB23-4131-90EE-6F3479419AA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {83BDB3D3-5E74-439A-97A5-02EE6E684DFA}

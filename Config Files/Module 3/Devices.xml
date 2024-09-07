@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Devices>
+	<Device ID="ART-MONBAT-01" 
+			Type="ART-MONBAT-01"
+			Name="ART-MONBAT-MODULE-03"
+			Description="Контроллер в шкафу управления (модуль #3)"
+			RegistersMappingFile="ArtMonbatUnitMap.xml"
+			Connection="127.0.0.1:502">		
+	</Device>
+</Devices>

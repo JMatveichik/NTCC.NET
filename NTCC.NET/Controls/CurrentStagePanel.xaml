@@ -128,6 +128,8 @@
                          Grid.Column="2"/>
 
         <ProgressBar Grid.Row="2"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="3"
                      Maximum="{Binding MaxPassCount}"
                      Value="{Binding CurrentPass , Mode=OneWay}"/>
       </Grid>

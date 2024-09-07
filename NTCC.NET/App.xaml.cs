@@ -175,7 +175,11 @@ namespace NTCC.NET
         case NTCC.NET.Core.Facility.MessageType.Warning:
           AppLogger.Warn(args.Message);
           break;
-        
+
+        case NTCC.NET.Core.Facility.MessageType.Success:
+          AppLogger.Info(args.Message);
+          break;
+
         case NTCC.NET.Core.Facility.MessageType.Error:
           AppLogger.Error(args.Message);
           break;
