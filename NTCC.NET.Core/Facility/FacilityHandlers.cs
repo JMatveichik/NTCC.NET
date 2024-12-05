@@ -17,7 +17,7 @@ namespace NTCC.NET.Core.Facility
         public MessageType MessageType
         {
             get;
-            private set;
+            protected set;
         }
 
         /// <summary>

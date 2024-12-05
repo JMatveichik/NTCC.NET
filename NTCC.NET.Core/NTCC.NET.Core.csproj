@@ -56,6 +56,14 @@
     <Compile Include="Facility\Scrapper.cs" />
     <Compile Include="Facility\StageFactory.cs" />
     <Compile Include="Facility\StageParameters.cs" />
+    <Compile Include="Monitors\AnalogDataPointCheck.cs" />
+    <Compile Include="Monitors\AnalogDataPointCheckExcess.cs" />
+    <Compile Include="Monitors\AnalogDataPointCheckLess.cs" />
+    <Compile Include="Monitors\DiscreteDataPointCheck.cs" />
+    <Compile Include="Monitors\IFacilityElementCheck.cs" />
+    <Compile Include="Monitors\MonitorBase.cs" />
+    <Compile Include="Monitors\MonitorDataPoint.cs" />
+    <Compile Include="Monitors\MonitorEventHandlers.cs" />
     <Compile Include="Stages\StageAir.cs" />
     <Compile Include="Converters\BaseConverter.cs" />
     <Compile Include="Converters\FormulaConverter.cs" />
