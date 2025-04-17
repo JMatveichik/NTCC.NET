@@ -1,0 +1,35 @@
+name: Release .NET 6.0 Windows App
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-publish:
+    runs-on: windows-latest  # Обязательно Windows!
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 6 SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+          
+      - name: Check .NET version
+        run: dotnet --info
+
+      - name: Build NTCC.NET (Windows)
+        run: dotnet build NTCC.NET.sln --configuration Release
+
+      - name: Pack artifacts
+        run: dotnet pack --configuration Release --output ./artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ./artifacts/*.nupkg
+            **/bin/Release/**/*.exe  # Для Windows-приложений

@@ -1,0 +1,43 @@
+name: Auto Changelog
+
+on:
+  push:
+    tags:
+      - 'v*' # Триггер на теги вида v1.0.0, v2.3.4 и т.д.
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      # Шаг 1: Загрузка кода
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Важно! Полная история коммитов для анализа
+
+      # Шаг 2: Установка Node.js и auto-changelog
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install auto-changelog
+        run: npm install -g auto-changelog
+
+      # Шаг 3: Генерация CHANGELOG.md
+      - name: Generate changelog
+        run: |
+          auto-changelog \
+            --latest-version ${{ github.ref_name }} \
+            --output CHANGELOG.md
+        env:
+          GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}  # Для доступа к API GitHub
+
+      # Шаг 4: Запись изменений обратно в репозиторий
+      - name: Commit and push CHANGELOG.md
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add CHANGELOG.md
+          git commit -m "Update CHANGELOG.md for ${{ github.ref_name }}"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git

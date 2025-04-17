@@ -20,17 +20,29 @@ namespace NTCC.NET.Core.Tools
       initialize();
     }
 
+
+    private static string GetEthernetMacAddress()
+    {
+        try
+        {
+            var ethernetInterface = NetworkInterface.GetAllNetworkInterfaces()
+                .FirstOrDefault(n => n.NetworkInterfaceType == NetworkInterfaceType.Ethernet
+                                    && n.OperationalStatus == OperationalStatus.Up);
+
+            return ethernetInterface?.GetPhysicalAddress().ToString() ?? string.Empty;
+        }
+        catch 
+        { 
+          return string.Empty; 
+        }
+    }
     private void initialize()
     {
       // Получаем имя машины
       string machineName = Environment.MachineName;
-      
+
       // Получаем MAC-адрес сетевого интерфейса
-      string macAddress = NetworkInterface.GetAllNetworkInterfaces()
-                      .Where(nic => nic.OperationalStatus == OperationalStatus.Up)
-                      .FirstOrDefault()?
-                      .GetPhysicalAddress()
-                      .ToString();
+      string macAddress = GetEthernetMacAddress();
 
       // Создаем ключ и IV из уникальных данных машины
       using (SHA512 hashAlg = SHA512.Create())
