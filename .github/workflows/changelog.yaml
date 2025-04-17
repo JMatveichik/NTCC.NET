@@ -3,43 +3,61 @@ name: Auto Changelog
 on:
   push:
     tags:
-      - 'v*' # Триггер на теги вида v1.0.0, v2.3.4 и т.д.
+      - 'v*' # Триггер на теги вида v1.0.0, v2.3.4
+
+permissions:
+  contents: write  # Даём права на запись
 
 jobs:
   generate-changelog:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Авторизационный токен
+
     steps:
-      # Шаг 1: Загрузка кода
+      # Шаг 1: Загрузка кода с полной историей
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Важно! Полная история коммитов для анализа
+          fetch-depth: 0  # Полная история коммитов
 
-      # Шаг 2: Установка Node.js и auto-changelog
+      # Шаг 2: Установка Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
+      # Шаг 3: Установка auto-changelog
       - name: Install auto-changelog
         run: npm install -g auto-changelog
 
-      # Шаг 3: Генерация CHANGELOG.md
+      # Шаг 4: Генерация CHANGELOG.md
       - name: Generate changelog
         run: |
           auto-changelog \
             --latest-version ${{ github.ref_name }} \
             --output CHANGELOG.md
         env:
-          GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}  # Для доступа к API GitHub
+          GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
 
-      # Шаг 4: Запись изменений обратно в репозиторий
+      # Шаг 5: Коммит и пуш изменений
       - name: Commit and push CHANGELOG.md
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout -b temp-branch  # Создаем временную ветку
+          
+          # Создаём/переключаемся на временную ветку
+          git checkout -B temp-changelog-branch
+          
+          # Добавляем изменения
           git add CHANGELOG.md
           git commit -m "Update CHANGELOG.md for ${{ github.ref_name }}"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git temp-branch:main
-          git branch -D temp-branch  # Удаляем временную ветку
+          
+          # Настраиваем авторизованный remote
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          
+          # Пушим в целевую ветку (main/master)
+          git push origin temp-changelog-branch:main --force
+          
+          # Удаляем временную ветку
+          git branch -D temp-changelog-branch
