@@ -21,6 +21,9 @@ jobs:
       - name: Check .NET version
         run: dotnet --info
 
+      - name: Restore NuGet packages
+        run: dotnet restore NTCC.NET.sln
+  
       - name: Build NTCC.NET (Windows)
         run: dotnet build NTCC.NET.sln --configuration Release
 
