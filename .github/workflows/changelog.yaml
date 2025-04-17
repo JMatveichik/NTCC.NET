@@ -6,13 +6,13 @@ on:
       - 'v*' # Триггер на теги вида v1.0.0, v2.3.4
 
 permissions:
-  contents: write  # Даём права на запись
+  contents: write  # Необходимые права для записи
 
 jobs:
   generate-changelog:
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Авторизационный токен
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Используем токен через переменную окружения
 
     steps:
       # Шаг 1: Загрузка кода с полной историей
@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Полная история коммитов
+          token: ${{ secrets.GITHUB_TOKEN }}  # Явно указываем токен
 
       # Шаг 2: Установка Node.js
       - name: Setup Node.js
@@ -37,27 +38,23 @@ jobs:
           auto-changelog \
             --latest-version ${{ github.ref_name }} \
             --output CHANGELOG.md
-        env:
-          GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
 
       # Шаг 5: Коммит и пуш изменений
       - name: Commit and push CHANGELOG.md
         run: |
+          # Настройка git
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
-          # Создаём/переключаемся на временную ветку
-          git checkout -B temp-changelog-branch
+          # Создаем новую ветку на основе текущего тега
+          git checkout -B auto-changelog-update
           
-          # Добавляем изменения
+          # Добавляем и коммитим изменения
           git add CHANGELOG.md
           git commit -m "Update CHANGELOG.md for ${{ github.ref_name }}"
           
-          # Настраиваем авторизованный remote
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          
-          # Пушим в целевую ветку (main/master)
-          git push origin temp-changelog-branch:main --force
-          
-          # Удаляем временную ветку
-          git branch -D temp-changelog-branch
+          # Пушим изменения с явным указанием токена
+          git push origin auto-changelog-update:main \
+            --force \
+            --no-verify \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
