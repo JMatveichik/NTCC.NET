@@ -8,6 +8,7 @@ on:
 env:
   DOTNET_VERSION: '6.0.x'
   CONFIGURATION: 'Release'
+  SOLUTION_FILE: 'NTCC.NET.sln'
 
 jobs:
   build-and-publish:
@@ -34,27 +35,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
-      - name: Verify projects
+      - name: Verify environment
         run: |
           dotnet --info
-          dotnet sln list
-          dotnet list NTCC.NET.Core/NTCC.NET.Core.csproj package
+          dotnet sln ${{ env.SOLUTION_FILE }} list
 
-      - name: Restore dependencies
-        run: dotnet restore NTCC.NET.sln
+      - name: Force restore packages
+        run: |
+          # Явное восстановление для каждого проекта
+          dotnet restore ${{ env.SOLUTION_FILE }}
+          dotnet restore NTCC.NET.Core/NTCC.NET.Core.csproj --force
+          dotnet restore NTCC.NET.UI/NTCC.NET.UI.csproj --force
 
       - name: Build solution
-        run: dotnet build NTCC.NET.sln --configuration ${{ env.CONFIGURATION }} --no-restore
-
-      - name: Run tests (optional)
-        run: dotnet test NTCC.NET.sln --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
+        run: dotnet build ${{ env.SOLUTION_FILE }} --configuration ${{ env.CONFIGURATION }} --no-restore
 
       - name: Create artifacts
         run: |
           mkdir -p ./artifacts
-          dotnet pack --configuration ${{ env.CONFIGURATION }} --output ./artifacts --no-build
+          dotnet pack ${{ env.SOLUTION_FILE }} --configuration ${{ env.CONFIGURATION }} --output ./artifacts --no-build
+          
+          # Проверка созданных артефактов
           if (!(Test-Path -Path "./artifacts/*.nupkg")) {
             Write-Error "No packages were created!"
+            Get-ChildItem -Recurse -Include *.nupkg | Write-Host
             exit 1
           }
 
