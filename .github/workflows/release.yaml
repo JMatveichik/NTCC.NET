@@ -25,6 +25,7 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      
       - name: Cache NuGet packages
         uses: actions/cache@v3
         with:
@@ -35,6 +36,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
+      
       - name: Force restore packages
         run: |
           # Явное восстановление для каждого проекта
@@ -42,9 +44,11 @@ jobs:
           dotnet restore NTCC.NET.Core/NTCC.NET.Core.csproj --force
           dotnet restore NTCC.NET.UI/NTCC.NET.UI.csproj --force
 
+      
       - name: Build solution
         run: dotnet build ${{ env.SOLUTION_FILE }} --configuration ${{ env.CONFIGURATION }} --no-restore
 
+      
       - name: Create artifacts
         run: |
           mkdir -p ./artifacts
