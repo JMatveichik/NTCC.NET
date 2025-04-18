@@ -96,7 +96,7 @@ namespace NTCC.NET.Core.Stages
       DataPointHelper.SetDiscreteParameter(this, "M02.RUN", true, (int)OperationDelay.TotalMilliseconds);
 
       //отжимаем уплотнения
-      DataPointHelper.SetDiscreteParameter(this, "YA02", false, (int)OperationDelay.TotalMilliseconds);
+      DataPointHelper.SetDiscreteParameter(this, "YA02", true, (int)OperationDelay.TotalMilliseconds);
 
       //запускаем управление заслонкой
       ArtMonbatFacility.Damper.StartControl();
@@ -126,7 +126,7 @@ namespace NTCC.NET.Core.Stages
       DataPointHelper.SetDiscreteParameter(this, "YA01.1", true, (int)OperationDelay.TotalMilliseconds);
 
       //зажимаем уплотнения
-      DataPointHelper.SetDiscreteParameter(this, "YA02", true, (int)OperationDelay.TotalMilliseconds);
+      DataPointHelper.SetDiscreteParameter(this, "YA02", false, (int)OperationDelay.TotalMilliseconds);
 
       //останавливаем управление заслонкой
       ArtMonbatFacility.Damper.StopControl();
@@ -165,10 +165,7 @@ namespace NTCC.NET.Core.Stages
           //попытка сделать полный проход скребка
           if (scrapper.MakePass())
           {
-            OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков {CoolingTime}...", MessageType.Info);
-
-            //ожидаем охлождение штоков
-            Thread.Sleep(CoolingTime);
+            OnTick($"Завершен проход [{CurrentPass}] скребка. Ожидаем охлаждения штоков {CoolingTime} ...", MessageType.Info);
 
             //сбрасываем число попыток перемещения скребка и увеличиваем число успешных проходов
             currentAttempt = 0;
@@ -182,6 +179,9 @@ namespace NTCC.NET.Core.Stages
               throw new IndexOutOfRangeException($"Превышено максимальное число попыток перемещения скребка [{MaxPassAttempts}]");
             }
           }
+
+          //ожидаем охлождение штоков
+          Thread.Sleep(CoolingTime);
         }
         catch (IndexOutOfRangeException ex)
         {

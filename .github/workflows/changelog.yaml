@@ -1,0 +1,52 @@
+name: Auto Changelog
+
+on:
+  push:
+    tags:
+      - 'v*' # Триггер на теги вида v1.0.0, v2.3.4
+
+permissions:
+  contents: write  # Необходимые права для записи в ветку
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      # Шаг 1: Загрузка кода
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Шаг 2: Установка Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Шаг 3: Установка auto-changelog
+      - name: Install auto-changelog
+        run: npm install -g auto-changelog
+
+      # Шаг 4: Генерация CHANGELOG.md
+      - name: Generate changelog
+        run: |
+          auto-changelog \
+            --latest-version ${{ github.ref_name }} \
+            --output CHANGELOG.md
+
+      # Шаг 5: Коммит и пуш изменений
+      - name: Commit and push CHANGELOG.md
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout -B auto-changelog-update
+          git add CHANGELOG.md
+          git commit -m "Update CHANGELOG.md for ${{ github.ref_name }}"
+          git push origin auto-changelog-update:master --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
