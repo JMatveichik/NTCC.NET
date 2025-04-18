@@ -21,8 +21,16 @@ jobs:
       - name: Check .NET version
         run: dotnet --info
 
+      - name: List all projects
+        run: dotnet sln NTCC.NET.sln list
+
+      - name: Check project dependencies
+        run: dotnet list NTCC.NET.Core/NTCC.NET.Core.csproj package
+  
       - name: Restore NuGet packages
-        run: dotnet restore NTCC.NET.sln
+        run: |
+             dotnet restore NTCC.NET.sln
+             dotnet restore NTCC.NET.Core/NTCC.NET.Core.csproj
   
       - name: Build NTCC.NET (Windows)
         run: dotnet build NTCC.NET.sln --configuration Release
