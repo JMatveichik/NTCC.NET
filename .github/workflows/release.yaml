@@ -35,11 +35,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
-      - name: Verify environment
-        run: |
-          dotnet --info
-          dotnet sln ${{ env.SOLUTION_FILE }} list
-
       - name: Force restore packages
         run: |
           # Явное восстановление для каждого проекта
