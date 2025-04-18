@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>1.2.28</AssemblyVersion>
+    <AssemblyVersion>1.2.29</AssemblyVersion>
     <ApplicationIcon>SimpleIcons-Moleculer.ico</ApplicationIcon>
     <IncrementVersionOnBuild>1.1.yyMM.dd</IncrementVersionOnBuild>
     <Version>1.2.29</Version>
