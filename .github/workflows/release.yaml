@@ -1,46 +1,71 @@
-name: Release .NET 6.0 Windows App
+name: Release .NET Windows App
 
 on:
   push:
     tags:
       - 'v*'
 
+env:
+  DOTNET_VERSION: '6.0.x'
+  CONFIGURATION: 'Release'
+
 jobs:
   build-and-publish:
-    runs-on: windows-latest  # Обязательно Windows!
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup .NET 6 SDK
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
-          
-      - name: Check .NET version
-        run: dotnet --info
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: List all projects #Список проектов для отладки 
-        run: dotnet sln NTCC.NET.sln list
+      - name: Cache NuGet packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~\.nuget\packages
+            $(Build.SourcesDirectory)\packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
 
-      - name: Check project dependencies #проверка зависимостей для отладки
-        run: dotnet list NTCC.NET.Core/NTCC.NET.Core.csproj package
-  
-      - name: Restore NuGet packages
+      - name: Verify projects
         run: |
-             dotnet restore NTCC.NET.sln
-             dotnet restore NTCC.NET.Core/NTCC.NET.Core.csproj
-  
-      - name: Build NTCC.NET (Windows)
-        run: dotnet build NTCC.NET.sln --configuration Release
+          dotnet --info
+          dotnet sln list
+          dotnet list NTCC.NET.Core/NTCC.NET.Core.csproj package
 
-      - name: Pack artifacts
-        run: dotnet pack --configuration Release --output ./artifacts
+      - name: Restore dependencies
+        run: dotnet restore NTCC.NET.sln
 
-      - name: Create Release
+      - name: Build solution
+        run: dotnet build NTCC.NET.sln --configuration ${{ env.CONFIGURATION }} --no-restore
+
+      - name: Run tests (optional)
+        run: dotnet test NTCC.NET.sln --configuration ${{ env.CONFIGURATION }} --no-build --verbosity normal
+
+      - name: Create artifacts
+        run: |
+          mkdir -p ./artifacts
+          dotnet pack --configuration ${{ env.CONFIGURATION }} --output ./artifacts --no-build
+          if (!(Test-Path -Path "./artifacts/*.nupkg")) {
+            Write-Error "No packages were created!"
+            exit 1
+          }
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          name: Release ${{ github.ref_name }}
+          body: "Automated release for version ${{ github.ref_name }}"
           files: |
             ./artifacts/*.nupkg
-            **/bin/Release/**/*.exe  # Для Windows-приложений
+            NTCC.NET.UI/bin/${{ env.CONFIGURATION }}/*/*.exe
+            NTCC.NET.Core/bin/${{ env.CONFIGURATION }}/*/*.dll
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
