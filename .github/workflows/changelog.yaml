@@ -6,7 +6,7 @@ on:
       - 'v*' # Триггер на теги вида v1.0.0, v2.3.4
 
 permissions:
-  contents: write  # Необходимые права для записи
+  contents: write  # Необходимые права для записи в ветку
 
 jobs:
   generate-changelog:

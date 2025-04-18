@@ -21,10 +21,10 @@ jobs:
       - name: Check .NET version
         run: dotnet --info
 
-      - name: List all projects
+      - name: List all projects #Список проектов для отладки 
         run: dotnet sln NTCC.NET.sln list
 
-      - name: Check project dependencies
+      - name: Check project dependencies #проверка зависимостей для отладки
         run: dotnet list NTCC.NET.Core/NTCC.NET.Core.csproj package
   
       - name: Restore NuGet packages
