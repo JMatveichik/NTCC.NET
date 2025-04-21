@@ -1,0 +1,9 @@
+{
+  "template": "keepachangelog",
+  "output": "CHANGELOG.md",
+  "unreleased": true,
+  "commitLimit": 20,
+  "ignoreCommitPattern": "^chore|^docs|^style|^refactor|^test",
+  "sortCommits": "date",
+  "includeBranch": false
+}
